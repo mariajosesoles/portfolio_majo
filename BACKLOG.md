@@ -37,8 +37,8 @@ Metodología: **GitHub Flow** + sprints por entregable (spec en `mariajose/11-po
 
 - [x] README + BACKLOG.md
 - [x] wrangler.toml + CI GitHub Actions
-- [ ] Deploy Cloudflare Pages (conectar repo en dashboard)
-- [ ] Cloudflare Web Analytics (beacon post-deploy)
+- [ ] Deploy Cloudflare Pages → ver [`DEPLOY.md`](./DEPLOY.md) (código + workflow listos)
+- [ ] Cloudflare Web Analytics → token en env `PUBLIC_CF_WEB_ANALYTICS_TOKEN` (beacon ya en Layout)
 - [ ] Post LinkedIn launch
 
 ---

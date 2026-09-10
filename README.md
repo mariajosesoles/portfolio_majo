@@ -2,7 +2,7 @@
 
 Developer portfolio for **Mariajose Soles Guerrero** — Full Stack Developer with a focus on frontend and product UX/UI.
 
-- **Live (pending deploy):** [mariajosesoles.pages.dev](https://mariajosesoles.pages.dev)
+- **Live (pending deploy):** [portfolio-majo.pages.dev](https://portfolio-majo.pages.dev)
 - **ES:** `/` · **EN:** `/en/`
 
 ## Stack
@@ -43,13 +43,16 @@ Copy and project data come from `cv-es.md` / `cv-en.md` in the parent `mariajose
 
 ## Deploy — Cloudflare Pages
 
-1. Push this repo to `github.com/mariajosesoles/portfolio_majo`
-2. Cloudflare Dashboard → **Workers & Pages** → **Create** → **Pages** → Connect GitHub
-3. Build settings:
-   - **Build command:** `pnpm build`
-   - **Build output:** `dist`
-   - **Node version:** 22+
-4. Optional: enable **Web Analytics** in the Pages project settings
+**Guía completa paso a paso:** [`DEPLOY.md`](./DEPLOY.md)
+
+Resumen rápido (dashboard):
+
+1. [dash.cloudflare.com](https://dash.cloudflare.com) → **Workers & Pages** → **Connect to Git**
+2. Repo: `mariajosesoles/portfolio_majo` · branch `main`
+3. Build: `pnpm build` · output `dist` · env: `NODE_VERSION=22`, `PNPM_VERSION=9`
+4. Web Analytics: variable `PUBLIC_CF_WEB_ANALYTICS_TOKEN` en el project
+
+Alternativa: GitHub Actions (`.github/workflows/deploy.yml`) con secrets `CLOUDFLARE_API_TOKEN` + `CLOUDFLARE_ACCOUNT_ID`.
 
 ## Methodology
 

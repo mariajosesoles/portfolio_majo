@@ -9,8 +9,10 @@ interface Props {
 }
 
 const { config } = Astro.props;
-const siteUrl = Astro.site?.href ?? "https://mariajosesoles.pages.dev/";
+const siteUrl = Astro.site?.href ?? "https://portfolio-majo.pages.dev/";
 const canonical = config.locale === "en" ? `${siteUrl}en/` : siteUrl;
+const ogImage = `${siteUrl}og.svg`;
+const analyticsToken = import.meta.env.PUBLIC_CF_WEB_ANALYTICS_TOKEN;
 ---
 
 <!doctype html>
@@ -27,7 +29,7 @@ const canonical = config.locale === "en" ? `${siteUrl}en/` : siteUrl;
 		<meta property="og:title" content={config.meta.ogTitle} />
 		<meta property="og:description" content={config.meta.description} />
 		<meta property="og:url" content={canonical} />
-		<meta property="og:image" content={`${Astro.site}og.svg`} />
+		<meta property="og:image" content={ogImage} />
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={config.meta.ogTitle} />
 		<meta name="twitter:description" content={config.meta.description} />
@@ -46,5 +48,15 @@ const canonical = config.locale === "en" ? `${siteUrl}en/` : siteUrl;
 			<slot />
 		</main>
 		<Footer config={config} />
+		{
+			analyticsToken && (
+				<script
+					is:inline
+					defer
+					src="https://static.cloudflareinsights.com/beacon.min.js"
+					data-cf-beacon={`{"token": "${analyticsToken}"}`}
+				/>
+			)
+		}
 	</body>
 </html>
