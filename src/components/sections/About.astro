@@ -1,0 +1,31 @@
+---
+import type { SiteConfig } from "../../types/site";
+
+interface Props {
+	config: SiteConfig;
+}
+
+const { config } = Astro.props;
+---
+
+<section id="about" class="py-16 md:py-20">
+	<div class="mx-auto max-w-6xl px-6">
+		<h2 class="mb-10 text-2xl font-bold md:text-3xl">{config.sections.about}</h2>
+		<div class="flex flex-col gap-8 md:flex-row md:items-start">
+			<div
+				class="flex h-32 w-32 shrink-0 items-center justify-center rounded-2xl border border-border bg-surface text-4xl font-bold text-accent"
+				aria-hidden="true"
+			>
+				M
+			</div>
+			<div class="space-y-4">
+				{
+					config.about.paragraphs.map((paragraph) => (
+						<p class="leading-relaxed text-muted">{paragraph}</p>
+					))
+				}
+				<p class="text-sm font-medium text-accent">{config.about.languages}</p>
+			</div>
+		</div>
+	</div>
+</section>

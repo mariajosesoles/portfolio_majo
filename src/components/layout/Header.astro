@@ -1,0 +1,28 @@
+---
+import type { SiteConfig } from "../../types/site";
+import { LangSwitch } from "../ui/LangSwitch";
+
+interface Props {
+	config: SiteConfig;
+}
+
+const { config } = Astro.props;
+---
+
+<header class="sticky top-0 z-40 border-b border-border bg-bg/80 backdrop-blur-md">
+	<div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4">
+		<a href={config.locale === "en" ? "/en/" : "/"} class="font-semibold text-text">
+			{config.name.split(" ")[0]}
+		</a>
+		<nav class="hidden items-center gap-6 text-sm text-muted md:flex" aria-label="Main">
+			{
+				config.nav.map((item) => (
+					<a href={`#${item.id}`} class="transition hover:text-text">
+						{item.label}
+					</a>
+				))
+			}
+		</nav>
+		<LangSwitch locale={config.locale} client:load />
+	</div>
+</header>

@@ -1,0 +1,50 @@
+---
+import type { SiteConfig } from "../../types/site";
+import "../../styles/global.css";
+import Footer from "./Footer.astro";
+import Header from "./Header.astro";
+
+interface Props {
+	config: SiteConfig;
+}
+
+const { config } = Astro.props;
+const siteUrl = Astro.site?.href ?? "https://mariajosesoles.pages.dev/";
+const canonical = config.locale === "en" ? `${siteUrl}en/` : siteUrl;
+---
+
+<!doctype html>
+<html lang={config.locale}>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{config.meta.title}</title>
+		<meta name="description" content={config.meta.description} />
+		<link rel="canonical" href={canonical} />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={config.meta.ogTitle} />
+		<meta property="og:description" content={config.meta.description} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:image" content={`${Astro.site}og.svg`} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={config.meta.ogTitle} />
+		<meta name="twitter:description" content={config.meta.description} />
+		<link rel="alternate" hreflang="es" href={Astro.site?.href} />
+		<link rel="alternate" hreflang="en" href={`${Astro.site}en/`} />
+	</head>
+	<body class="min-h-screen">
+		<a
+			href="#main"
+			class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-white"
+		>
+			{config.locale === "es" ? "Saltar al contenido" : "Skip to content"}
+		</a>
+		<Header config={config} />
+		<main id="main">
+			<slot />
+		</main>
+		<Footer config={config} />
+	</body>
+</html>

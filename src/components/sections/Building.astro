@@ -1,0 +1,30 @@
+---
+import type { SiteConfig } from "../../types/site";
+
+interface Props {
+	config: SiteConfig;
+}
+
+const { config } = Astro.props;
+---
+
+<section id="building" class="py-16 md:py-20">
+	<div class="mx-auto max-w-6xl px-6">
+		<h2 class="mb-10 text-2xl font-bold md:text-3xl">{config.sections.building}</h2>
+		<div class="grid gap-4 md:grid-cols-2">
+			{
+				config.building.map((item) => (
+					<article class="rounded-2xl border border-dashed border-border bg-bg-elevated/30 p-6">
+						<div class="mb-2 flex items-center justify-between gap-2">
+							<h3 class="font-semibold">{item.name}</h3>
+							<span class="rounded-full border border-border px-2 py-0.5 text-xs text-muted">
+								{item.status}
+							</span>
+						</div>
+						<p class="text-sm text-muted">{item.description}</p>
+					</article>
+				))
+			}
+		</div>
+	</div>
+</section>
