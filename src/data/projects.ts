@@ -35,6 +35,7 @@ export const projects: Project[] = [
 		description:
 			"Contribución OSS en landing de documentación OpenAPI: hero, ancla How to use, scroll suave, CDN jsDelivr — PR #59 mergeado.",
 		stack: ["astro", "react", "tailwindcss"],
+		url: "https://docutopia.dev/",
 		badge: "Open source · PR #59",
 	},
 ];
@@ -74,6 +75,7 @@ export const projectsEn: Project[] = [
 		description:
 			"OSS contribution on OpenAPI docs landing: hero alignment, How to use anchor, smooth scroll, jsDelivr CDN — merged PR #59.",
 		stack: ["astro", "react", "tailwindcss"],
+		url: "https://docutopia.dev/",
 		badge: "Open source · PR #59",
 	},
 ];

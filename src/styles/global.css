@@ -1,16 +1,25 @@
 @import "tailwindcss";
 @import "@fontsource-variable/inter";
 
+/*
+ * Brand palette — Berry Jam · Strawberry Milk · Pink Foam
+ * #720002 · #DB8291 · #F4D6DC
+ */
 @theme {
-	--color-bg: #0a0e17;
-	--color-bg-elevated: #111827;
-	--color-surface: #1e293b;
-	--color-border: rgb(255 255 255 / 0.08);
-	--color-text: #f1f5f9;
-	--color-muted: #94a3b8;
-	--color-accent: #3b82f6;
-	--color-accent-2: #8b5cf6;
-	--color-glow: rgb(59 130 246 / 0.15);
+	--color-berry-jam: #720002;
+	--color-strawberry: #db8291;
+	--color-pink-foam: #f4d6dc;
+
+	--color-bg: #120608;
+	--color-bg-elevated: #1e0b0e;
+	--color-surface: #2d1218;
+	--color-border: rgb(244 214 220 / 0.1);
+	--color-text: #f4d6dc;
+	--color-muted: #c4a0a8;
+	--color-accent: #db8291;
+	--color-accent-2: #720002;
+	--color-on-accent: #120608;
+	--color-glow: rgb(219 130 145 / 0.22);
 
 	--font-sans: "Inter Variable", system-ui, sans-serif;
 	--font-mono: ui-monospace, "JetBrains Mono", monospace;
@@ -29,12 +38,12 @@
 	}
 
 	::selection {
-		@apply bg-accent/30 text-text;
+		@apply bg-strawberry/35 text-pink-foam;
 	}
 
 	a:focus-visible,
 	button:focus-visible {
-		@apply outline-2 outline-offset-2 outline-accent;
+		@apply outline-2 outline-offset-2 outline-strawberry;
 	}
 
 	section[id] {

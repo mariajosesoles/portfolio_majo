@@ -67,6 +67,7 @@ export const siteEn: SiteConfig = {
 		description:
 			"Hero alignment, How to use anchor, and smooth scroll on the OpenAPI documentation landing. CDN switch (unpkg → jsDelivr) in the React island pattern.",
 		stack: ["astro", "react", "tailwindcss"],
+		url: "https://docutopia.dev/",
 		pr: "Merged PR #59",
 	},
 	building: [

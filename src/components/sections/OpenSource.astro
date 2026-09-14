@@ -20,7 +20,26 @@ const os = config.openSource;
 				<StackIcons stack={os.stack} client:visible />
 			</div>
 			<p class="mb-3 text-sm leading-relaxed text-muted">{os.description}</p>
-			{os.pr && <p class="text-xs font-medium text-accent-2">{os.pr}</p>}
+			<div class="flex flex-wrap items-center gap-4">
+				{
+					os.url && (
+						<a
+							href={os.url}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:underline"
+						>
+							{config.cta.viewLive}
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+								<path d="M15 3h6v6" />
+								<path d="M10 14 21 3" />
+								<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+							</svg>
+						</a>
+					)
+				}
+				{os.pr && <p class="text-xs font-medium text-accent-2">{os.pr}</p>}
+			</div>
 		</article>
 	</div>
 </section>

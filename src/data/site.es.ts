@@ -68,6 +68,7 @@ export const siteEs: SiteConfig = {
 		description:
 			"Alineación del hero, ancla How to use y scroll suave en la landing de documentación OpenAPI. Cambio de CDN (unpkg → jsDelivr) en el patrón de islas React.",
 		stack: ["astro", "react", "tailwindcss"],
+		url: "https://docutopia.dev/",
 		pr: "PR #59 mergeado",
 	},
 	building: [

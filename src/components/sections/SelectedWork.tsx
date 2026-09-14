@@ -18,22 +18,45 @@ export function SelectedWork({ config, projects }: SelectedWorkProps) {
 
 	useGSAP(
 		() => {
+			const section = sectionRef.current;
+			if (!section) return;
+
+			const cards = gsap.utils.toArray<HTMLElement>(".project-card", section);
+			if (!cards.length) return;
+
 			if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+				gsap.set(cards, { opacity: 1, y: 0 });
 				return;
 			}
-			gsap.from(".project-card", {
-				opacity: 0,
-				y: 40,
-				duration: 0.6,
-				stagger: 0.15,
-				ease: "power2.out",
-				scrollTrigger: {
-					trigger: sectionRef.current,
-					start: "top 80%",
+
+			const tween = gsap.fromTo(
+				cards,
+				{ opacity: 0, y: 40 },
+				{
+					opacity: 1,
+					y: 0,
+					duration: 0.6,
+					stagger: 0.15,
+					ease: "power2.out",
+					immediateRender: false,
+					scrollTrigger: {
+						trigger: section,
+						start: "top 85%",
+						once: true,
+						toggleActions: "play none none none",
+					},
+					onComplete: () => {
+						gsap.set(cards, { clearProps: "opacity,transform" });
+					},
 				},
-			});
+			);
+
+			return () => {
+				tween.scrollTrigger?.kill();
+				tween.kill();
+			};
 		},
-		{ scope: sectionRef },
+		{ scope: sectionRef, dependencies: [projects] },
 	);
 
 	return (

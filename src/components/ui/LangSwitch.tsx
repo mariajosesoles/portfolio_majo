@@ -16,7 +16,7 @@ export function LangSwitch({ locale }: LangSwitchProps) {
 				href="/"
 				className={cn(
 					"rounded-full px-2.5 py-1 transition-colors",
-					isEs ? "bg-accent text-white" : "text-muted hover:text-text",
+					isEs ? "bg-accent text-on-accent" : "text-muted hover:text-text",
 				)}
 				aria-current={isEs ? "page" : undefined}
 			>
@@ -26,7 +26,7 @@ export function LangSwitch({ locale }: LangSwitchProps) {
 				href="/en/"
 				className={cn(
 					"rounded-full px-2.5 py-1 transition-colors",
-					!isEs ? "bg-accent text-white" : "text-muted hover:text-text",
+					!isEs ? "bg-accent text-on-accent" : "text-muted hover:text-text",
 				)}
 				aria-current={!isEs ? "page" : undefined}
 			>
