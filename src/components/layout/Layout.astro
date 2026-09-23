@@ -3,6 +3,7 @@ import type { SiteConfig } from "../../types/site";
 import "../../styles/global.css";
 import Footer from "./Footer.astro";
 import Header from "./Header.astro";
+import { StarCursor } from "../ui/StarCursor";
 
 interface Props {
 	config: SiteConfig;
@@ -65,6 +66,7 @@ const analyticsToken = import.meta.env.PUBLIC_CF_WEB_ANALYTICS_TOKEN;
 			<slot />
 		</main>
 		<Footer config={config} />
+		<StarCursor client:media="(pointer: fine)" />
 		{
 			analyticsToken && (
 				<script
