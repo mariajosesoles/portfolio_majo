@@ -1,5 +1,7 @@
 @import "tailwindcss";
 @import "@fontsource-variable/inter";
+@import "@fontsource-variable/outfit";
+@import "@fontsource/pacifico";
 
 /*
  * Vibrant Purple / Pink / Black — Mariajose palette
@@ -35,8 +37,8 @@
 	--color-hero-scrim: var(--theme-hero-scrim);
 
 	--font-sans: "Inter Variable", system-ui, sans-serif;
-	--font-display: var(--font-display-family, "Outfit Variable", system-ui, sans-serif);
-	--font-script: var(--font-script-family, "Pacifico", cursive);
+	--font-display: "Outfit Variable", system-ui, sans-serif;
+	--font-script: "Pacifico", cursive;
 	--font-mono: ui-monospace, "JetBrains Mono", monospace;
 
 	--radius-card: 1rem;
@@ -134,5 +136,13 @@
 
 	section[id] {
 		scroll-margin-top: 5rem;
+	}
+
+	.font-display {
+		font-family: var(--font-display);
+	}
+
+	.font-script {
+		font-family: var(--font-script);
 	}
 }
