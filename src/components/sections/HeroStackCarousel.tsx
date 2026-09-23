@@ -47,13 +47,13 @@ export function HeroStackCarousel({ stack }: HeroStackCarouselProps) {
 
 	return (
 		<div
-			className="relative z-10 mt-10 border-t border-border/60 pt-8"
+			className="relative z-10 mt-10 w-screen max-w-[100vw] border-t border-border/60 pt-8 left-1/2 -translate-x-1/2"
 			aria-label="Stack tecnológico"
 		>
 			{reducedMotion ? (
-				<div className="mx-auto flex max-w-6xl justify-center px-6">{track}</div>
+				<div className="flex justify-center px-6">{track}</div>
 			) : (
-				<div className="hero-stack-marquee overflow-hidden px-6">
+				<div className="hero-stack-marquee overflow-hidden">
 					<div className="hero-stack-marquee__track flex w-max gap-4 md:gap-6">
 						{track}
 						<ul className="flex items-center gap-4 md:gap-6" aria-hidden="true">
