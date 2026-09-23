@@ -2,30 +2,113 @@
 @import "@fontsource-variable/inter";
 
 /*
- * Brand palette — Berry Jam · Strawberry Milk · Pink Foam
- * #720002 · #DB8291 · #F4D6DC
+ * Vibrant Purple / Pink / Black — Mariajose palette
+ * Light swatches: #203F9A #94C2DA #E84797 #E7A0CC #EFE8E0 #4E7CB2
  */
 @theme {
-	--color-berry-jam: #720002;
-	--color-strawberry: #db8291;
-	--color-pink-foam: #f4d6dc;
+	--color-brand-blue: #203f9a;
+	--color-brand-sky: #94c2da;
+	--color-brand-magenta: #e84797;
+	--color-brand-lavender: #e7a0cc;
+	--color-brand-cream: #efe8e0;
+	--color-brand-steel: #4e7cb2;
 
-	--color-bg: #120608;
-	--color-bg-elevated: #1e0b0e;
-	--color-surface: #2d1218;
-	--color-border: rgb(244 214 220 / 0.1);
-	--color-text: #f4d6dc;
-	--color-muted: #c4a0a8;
-	--color-accent: #db8291;
-	--color-accent-2: #720002;
-	--color-on-accent: #120608;
-	--color-glow: rgb(219 130 145 / 0.22);
+	--color-vibe-purple: #8b2be8;
+	--color-vibe-magenta: #e020a0;
+	--color-vibe-pink: #ff4fd8;
+	--color-vibe-fuchsia-neon: #ff2ec4;
+	--color-vibe-black: #0a0a0f;
+	--color-vibe-ink-soft: #1a1028;
+	--color-vibe-silver: #c0c0d8;
+	--color-vibe-celeste-neon: #5ec8ff;
+
+	--color-bg: var(--theme-bg);
+	--color-bg-elevated: var(--theme-bg-elevated);
+	--color-surface: var(--theme-surface);
+	--color-border: var(--theme-border);
+	--color-text: var(--theme-text);
+	--color-muted: var(--theme-muted);
+	--color-accent: var(--theme-accent);
+	--color-accent-2: var(--theme-accent-2);
+	--color-on-accent: var(--theme-on-accent);
+	--color-glow: var(--theme-glow);
+	--color-hero-scrim: var(--theme-hero-scrim);
 
 	--font-sans: "Inter Variable", system-ui, sans-serif;
+	--font-display: var(--font-display-family, "Outfit Variable", system-ui, sans-serif);
+	--font-script: var(--font-script-family, "Pacifico", cursive);
 	--font-mono: ui-monospace, "JetBrains Mono", monospace;
 
 	--radius-card: 1rem;
+	--radius-pill: 9999px;
 	--max-width-content: 72rem;
+	--stack-icon-size: 2rem;
+}
+
+:root,
+[data-theme="dark"] {
+	color-scheme: dark;
+	--theme-bg: #0a0a0f;
+	--theme-bg-elevated: #1a1028;
+	--theme-surface: #251535;
+	--theme-border: rgb(255 79 216 / 0.15);
+	--theme-text: #f8f4ff;
+	--theme-muted: #b8a0c8;
+	--theme-accent: #e020a0;
+	--theme-accent-2: #8b2be8;
+	--theme-on-accent: #0a0a0f;
+	--theme-glow: rgb(255 46 196 / 0.35);
+	--theme-hero-scrim: rgb(10 10 15 / 0.45);
+}
+
+[data-theme="light"] {
+	color-scheme: light;
+	--theme-bg: #faf7ff;
+	--theme-bg-elevated: #ffffff;
+	--theme-surface: #f0e8ff;
+	--theme-border: rgb(139 43 232 / 0.18);
+	--theme-text: #0a0a0f;
+	--theme-muted: #5c4a6e;
+	--theme-accent: #203f9a;
+	--theme-accent-2: #e84797;
+	--theme-on-accent: #ffffff;
+	--theme-glow: rgb(139 43 232 / 0.25);
+	--theme-hero-scrim: rgb(250 247 255 / 0.2);
+}
+
+@layer utilities {
+	.text-neon {
+		text-shadow:
+			0 0 8px rgb(255 46 196 / 0.85),
+			0 0 20px rgb(224 32 160 / 0.55),
+			0 2px 4px rgb(10 10 15 / 0.9);
+	}
+
+	.text-neon-subtle {
+		text-shadow:
+			0 0 6px rgb(139 43 232 / 0.5),
+			0 1px 2px rgb(10 10 15 / 0.6);
+	}
+
+	[data-theme="light"] .text-neon {
+		text-shadow:
+			0 0 6px rgb(32 63 154 / 0.35),
+			0 0 14px rgb(232 71 151 / 0.25),
+			0 1px 2px rgb(10 10 15 / 0.15);
+	}
+
+	[data-theme="light"] .text-neon-subtle {
+		text-shadow:
+			0 0 4px rgb(78 124 178 / 0.35),
+			0 1px 1px rgb(10 10 15 / 0.12);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.text-neon,
+		.text-neon-subtle {
+			text-shadow: 0 1px 2px rgb(10 10 15 / 0.35);
+		}
+	}
 }
 
 @layer base {
@@ -35,15 +118,18 @@
 
 	body {
 		@apply bg-bg text-text font-sans antialiased;
+		transition:
+			background-color 0.2s ease,
+			color 0.2s ease;
 	}
 
 	::selection {
-		@apply bg-strawberry/35 text-pink-foam;
+		@apply bg-brand-magenta/35 text-brand-cream;
 	}
 
 	a:focus-visible,
 	button:focus-visible {
-		@apply outline-2 outline-offset-2 outline-strawberry;
+		@apply outline-2 outline-offset-2 outline-brand-magenta;
 	}
 
 	section[id] {
