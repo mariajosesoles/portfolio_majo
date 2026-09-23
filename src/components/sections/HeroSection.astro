@@ -10,7 +10,7 @@ interface Props {
 const { config } = Astro.props;
 ---
 
-<section id="hero" class="relative isolate overflow-hidden pb-16 pt-20 md:pb-24 md:pt-24">
+<section id="hero" class="relative isolate flex min-h-[100svh] flex-col overflow-hidden pb-12 pt-20 md:pb-16 md:pt-24">
 	<Header config={config} integrated />
 	<Hero config={config} client:load />
 </section>

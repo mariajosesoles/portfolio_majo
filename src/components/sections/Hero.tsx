@@ -1,6 +1,7 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useEffect, useRef, useState } from "react";
+import { splitHeroRole } from "../../lib/split-hero-role";
 import type { SiteConfig } from "../../types/site";
 import { HeroMeshBackground } from "./HeroMeshBackground";
 import { HeroStackCarousel } from "./HeroStackCarousel";
@@ -17,6 +18,7 @@ function readTheme(): "light" | "dark" {
 export function Hero({ config }: HeroProps) {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [theme, setTheme] = useState<"light" | "dark">("dark");
+	const [rolePrimary, roleSecondary] = splitHeroRole(config.heroRole);
 
 	useEffect(() => {
 		setTheme(readTheme());
@@ -47,25 +49,41 @@ export function Hero({ config }: HeroProps) {
 	const isLight = theme === "light";
 
 	return (
-		<div ref={containerRef} className="relative">
+		<div
+			ref={containerRef}
+			className="relative flex min-h-[min(72vh,52rem)] flex-1 flex-col justify-center"
+		>
 			<HeroMeshBackground />
 			<div
-				className={`hero-stagger relative z-10 mx-auto max-w-6xl px-6 ${
+				className={`hero-stagger relative z-10 mx-auto w-full max-w-6xl px-6 ${
 					isLight
-						? "rounded-3xl border border-border bg-bg-elevated/85 p-8 shadow-[0_0_48px_var(--color-glow)] backdrop-blur-sm md:p-12"
-						: ""
+						? "rounded-3xl border border-border bg-bg-elevated/85 p-8 text-center shadow-[0_0_48px_var(--color-glow)] backdrop-blur-sm md:p-12"
+						: "text-center"
 				}`}
 			>
-				<div className="space-y-5">
-					<h1 className="font-display text-[clamp(2.5rem,7vw,4.5rem)] font-bold leading-tight tracking-tight text-neon">
-						{config.heroRole}
+				<div className="mx-auto flex max-w-4xl flex-col items-center gap-8">
+					<h1 className="w-full font-display font-bold uppercase leading-[0.92] tracking-tight">
+						{rolePrimary ? (
+							<span className="text-hero-glitter block text-[clamp(2.75rem,9vw,5.5rem)]">
+								{rolePrimary}
+							</span>
+						) : null}
+						{roleSecondary ? (
+							<span className="relative mt-1 block text-[clamp(2.75rem,9vw,5.5rem)] text-text text-neon">
+								{roleSecondary}
+								<span
+									className="font-script absolute left-[58%] top-[0.72em] z-10 hidden max-w-[min(100vw-3rem,22rem)] -translate-x-1/2 text-[clamp(1.65rem,4.5vw,2.85rem)] normal-case leading-none tracking-normal text-brand-magenta text-neon-subtle md:block"
+								>
+									{config.name}
+								</span>
+							</span>
+						) : null}
 					</h1>
-					<p
-						className="font-script text-[clamp(2rem,5vw,3.25rem)] leading-none text-brand-magenta text-neon-subtle"
-						aria-label={config.name}
-					>
+
+					<p className="font-script -mt-2 text-[clamp(1.65rem,4.5vw,2.85rem)] leading-none text-brand-magenta text-neon-subtle md:hidden">
 						{config.name}
 					</p>
+
 					<a
 						href="#contact"
 						className="inline-flex items-center rounded-xl bg-accent px-5 py-2.5 text-sm font-semibold text-on-accent transition hover:bg-accent-2 hover:shadow-[0_0_24px_var(--color-glow)]"
