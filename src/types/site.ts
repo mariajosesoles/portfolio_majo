@@ -35,6 +35,7 @@ export type SiteConfig = {
 		ogTitle: string;
 	};
 	name: string;
+	heroRole: string;
 	tagline: string;
 	profile: string;
 	heroChips: string[];

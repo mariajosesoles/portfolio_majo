@@ -9,6 +9,7 @@ export const siteEn: SiteConfig = {
 		ogTitle: "Mariajose Soles · Frontend & Product UX/UI",
 	},
 	name: "Mariajose Soles",
+	heroRole: "Full Stack Developer",
 	tagline:
 		"Full Stack Developer · Frontend & Product UX/UI · Lima, Peru · Remote",
 	profile:
