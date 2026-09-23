@@ -105,7 +105,13 @@ export const siteEs: SiteConfig = {
 		intro: "¿Tienes un proyecto o quieres conectar? Escríbeme.",
 		email: "majo.solesg@gmail.com",
 		phone: "+51 972 584 793",
+		whatsappMessage:
+			"Hola Majo, vi tu portfolio y me gustaría conectar contigo.",
+		whatsappLabel: "WhatsApp",
+		copyEmailLabel: "Copiar email",
+		copiedLabel: "¡Copiado!",
 	},
+	cvSoon: "CV — próximamente",
 	links: {
 		github: "https://github.com/mariajosesoles",
 		linkedin: "https://www.linkedin.com/in/mariajosesoles",
