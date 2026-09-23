@@ -5,12 +5,19 @@ import { ThemeToggle } from "../ui/ThemeToggle";
 
 interface Props {
 	config: SiteConfig;
+	integrated?: boolean;
 }
 
-const { config } = Astro.props;
+const { config, integrated = false } = Astro.props;
 ---
 
-<header class="sticky top-0 z-40 border-b border-border bg-bg/80 backdrop-blur-md">
+<header
+	class:list={[
+		integrated
+			? "absolute inset-x-0 top-0 z-20 bg-transparent"
+			: "sticky top-0 z-40 border-b border-border bg-bg/80 backdrop-blur-md",
+	]}
+>
 	<div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4">
 		<a href={config.locale === "en" ? "/en/" : "/"} class="font-semibold text-text">
 			{config.name.split(" ")[0]}

@@ -47,11 +47,7 @@ export function Hero({ config }: HeroProps) {
 	const isLight = theme === "light";
 
 	return (
-		<section
-			ref={containerRef}
-			id="hero"
-			className="relative isolate overflow-hidden py-16 md:py-24"
-		>
+		<div ref={containerRef} className="relative">
 			<HeroMeshBackground />
 			<div
 				className={`hero-stagger relative z-10 mx-auto max-w-6xl px-6 ${
@@ -93,6 +89,6 @@ export function Hero({ config }: HeroProps) {
 				</div>
 			</div>
 			<HeroStackCarousel stack={config.heroStack} />
-		</section>
+		</div>
 	);
 }

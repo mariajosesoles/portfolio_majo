@@ -1,0 +1,16 @@
+---
+import type { SiteConfig } from "../../types/site";
+import Header from "../layout/Header.astro";
+import { Hero } from "./Hero";
+
+interface Props {
+	config: SiteConfig;
+}
+
+const { config } = Astro.props;
+---
+
+<section id="hero" class="relative isolate overflow-hidden pb-16 pt-20 md:pb-24 md:pt-24">
+	<Header config={config} integrated />
+	<Hero config={config} client:load />
+</section>
