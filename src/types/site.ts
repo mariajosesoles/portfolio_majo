@@ -39,6 +39,7 @@ export type SiteConfig = {
 	tagline: string;
 	profile: string;
 	heroChips: string[];
+	heroStack: string[];
 	nav: NavItem[];
 	experience: {
 		company: string;

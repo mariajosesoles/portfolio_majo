@@ -3,6 +3,7 @@ import gsap from "gsap";
 import { useEffect, useRef, useState } from "react";
 import type { SiteConfig } from "../../types/site";
 import { HeroMeshBackground } from "./HeroMeshBackground";
+import { HeroStackCarousel } from "./HeroStackCarousel";
 
 type HeroProps = {
 	config: SiteConfig;
@@ -91,6 +92,7 @@ export function Hero({ config }: HeroProps) {
 					</a>
 				</div>
 			</div>
+			<HeroStackCarousel stack={config.heroStack} />
 		</section>
 	);
 }

@@ -15,6 +15,16 @@ export const siteEn: SiteConfig = {
 	profile:
 		"I build web products end to end — from the interface to what runs behind it. Collaborative, direct, and tuned for remote delivery.",
 	heroChips: ["React", "TypeScript", "Tailwind", "Cloudflare"],
+	heroStack: [
+		"react",
+		"typescript",
+		"tailwindcss",
+		"astro",
+		"cloudflare",
+		"hono",
+		"drizzle",
+		"zod",
+	],
 	nav: [
 		{ id: "experience", label: "Experience" },
 		{ id: "work", label: "Work" },
