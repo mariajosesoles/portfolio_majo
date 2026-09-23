@@ -16,8 +16,25 @@ const analyticsToken = import.meta.env.PUBLIC_CF_WEB_ANALYTICS_TOKEN;
 ---
 
 <!doctype html>
-<html lang={config.locale}>
+<html lang={config.locale} data-theme="dark">
 	<head>
+		<script is:inline>
+			(function () {
+				var key = "majo-theme";
+				var stored = localStorage.getItem(key);
+				var pref =
+					stored === "light" || stored === "dark" || stored === "system"
+						? stored
+						: "system";
+				var resolved =
+					pref === "system"
+						? window.matchMedia("(prefers-color-scheme: light)").matches
+							? "light"
+							: "dark"
+						: pref;
+				document.documentElement.dataset.theme = resolved;
+			})();
+		</script>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />

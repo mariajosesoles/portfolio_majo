@@ -1,6 +1,7 @@
 ---
 import type { SiteConfig } from "../../types/site";
 import { LangSwitch } from "../ui/LangSwitch";
+import { ThemeToggle } from "../ui/ThemeToggle";
 
 interface Props {
 	config: SiteConfig;
@@ -23,6 +24,9 @@ const { config } = Astro.props;
 				))
 			}
 		</nav>
-		<LangSwitch locale={config.locale} client:load />
+		<div class="flex items-center gap-2">
+			<ThemeToggle locale={config.locale} client:load />
+			<LangSwitch locale={config.locale} client:load />
+		</div>
 	</div>
 </header>
