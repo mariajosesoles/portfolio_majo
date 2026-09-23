@@ -15,7 +15,7 @@ function readTheme(): "light" | "dark" {
 }
 
 export function Hero({ config }: HeroProps) {
-	const containerRef = useRef<HTMLElement>(null);
+	const containerRef = useRef<HTMLDivElement>(null);
 	const [theme, setTheme] = useState<"light" | "dark">("dark");
 
 	useEffect(() => {
@@ -57,10 +57,7 @@ export function Hero({ config }: HeroProps) {
 				}`}
 			>
 				<div className="space-y-5">
-					<p className="font-display text-sm font-semibold uppercase tracking-[0.2em] text-brand-sky md:text-base">
-						{config.tagline}
-					</p>
-					<h1 className="font-display text-[clamp(2.25rem,6vw,3.75rem)] font-bold leading-tight tracking-tight text-neon">
+					<h1 className="font-display text-[clamp(2.5rem,7vw,4.5rem)] font-bold leading-tight tracking-tight text-neon">
 						{config.heroRole}
 					</h1>
 					<p
@@ -69,17 +66,6 @@ export function Hero({ config }: HeroProps) {
 					>
 						{config.name}
 					</p>
-					<p className="max-w-2xl text-lg text-muted">{config.profile}</p>
-					<ul className="flex flex-wrap gap-2">
-						{config.heroChips.map((chip) => (
-							<li
-								key={chip}
-								className="rounded-full border border-border bg-bg-elevated px-3 py-1 font-mono text-xs text-muted"
-							>
-								{chip}
-							</li>
-						))}
-					</ul>
 					<a
 						href="#contact"
 						className="inline-flex items-center rounded-xl bg-accent px-5 py-2.5 text-sm font-semibold text-on-accent transition hover:bg-accent-2 hover:shadow-[0_0_24px_var(--color-glow)]"
