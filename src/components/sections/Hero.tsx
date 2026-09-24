@@ -50,42 +50,31 @@ export function Hero({ config }: HeroProps) {
 	return (
 		<div
 			ref={containerRef}
-			className="relative z-10 flex min-h-[min(72vh,52rem)] flex-1 flex-col justify-center pt-20 md:pt-24"
+			className="relative z-10 flex min-h-0 flex-1 flex-col justify-between pt-[clamp(4.5rem,12vh,6.5rem)]"
 		>
 			<div
-				className={`hero-stagger relative z-10 mx-auto w-full max-w-6xl px-6 ${
+				className={`hero-stagger mx-auto w-full max-w-6xl flex-1 px-4 sm:px-6 ${
 					isLight
-						? "rounded-3xl border border-border bg-bg-elevated/85 p-8 text-center shadow-[0_0_48px_var(--color-glow)] backdrop-blur-sm md:p-12"
-						: "text-center"
+						? "rounded-3xl border border-border bg-bg-elevated/85 p-8 shadow-[0_0_48px_var(--color-glow)] backdrop-blur-sm md:p-12"
+						: ""
 				}`}
 			>
-				<div className="mx-auto flex max-w-4xl flex-col items-center gap-8">
-					<h1 className="w-full uppercase">
+				<div className="mx-auto flex w-full flex-col items-center">
+					<h1 className="hero-title-stack uppercase">
 						{rolePrimary ? (
-							<span className="text-hero-fullstack block">{rolePrimary}</span>
+							<div className="hero-noise-wrap flex w-full justify-center">
+								<span className="hero-noise-wrap__text">{rolePrimary}</span>
+							</div>
 						) : null}
 						{roleSecondary ? (
-							<span className="text-hero-developer relative mt-0 block">
-								{roleSecondary}
-								<span
-									className="font-script absolute left-[58%] top-[0.72em] z-10 hidden max-w-[min(100vw-3rem,22rem)] -translate-x-1/2 text-[clamp(1.65rem,4.5vw,2.85rem)] normal-case leading-none tracking-normal text-brand-magenta text-neon-subtle md:block"
-								>
-									{config.name}
-								</span>
-							</span>
+							<div className="relative w-full">
+								<div className="hero-shadow-wrap -mt-[0.06em] flex w-full justify-center">
+									<span className="hero-shadow-wrap__text">{roleSecondary}</span>
+								</div>
+								<p className="hero-signature">{config.name}</p>
+							</div>
 						) : null}
 					</h1>
-
-					<p className="font-script -mt-2 text-[clamp(1.65rem,4.5vw,2.85rem)] leading-none text-brand-magenta text-neon-subtle md:hidden">
-						{config.name}
-					</p>
-
-					<a
-						href="#contact"
-						className="inline-flex items-center rounded-xl bg-accent px-5 py-2.5 text-sm font-semibold text-on-accent transition hover:bg-accent-2 hover:shadow-[0_0_24px_var(--color-glow)]"
-					>
-						{config.cta.contact}
-					</a>
 				</div>
 			</div>
 			<HeroStackCarousel stack={config.heroStack} />
