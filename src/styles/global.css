@@ -143,10 +143,6 @@
 		color: transparent;
 	}
 
-	.hero-shadow-wrap {
-		filter: drop-shadow(0 4px 100px #ff008a);
-	}
-
 	.hero-shadow-wrap__text {
 		font-family: var(--font-hero);
 		font-weight: 900;
@@ -154,6 +150,12 @@
 		line-height: 1;
 		font-size: var(--hero-title-size);
 		color: #ffffff;
+		/* Figma: drop shadow x0 y4 blur100 #FF008A */
+		filter: drop-shadow(0 4px clamp(2.5rem, 10vw, 6.25rem) #ff008a);
+		text-shadow:
+			0 0 20px rgb(255 0 138 / 0.85),
+			0 4px 48px rgb(255 0 138 / 0.7),
+			0 4px 100px rgb(255 0 138 / 0.45);
 	}
 
 	.hero-signature {
