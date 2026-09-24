@@ -60,20 +60,20 @@ export function Hero({ config }: HeroProps) {
 				}`}
 			>
 				<div className="mx-auto flex w-full max-w-[min(100%,73rem)] flex-col items-center">
-					<h1 className="w-full uppercase">
+					<h1 className="w-full">
 						{rolePrimary ? (
 							<div className="hero-noise-wrap flex w-full justify-center">
-								<span className="hero-noise-wrap__text">{rolePrimary}</span>
+								<span className="hero-noise-wrap__text uppercase">{rolePrimary}</span>
 							</div>
 						) : null}
 						{roleSecondary ? (
 							<div className="hero-shadow-wrap -mt-[0.04em] flex w-full justify-center">
-								<span className="hero-shadow-wrap__text">{roleSecondary}</span>
+								<span className="hero-shadow-wrap__text uppercase">{roleSecondary}</span>
 							</div>
 						) : null}
 					</h1>
 
-					<p className="hero-signature -mt-[0.15em] w-full max-w-[92%] pr-[6%] text-right md:max-w-[85%] md:pr-[10%]">
+					<p className="hero-signature -mt-[0.15em] w-full max-w-[92%] pr-[6%] text-right normal-case md:max-w-[85%] md:pr-[10%]">
 						{config.name}
 					</p>
 

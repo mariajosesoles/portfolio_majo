@@ -152,10 +152,12 @@
 	}
 
 	.hero-signature {
-		font-family: var(--font-signature);
+		font-family: "Kapakana", var(--font-script);
+		font-weight: 400;
 		font-size: clamp(1.75rem, 5vw, 3.25rem);
 		line-height: 1;
 		color: #ff008a;
+		text-transform: none;
 		transform: translateY(-0.35em);
 	}
 
