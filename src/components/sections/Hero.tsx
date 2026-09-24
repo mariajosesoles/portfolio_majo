@@ -62,14 +62,12 @@ export function Hero({ config }: HeroProps) {
 				}`}
 			>
 				<div className="mx-auto flex max-w-4xl flex-col items-center gap-8">
-					<h1 className="w-full font-display font-bold uppercase leading-[0.92] tracking-tight">
+					<h1 className="w-full uppercase">
 						{rolePrimary ? (
-							<span className="text-hero-glitter block text-[clamp(2.75rem,9vw,5.5rem)]">
-								{rolePrimary}
-							</span>
+							<span className="text-hero-fullstack block">{rolePrimary}</span>
 						) : null}
 						{roleSecondary ? (
-							<span className="relative mt-1 block text-[clamp(2.75rem,9vw,5.5rem)] text-text text-neon">
+							<span className="text-hero-developer relative mt-0 block text-neon">
 								{roleSecondary}
 								<span
 									className="font-script absolute left-[58%] top-[0.72em] z-10 hidden max-w-[min(100vw-3rem,22rem)] -translate-x-1/2 text-[clamp(1.65rem,4.5vw,2.85rem)] normal-case leading-none tracking-normal text-brand-magenta text-neon-subtle md:block"
