@@ -179,6 +179,16 @@
 	}
 }
 
+@layer components {
+	.hero-integrated-header nav a {
+		@apply text-brand-cream/85 transition hover:text-white;
+	}
+
+	[data-theme="light"] .hero-integrated-header nav a {
+		@apply text-muted hover:text-text;
+	}
+}
+
 @layer base {
 	html {
 		scroll-behavior: smooth;

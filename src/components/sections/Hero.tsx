@@ -3,7 +3,6 @@ import gsap from "gsap";
 import { useEffect, useRef, useState } from "react";
 import { splitHeroRole } from "../../lib/split-hero-role";
 import type { SiteConfig } from "../../types/site";
-import { HeroMeshBackground } from "./HeroMeshBackground";
 import { HeroStackCarousel } from "./HeroStackCarousel";
 
 type HeroProps = {
@@ -51,9 +50,8 @@ export function Hero({ config }: HeroProps) {
 	return (
 		<div
 			ref={containerRef}
-			className="relative flex min-h-[min(72vh,52rem)] flex-1 flex-col justify-center"
+			className="relative z-10 flex min-h-[min(72vh,52rem)] flex-1 flex-col justify-center pt-20 md:pt-24"
 		>
-			<HeroMeshBackground />
 			<div
 				className={`hero-stagger relative z-10 mx-auto w-full max-w-6xl px-6 ${
 					isLight

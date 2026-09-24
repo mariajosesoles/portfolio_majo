@@ -20,13 +20,16 @@ const homeHref = config.locale === "en" ? "/en/" : "/";
 <header
 	class:list={[
 		integrated
-			? "absolute inset-x-0 top-0 z-20 bg-transparent"
+			? "hero-integrated-header absolute inset-x-0 top-0 z-20 border-0 bg-transparent shadow-none backdrop-blur-none"
 			: "sticky top-0 z-40 border-b border-border bg-bg/80 backdrop-blur-md",
 	]}
 >
 	<div class="mx-auto flex max-w-6xl items-center gap-4 px-6 py-4">
 		<nav
-			class="hidden min-w-0 flex-1 items-center gap-6 text-sm text-muted md:flex"
+			class:list={[
+				"hidden min-w-0 flex-1 items-center gap-6 text-sm md:flex",
+				!integrated && "text-muted",
+			]}
 			aria-label={config.locale === "es" ? "Principal izquierda" : "Main left"}
 		>
 			{
@@ -53,7 +56,10 @@ const homeHref = config.locale === "en" ? "/en/" : "/";
 		</a>
 
 		<nav
-			class="hidden min-w-0 flex-1 items-center justify-end gap-6 text-sm text-muted md:flex"
+			class:list={[
+				"hidden min-w-0 flex-1 items-center justify-end gap-6 text-sm md:flex",
+				!integrated && "text-muted",
+			]}
 			aria-label={config.locale === "es" ? "Principal derecha" : "Main right"}
 		>
 			{
