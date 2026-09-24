@@ -15,6 +15,13 @@ const rightNavIds = ["about", "contact"];
 const leftNav = config.nav.filter((item) => leftNavIds.includes(item.id));
 const rightNav = config.nav.filter((item) => rightNavIds.includes(item.id));
 const homeHref = config.locale === "en" ? "/en/" : "/";
+
+const navLinkClass = integrated
+	? "hover:text-white transition-colors"
+	: "transition hover:text-text";
+
+const navClass =
+	"font-nav flex items-center gap-[clamp(0.875rem,2vw,1.75rem)] text-[clamp(0.8125rem,1.05vw,1rem)] font-bold uppercase tracking-wide";
 ---
 
 <header
@@ -24,20 +31,23 @@ const homeHref = config.locale === "en" ? "/en/" : "/";
 			: "sticky top-0 z-40 border-b border-border bg-bg/80 backdrop-blur-md",
 	]}
 >
-	<div class="mx-auto flex max-w-6xl items-center gap-4 px-6 py-4">
+	<div
+		class:list={[
+			"site-header-bar mx-auto grid w-full grid-cols-[1fr_auto_1fr] items-center gap-x-3 px-4 py-4 sm:gap-x-4 sm:px-6 md:py-5",
+			integrated ? "max-w-[min(100%,90rem)] md:px-8 lg:px-12" : "max-w-6xl",
+		]}
+	>
 		<nav
 			class:list={[
-				"font-nav hidden min-w-0 flex-1 items-center gap-[clamp(1rem,2.5vw,1.75rem)] text-[clamp(0.8125rem,1.05vw,1rem)] font-bold uppercase tracking-wide md:flex",
+				navClass,
+				"col-start-1 hidden min-w-0 justify-self-start md:flex",
 				integrated ? "text-white/90" : "text-muted",
 			]}
 			aria-label={config.locale === "es" ? "Principal izquierda" : "Main left"}
 		>
 			{
 				leftNav.map((item) => (
-					<a
-						href={`#${item.id}`}
-						class:list={[integrated ? "hover:text-white" : "transition hover:text-text"]}
-					>
+					<a href={`#${item.id}`} class={navLinkClass}>
 						{item.label}
 					</a>
 				))
@@ -46,7 +56,7 @@ const homeHref = config.locale === "en" ? "/en/" : "/";
 
 		<a
 			href={homeHref}
-			class="flex shrink-0 items-center justify-center"
+			class="col-start-2 row-start-1 flex shrink-0 items-center justify-center justify-self-center"
 			aria-label={config.name}
 		>
 			<img
@@ -54,32 +64,37 @@ const homeHref = config.locale === "en" ? "/en/" : "/";
 				alt="Mariajose Soles"
 				width="77"
 				height="69"
-				class="h-11 w-auto max-w-[5rem] object-contain md:h-12"
+				class="h-10 w-auto max-w-[4.5rem] object-contain md:h-12 md:max-w-[5rem]"
 			/>
 		</a>
 
-		<nav
-			class:list={[
-				"font-nav hidden min-w-0 flex-1 items-center justify-end gap-[clamp(1rem,2.5vw,1.75rem)] text-[clamp(0.8125rem,1.05vw,1rem)] font-bold uppercase tracking-wide md:flex",
-				integrated ? "text-white/90" : "text-muted",
-			]}
-			aria-label={config.locale === "es" ? "Principal derecha" : "Main right"}
+		<div
+			class="col-start-3 flex min-w-0 items-center justify-end justify-self-end gap-[clamp(0.75rem,2vw,1.5rem)]"
 		>
-			{
-				rightNav.map((item) => (
-					<a
-						href={`#${item.id}`}
-						class:list={[integrated ? "hover:text-white" : "transition hover:text-text"]}
-					>
-						{item.label}
-					</a>
-				))
-			}
-		</nav>
+			<nav
+				class:list={[
+					navClass,
+					"hidden min-w-0 md:flex",
+					integrated ? "text-white/90" : "text-muted",
+				]}
+				aria-label={config.locale === "es" ? "Principal derecha" : "Main right"}
+			>
+				{
+					rightNav.map((item) => (
+						<a href={`#${item.id}`} class={navLinkClass}>
+							{item.label}
+						</a>
+					))
+				}
+			</nav>
 
-		<div class="ml-auto flex items-center gap-2 md:ml-0">
-			<ThemeToggle locale={config.locale} client:load />
-			<LangSwitch locale={config.locale} client:load />
+			<div
+				class="flex shrink-0 items-center gap-1.5 border-white/15 md:gap-2 md:border-l md:pl-[clamp(0.75rem,1.5vw,1.25rem)]"
+				class:list={[integrated ? "md:border-white/20" : "md:border-border"]}
+			>
+				<ThemeToggle locale={config.locale} client:load />
+				<LangSwitch locale={config.locale} client:load />
+			</div>
 		</div>
 	</div>
 </header>
