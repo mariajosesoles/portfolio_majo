@@ -3,8 +3,8 @@
 @import "@fontsource-variable/outfit";
 @import "@fontsource/pacifico";
 @import "@fontsource/kufam/900.css";
-@import "@fontsource/kapakana/400.css";
-@import "@fontsource/istok-web/700.css";
+@import "@fontsource/kapakana/latin-400.css";
+@import "@fontsource/istok-web/latin-700.css";
 
 /*
  * Vibrant Purple / Pink / Black — Mariajose palette
@@ -45,7 +45,7 @@
 	--font-script: "Pacifico", cursive;
 	--font-signature: "Kapakana", var(--font-script);
 	--font-nav: "Istok Web", var(--font-sans);
-	--hero-title-size: clamp(3rem, 13.2vw, 12.5rem);
+	--hero-title-size: clamp(1.875rem, 5.5vw, 5rem);
 	--hero-fullstack-noise: #ff008a;
 	--font-mono: ui-monospace, "JetBrains Mono", monospace;
 
@@ -120,11 +120,23 @@
 		}
 	}
 
+	.hero-noise-wrap {
+		max-width: 100%;
+		overflow: hidden;
+	}
+
+	.hero-noise-wrap__text,
+	.hero-shadow-wrap__text {
+		display: block;
+		max-width: 100%;
+		white-space: nowrap;
+	}
+
 	.hero-noise-wrap__text {
 		font-family: var(--font-hero);
 		font-weight: 900;
 		letter-spacing: 0;
-		line-height: 1;
+		line-height: 0.95;
 		font-size: var(--hero-title-size);
 		background-image:
 			url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='4' stitchTiles='stitch' result='t'/%3E%3CfeColorMatrix type='matrix' in='t' values='0 0 0 0 1 0 0 0 0 0 0 0 0 0 0.541 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
@@ -139,24 +151,36 @@
 	}
 
 	.hero-shadow-wrap {
-		filter: drop-shadow(0 4px 100px #ff008a);
+		filter: drop-shadow(0 4px clamp(2rem, 8vw, 6.25rem) #ff008a);
 	}
 
 	.hero-shadow-wrap__text {
 		font-family: var(--font-hero);
 		font-weight: 900;
 		letter-spacing: 0;
-		line-height: 1;
+		line-height: 0.95;
 		font-size: var(--hero-title-size);
 		color: #ffffff;
 	}
 
+	.hero-title-stack {
+		position: relative;
+		width: 100%;
+		max-width: min(100%, 52rem);
+	}
+
 	.hero-signature {
-		font-family: var(--font-signature);
-		font-size: clamp(1.75rem, 5vw, 3.25rem);
+		font-family: "Kapakana", cursive;
+		font-weight: 400;
+		font-size: clamp(1.5rem, 3.8vw, 2.75rem);
 		line-height: 1;
 		color: #ff008a;
-		transform: translateY(-0.35em);
+		position: absolute;
+		right: clamp(0.5rem, 6vw, 4rem);
+		bottom: 0.05em;
+		z-index: 2;
+		white-space: nowrap;
+		pointer-events: none;
 	}
 
 	[data-theme="light"] .hero-noise-wrap__text {
@@ -173,8 +197,16 @@
 		color: #0a0a0f;
 	}
 
+	.hero-stack-marquee {
+		width: 100%;
+		mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent);
+	}
+
 	.hero-stack-marquee__track {
-		animation: hero-stack-scroll 45s linear infinite;
+		display: flex;
+		width: max-content;
+		animation: hero-stack-scroll 35s linear infinite;
+		will-change: transform;
 	}
 
 	.font-nav {
@@ -200,6 +232,10 @@
 @layer components {
 	.hero-integrated-header {
 		background: transparent !important;
+	}
+
+	.hero-integrated-header .font-nav a {
+		font-weight: 700;
 	}
 
 	[data-theme="light"] .hero-integrated-header nav a {

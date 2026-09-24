@@ -53,36 +53,28 @@ export function Hero({ config }: HeroProps) {
 			className="relative z-10 flex min-h-0 flex-1 flex-col justify-between pt-[clamp(4.5rem,12vh,6.5rem)]"
 		>
 			<div
-				className={`hero-stagger mx-auto w-full max-w-6xl flex-1 px-6 ${
+				className={`hero-stagger mx-auto w-full max-w-6xl flex-1 px-4 sm:px-6 ${
 					isLight
 						? "rounded-3xl border border-border bg-bg-elevated/85 p-8 shadow-[0_0_48px_var(--color-glow)] backdrop-blur-sm md:p-12"
 						: ""
 				}`}
 			>
-				<div className="mx-auto flex w-full max-w-[min(100%,73rem)] flex-col items-center">
-					<h1 className="w-full uppercase">
+				<div className="mx-auto flex w-full flex-col items-center">
+					<h1 className="hero-title-stack uppercase">
 						{rolePrimary ? (
 							<div className="hero-noise-wrap flex w-full justify-center">
 								<span className="hero-noise-wrap__text">{rolePrimary}</span>
 							</div>
 						) : null}
 						{roleSecondary ? (
-							<div className="hero-shadow-wrap -mt-[0.04em] flex w-full justify-center">
-								<span className="hero-shadow-wrap__text">{roleSecondary}</span>
+							<div className="relative w-full">
+								<div className="hero-shadow-wrap -mt-[0.06em] flex w-full justify-center">
+									<span className="hero-shadow-wrap__text">{roleSecondary}</span>
+								</div>
+								<p className="hero-signature">{config.name}</p>
 							</div>
 						) : null}
 					</h1>
-
-					<p className="hero-signature -mt-[0.15em] w-full max-w-[92%] pr-[6%] text-right md:max-w-[85%] md:pr-[10%]">
-						{config.name}
-					</p>
-
-					<a
-						href="#contact"
-						className="mt-8 inline-flex items-center rounded-xl bg-accent px-5 py-2.5 text-sm font-semibold text-on-accent transition hover:bg-accent-2 hover:shadow-[0_0_24px_var(--color-glow)]"
-					>
-						{config.cta.contact}
-					</a>
 				</div>
 			</div>
 			<HeroStackCarousel stack={config.heroStack} />
