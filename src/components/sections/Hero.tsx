@@ -53,13 +53,13 @@ export function Hero({ config }: HeroProps) {
 			className="relative z-10 flex min-h-0 flex-1 flex-col justify-between pt-[clamp(4.5rem,12vh,6.5rem)]"
 		>
 			<div
-				className={`hero-stagger mx-auto w-full max-w-6xl flex-1 px-6 ${
+				className={`hero-stagger mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center px-6 ${
 					isLight
 						? "rounded-3xl border border-border bg-bg-elevated/85 p-8 shadow-[0_0_48px_var(--color-glow)] backdrop-blur-sm md:p-12"
 						: ""
 				}`}
 			>
-				<div className="mx-auto flex w-full max-w-[min(100%,73rem)] flex-col items-center">
+				<div className="hero-copy-block mx-auto max-w-[min(100%,73rem)]">
 					<h1 className="w-full">
 						{rolePrimary ? (
 							<div className="hero-noise-wrap flex w-full justify-center">

@@ -45,9 +45,9 @@
 	--font-script: "Pacifico", cursive;
 	--font-signature: "Kapakana", var(--font-script);
 	--font-nav: "Istok Web", var(--font-sans);
-	--hero-title-size: clamp(3rem, 13.2vw, 12.5rem);
-	/* Figma n: Kapakana Regular 200 → misma escala responsive que el frame */
-	--hero-signature-size: clamp(3rem, 13.2vw, 12.5rem);
+	/* ~⅔ del tamaño Figma 200 (reducción ~⅓) */
+	--hero-title-size: clamp(2rem, 8.8vw, 8.35rem);
+	--hero-signature-size: clamp(2rem, 8.8vw, 8.35rem);
 	--hero-fullstack-noise: #ff008a;
 	--font-mono: ui-monospace, "JetBrains Mono", monospace;
 
@@ -156,8 +156,9 @@
 	.hero-signature {
 		font-family: "Kapakana", var(--font-script);
 		font-weight: 400;
-		font-size: clamp(1.75rem, 5vw, 3.25rem);
+		font-size: var(--hero-signature-size);
 		line-height: 1;
+		letter-spacing: 0;
 		color: #ff008a;
 		text-transform: none;
 		transform: translateY(-0.35em);
@@ -175,6 +176,19 @@
 
 	[data-theme="light"] .hero-shadow-wrap__text {
 		color: #0a0a0f;
+	}
+
+	.hero-copy-block {
+		display: flex;
+		width: 100%;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding-block: clamp(2rem, 9vh, 4.5rem);
+	}
+
+	.hero-stack-marquee {
+		padding-block: 0.75rem;
 	}
 
 	.hero-stack-marquee__track {

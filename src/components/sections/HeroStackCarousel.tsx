@@ -6,18 +6,25 @@ type HeroStackCarouselProps = {
 };
 
 const REPEAT_IN_HALF = 3;
+const TILE_GAP = "gap-5 md:gap-6";
 
-function StackIconTile({
-	slug,
-	icon,
-}: {
+type StackItem = {
 	slug: string;
 	icon: NonNullable<ReturnType<typeof getStackIcon>>;
+};
+
+function StackIconTile({
+	item,
+	id,
+}: {
+	item: StackItem;
+	id: string;
 }) {
+	const { slug, icon } = item;
 	return (
-		<li className="shrink-0">
+		<div key={id} className="shrink-0" role="listitem">
 			<span
-				className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-bg-elevated/70 shadow-[0_0_16px_var(--color-glow)] transition hover:scale-105 hover:border-accent/40 md:h-11 md:w-11"
+				className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-bg-elevated/70 shadow-[0_0_16px_var(--color-glow)] md:h-11 md:w-11"
 				title={icon.title}
 			>
 				<svg
@@ -31,7 +38,7 @@ function StackIconTile({
 					<path d={icon.path} />
 				</svg>
 			</span>
-		</li>
+		</div>
 	);
 }
 
@@ -51,52 +58,43 @@ export function HeroStackCarousel({ stack }: HeroStackCarouselProps) {
 
 	if (items.length === 0) return null;
 
-	const expanded = Array.from({ length: REPEAT_IN_HALF }, () => items).flat();
+	const expanded: StackItem[] = Array.from({ length: REPEAT_IN_HALF }, () => items).flat();
 
-	const halfTrack = (
-		<ul className="flex shrink-0 items-center gap-4 md:gap-6">
-			{expanded.map(({ slug, icon }, index) => (
-				<StackIconTile key={`${slug}-${index}`} slug={slug} icon={icon} />
-			))}
-		</ul>
-	);
+	const tiles = (keyPrefix: string) =>
+		expanded.map((item, index) => (
+			<StackIconTile
+				key={`${keyPrefix}-${item.slug}-${index}`}
+				id={`${keyPrefix}-${item.slug}-${index}`}
+				item={item}
+			/>
+		));
 
 	return (
 		<div
-			className="relative z-10 mt-auto w-full max-w-[100vw] pt-10 md:pt-12"
+			className="relative z-10 mt-auto w-full py-6 md:py-10"
 			aria-label="Stack tecnológico"
 		>
-			{reducedMotion ? (
-				<div className="overflow-hidden px-4">
-					<div className="flex w-max gap-4 md:gap-6">
-						{halfTrack}
-						<ul className="flex shrink-0 items-center gap-4 md:gap-6" aria-hidden="true">
-							{expanded.map(({ slug, icon }, index) => (
-								<StackIconTile
-									key={`static-dup-${slug}-${index}`}
-									slug={slug}
-									icon={icon}
-								/>
-							))}
-						</ul>
+			<div className="relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2">
+				{reducedMotion ? (
+					<div
+						className={`flex w-max items-center overflow-x-auto px-4 ${TILE_GAP}`}
+						role="list"
+					>
+						{tiles("static-a")}
+						{tiles("static-b")}
 					</div>
-				</div>
-			) : (
-				<div className="hero-stack-marquee overflow-hidden">
-					<div className="hero-stack-marquee__track flex w-max">
-						{halfTrack}
-						<ul className="flex shrink-0 items-center gap-4 md:gap-6" aria-hidden="true">
-							{expanded.map(({ slug, icon }, index) => (
-								<StackIconTile
-									key={`marquee-dup-${slug}-${index}`}
-									slug={slug}
-									icon={icon}
-								/>
-							))}
-						</ul>
+				) : (
+					<div className="hero-stack-marquee overflow-hidden py-3 md:py-4">
+						<div
+							className={`hero-stack-marquee__track flex w-max items-center ${TILE_GAP}`}
+							role="list"
+						>
+							{tiles("loop-a")}
+							{tiles("loop-b")}
+						</div>
 					</div>
-				</div>
-			)}
+				)}
+			</div>
 		</div>
 	);
 }
