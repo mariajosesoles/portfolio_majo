@@ -1,7 +1,6 @@
-Coloca aquí tu logo como icon.png (header del hero).
+Logo del header: public/brand/icon.png
 
-En Windows (Cursor local), copia tu archivo:
-  C:\Users\majos\Downloads\icon.png
-→ public/brand/icon.png
+Copia desde tu máquina (Cursor local):
+  C:\Users\majos\Downloads\icon.png  →  public/brand/icon.png
 
-El repositorio referencia /brand/icon.png en Header.astro.
+Luego commit o reemplaza el archivo en el IDE. Header.astro usa /brand/icon.png.

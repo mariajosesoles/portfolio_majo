@@ -45,9 +45,11 @@
 	--font-script: "Pacifico", cursive;
 	--font-signature: "Kapakana", var(--font-script);
 	--font-nav: "Istok Web", var(--font-sans);
-	/* ~⅔ del tamaño Figma 200 (reducción ~⅓) */
-	--hero-title-size: clamp(2rem, 8.8vw, 8.35rem);
-	--hero-signature-size: clamp(2rem, 8.8vw, 8.35rem);
+	/* Figma 200 escalado −15% sobre tamaño previo */
+	--hero-title-size: clamp(1.7rem, 7.48vw, 7.1rem);
+	--hero-signature-size: clamp(1.7rem, 7.48vw, 7.1rem);
+	--hero-header-gap: 3.75rem;
+	--hero-carousel-gap: 3.75rem;
 	--hero-fullstack-noise: #ff008a;
 	--font-mono: ui-monospace, "JetBrains Mono", monospace;
 
@@ -128,13 +130,14 @@
 		letter-spacing: 0;
 		line-height: 1;
 		font-size: var(--hero-title-size);
+		/* Figma Noise: Mono 0.5, density 100%, #FF008A sobre fill claro */
 		background-image:
-			url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='4' stitchTiles='stitch' result='t'/%3E%3CfeColorMatrix type='matrix' in='t' values='0 0 0 0 1 0 0 0 0 0 0 0 0 0 0.541 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
-			linear-gradient(#ffffff, #ffffff);
+			url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='4' stitchTiles='stitch' result='t'/%3E%3CfeColorMatrix type='matrix' in='t' values='0 0 0 0 1 0 0 0 0 0 0 0 0 0 0.541 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"),
+			linear-gradient(165deg, #ff008a 0%, #ff5cb8 35%, #ffe8f4 70%, #ffffff 100%);
 		background-size:
 			128px 128px,
 			100% 100%;
-		background-blend-mode: overlay;
+		background-blend-mode: overlay, normal;
 		-webkit-background-clip: text;
 		background-clip: text;
 		color: transparent;
@@ -161,6 +164,7 @@
 		letter-spacing: 0;
 		color: #ff008a;
 		text-transform: none;
+		font-variant: normal;
 		transform: translateY(-0.35em);
 	}
 
@@ -184,11 +188,17 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		padding-block: clamp(2rem, 9vh, 4.5rem);
+		padding-top: calc(4.75rem + var(--hero-header-gap));
+		padding-bottom: 0;
+	}
+
+	.hero-carousel-wrap {
+		margin-top: var(--hero-carousel-gap);
+		padding-block: 1.25rem;
 	}
 
 	.hero-stack-marquee {
-		padding-block: 0.75rem;
+		padding-block: 1rem;
 	}
 
 	.hero-stack-marquee__track {

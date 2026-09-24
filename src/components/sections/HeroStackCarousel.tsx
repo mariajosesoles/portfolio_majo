@@ -5,7 +5,7 @@ type HeroStackCarouselProps = {
 	stack: string[];
 };
 
-const REPEAT_IN_HALF = 3;
+const REPEAT_IN_HALF = 4;
 const TILE_GAP = "gap-5 md:gap-6";
 
 type StackItem = {
@@ -20,11 +20,11 @@ function StackIconTile({
 	item: StackItem;
 	id: string;
 }) {
-	const { slug, icon } = item;
+	const { icon } = item;
 	return (
-		<div key={id} className="shrink-0" role="listitem">
+		<div key={id} className="flex shrink-0 items-center justify-center" role="listitem">
 			<span
-				className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-bg-elevated/70 shadow-[0_0_16px_var(--color-glow)] md:h-11 md:w-11"
+				className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-bg-elevated/70 shadow-[0_0_20px_var(--color-glow)] md:h-11 md:w-11"
 				title={icon.title}
 			>
 				<svg
@@ -38,6 +38,26 @@ function StackIconTile({
 					<path d={icon.path} />
 				</svg>
 			</span>
+		</div>
+	);
+}
+
+function IconRow({
+	items,
+	keyPrefix,
+}: {
+	items: StackItem[];
+	keyPrefix: string;
+}) {
+	return (
+		<div className={`flex shrink-0 items-center ${TILE_GAP}`}>
+			{items.map((item, index) => (
+				<StackIconTile
+					key={`${keyPrefix}-${item.slug}-${index}`}
+					id={`${keyPrefix}-${item.slug}-${index}`}
+					item={item}
+				/>
+			))}
 		</div>
 	);
 }
@@ -60,37 +80,23 @@ export function HeroStackCarousel({ stack }: HeroStackCarouselProps) {
 
 	const expanded: StackItem[] = Array.from({ length: REPEAT_IN_HALF }, () => items).flat();
 
-	const tiles = (keyPrefix: string) =>
-		expanded.map((item, index) => (
-			<StackIconTile
-				key={`${keyPrefix}-${item.slug}-${index}`}
-				id={`${keyPrefix}-${item.slug}-${index}`}
-				item={item}
-			/>
-		));
-
 	return (
 		<div
-			className="relative z-10 mt-auto w-full py-6 md:py-10"
+			className="hero-carousel-wrap relative z-10 w-full"
 			aria-label="Stack tecnológico"
 		>
-			<div className="relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2">
+			<div className="relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2 px-0">
 				{reducedMotion ? (
-					<div
-						className={`flex w-max items-center overflow-x-auto px-4 ${TILE_GAP}`}
-						role="list"
-					>
-						{tiles("static-a")}
-						{tiles("static-b")}
+					<div className="flex w-max items-center overflow-x-auto px-4">
+						<IconRow items={expanded} keyPrefix="static-a" />
+						<div className="w-5 shrink-0 md:w-6" aria-hidden="true" />
+						<IconRow items={expanded} keyPrefix="static-b" />
 					</div>
 				) : (
-					<div className="hero-stack-marquee overflow-hidden py-3 md:py-4">
-						<div
-							className={`hero-stack-marquee__track flex w-max items-center ${TILE_GAP}`}
-							role="list"
-						>
-							{tiles("loop-a")}
-							{tiles("loop-b")}
+					<div className="hero-stack-marquee overflow-hidden px-0">
+						<div className={`hero-stack-marquee__track flex items-center ${TILE_GAP}`}>
+							<IconRow items={expanded} keyPrefix="loop-a" />
+							<IconRow items={expanded} keyPrefix="loop-b" />
 						</div>
 					</div>
 				)}

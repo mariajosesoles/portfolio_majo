@@ -1,6 +1,7 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useEffect, useRef, useState } from "react";
+import { formatDisplayName } from "../../lib/format-display-name";
 import { splitHeroRole } from "../../lib/split-hero-role";
 import type { SiteConfig } from "../../types/site";
 import { HeroStackCarousel } from "./HeroStackCarousel";
@@ -18,6 +19,7 @@ export function Hero({ config }: HeroProps) {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [theme, setTheme] = useState<"light" | "dark">("dark");
 	const [rolePrimary, roleSecondary] = splitHeroRole(config.heroRole);
+	const displayName = formatDisplayName(config.name);
 
 	useEffect(() => {
 		setTheme(readTheme());
@@ -50,7 +52,7 @@ export function Hero({ config }: HeroProps) {
 	return (
 		<div
 			ref={containerRef}
-			className="relative z-10 flex min-h-0 flex-1 flex-col justify-between pt-[clamp(4.5rem,12vh,6.5rem)]"
+			className="relative z-10 flex min-h-0 flex-1 flex-col justify-center"
 		>
 			<div
 				className={`hero-stagger mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center px-6 ${
@@ -73,16 +75,9 @@ export function Hero({ config }: HeroProps) {
 						) : null}
 					</h1>
 
-					<p className="hero-signature -mt-[0.15em] w-full max-w-[92%] pr-[6%] text-right normal-case md:max-w-[85%] md:pr-[10%]">
-						{config.name}
+					<p className="hero-signature -mt-[0.15em] w-full max-w-[92%] pr-[6%] text-right md:max-w-[85%] md:pr-[10%]">
+						{displayName}
 					</p>
-
-					<a
-						href="#contact"
-						className="mt-8 inline-flex items-center rounded-xl bg-accent px-5 py-2.5 text-sm font-semibold text-on-accent transition hover:bg-accent-2 hover:shadow-[0_0_24px_var(--color-glow)]"
-					>
-						{config.cta.contact}
-					</a>
 				</div>
 			</div>
 			<HeroStackCarousel stack={config.heroStack} />
