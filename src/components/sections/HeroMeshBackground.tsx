@@ -1,16 +1,17 @@
 import { MeshGradient } from "@paper-design/shaders-react";
 import { useEffect, useState } from "react";
 
-/** Figma mesh: negro central, fucsia abajo-centro, morado izquierda, violeta/azul derecha */
+/** Focos vibrantes sobre base muy negra */
 const MESH_DARK = [
 	"#000000",
+	"#000000",
+	"#030303",
+	"#000000",
 	"#ff008a",
-	"#ff4fd8",
-	"#e020a0",
-	"#9333ea",
-	"#7c3aed",
-	"#4c1d95",
-	"#1e1b4b",
+	"#050008",
+	"#6b21a8",
+	"#030008",
+	"#000000",
 ] as const;
 
 const MESH_LIGHT = [
@@ -52,13 +53,13 @@ export function HeroMeshBackground() {
 	const colors = theme === "light" ? MESH_LIGHT : MESH_DARK;
 
 	const cssMeshDark =
-		"bg-[#050508] bg-[radial-gradient(ellipse_90%_55%_at_50%_100%,#ff008acc_0%,transparent_58%),radial-gradient(ellipse_45%_40%_at_18%_55%,#9333eaa8_0%,transparent_55%),radial-gradient(ellipse_55%_70%_at_100%_45%,#4c1d95cc_0%,transparent_62%),radial-gradient(ellipse_35%_30%_at_8%_12%,#ff2ec444_0%,transparent_50%),radial-gradient(ellipse_40%_35%_at_92%_8%,#7c3aed55_0%,transparent_48%)]";
+		"bg-black bg-[radial-gradient(ellipse_75%_50%_at_50%_100%,#ff008a55_0%,transparent_52%),radial-gradient(ellipse_40%_38%_at_16%_58%,#9333ea44_0%,transparent_50%),radial-gradient(ellipse_48%_58%_at_100%_42%,#4c1d9555_0%,transparent_55%),radial-gradient(ellipse_130%_90%_at_50%_40%,#000000_0%,#000000e6_50%,transparent_78%)]";
 
 	const cssMeshLight =
 		"bg-brand-cream bg-[radial-gradient(ellipse_80%_50%_at_50%_100%,#e8479788_0%,transparent_55%),radial-gradient(ellipse_50%_45%_at_15%_50%,#c084fc66_0%,transparent_50%),radial-gradient(ellipse_55%_60%_at_100%_40%,#94c2da77_0%,transparent_55%)]";
 
 	return (
-		<div className="pointer-events-none absolute inset-0" aria-hidden="true">
+		<div className="pointer-events-none absolute inset-0 bg-black" aria-hidden="true">
 			{!mounted ? (
 				<div
 					className={`h-full w-full ${theme === "light" ? cssMeshLight : cssMeshDark}`}
@@ -66,15 +67,15 @@ export function HeroMeshBackground() {
 			) : (
 				<MeshGradient
 					colors={[...colors]}
-					distortion={theme === "light" ? 0.55 : 0.78}
-					swirl={0.22}
+					distortion={theme === "light" ? 0.5 : 0.58}
+					swirl={0.14}
 					grainMixer={0}
 					grainOverlay={0}
-					speed={reducedMotion ? 0 : theme === "light" ? 0.4 : 0.55}
-					scale={1.15}
-					rotation={0.08}
-					offsetX={0.02}
-					offsetY={0.06}
+					speed={reducedMotion ? 0 : theme === "light" ? 0.35 : 0.4}
+					scale={1.02}
+					rotation={0.05}
+					offsetX={0}
+					offsetY={0.05}
 					fit="cover"
 					width="100%"
 					height="100%"
@@ -84,7 +85,7 @@ export function HeroMeshBackground() {
 				className={`absolute inset-0 ${
 					theme === "light"
 						? "bg-gradient-to-b from-transparent via-transparent to-bg/40"
-						: "bg-gradient-to-b from-[#000000]/25 via-transparent to-[#050508]/35"
+						: "bg-[radial-gradient(ellipse_100%_80%_at_50%_45%,#000000d9_0%,#00000080_45%,transparent_70%),linear-gradient(to_bottom,#000000f2_0%,#00000099_35%,#000000cc_100%)]"
 				}`}
 			/>
 		</div>

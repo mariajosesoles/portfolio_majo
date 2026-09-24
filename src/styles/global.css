@@ -130,10 +130,10 @@
 		letter-spacing: 0;
 		line-height: 1;
 		font-size: var(--hero-title-size);
-		/* Figma Noise: Mono 0.5, density 100%, #FF008A sobre fill claro */
+		/* Figma Noise: Mono 0.5, density 100%, #FF008A — fill plano + grain (sin degradé) */
 		background-image:
-			url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='4' stitchTiles='stitch' result='t'/%3E%3CfeColorMatrix type='matrix' in='t' values='0 0 0 0 1 0 0 0 0 0 0 0 0 0 0.541 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"),
-			linear-gradient(165deg, #ff008a 0%, #ff5cb8 35%, #ffe8f4 70%, #ffffff 100%);
+			url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='4' stitchTiles='stitch' result='t'/%3E%3CfeColorMatrix type='matrix' in='t' values='0 0 0 0 1 0 0 0 0 0 0 0 0 0 0.541 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+			linear-gradient(#ffffff, #ffffff);
 		background-size:
 			128px 128px,
 			100% 100%;
