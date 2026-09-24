@@ -67,7 +67,7 @@ export function Hero({ config }: HeroProps) {
 							<span className="text-hero-fullstack block">{rolePrimary}</span>
 						) : null}
 						{roleSecondary ? (
-							<span className="text-hero-developer relative mt-0 block text-neon">
+							<span className="text-hero-developer relative mt-0 block">
 								{roleSecondary}
 								<span
 									className="font-script absolute left-[58%] top-[0.72em] z-10 hidden max-w-[min(100vw-3rem,22rem)] -translate-x-1/2 text-[clamp(1.65rem,4.5vw,2.85rem)] normal-case leading-none tracking-normal text-brand-magenta text-neon-subtle md:block"

@@ -143,6 +143,8 @@
 		line-height: 1;
 		font-size: var(--hero-title-size);
 		color: #ffffff;
+		/* Figma drop shadow: x0 y4 blur100 spread0 #FF008A 100% */
+		filter: drop-shadow(0 4px 100px #ff008a);
 	}
 
 	[data-theme="light"] .text-hero-fullstack {
@@ -154,6 +156,7 @@
 
 	[data-theme="light"] .text-hero-developer {
 		color: #0a0a0f;
+		filter: drop-shadow(0 4px 80px rgb(255 0 138 / 0.45));
 	}
 
 	.hero-stack-marquee__track {
