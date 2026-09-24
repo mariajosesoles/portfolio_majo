@@ -46,6 +46,8 @@
 	--font-signature: "Kapakana", var(--font-script);
 	--font-nav: "Istok Web", var(--font-sans);
 	--hero-title-size: clamp(3rem, 13.2vw, 12.5rem);
+	/* Figma n: Kapakana Regular 200 → misma escala responsive que el frame */
+	--hero-signature-size: clamp(3rem, 13.2vw, 12.5rem);
 	--hero-fullstack-noise: #ff008a;
 	--font-mono: ui-monospace, "JetBrains Mono", monospace;
 
