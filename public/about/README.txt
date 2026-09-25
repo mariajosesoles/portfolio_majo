@@ -7,6 +7,10 @@ About — retrato y cursor tracking
    pnpm about:extract-frames
 4. Commit public/about/character.mp4 y public/about/frames/*
 
+Afinar tracking (sin rebuild): editar public/about/frames/manifest.json
+- angleOffsetRadians (direcciones rotadas)
+- faceCenterX / faceCenterY (punto de mirada, default 0.38 / 0.42)
+
 Sube character.mp4 desde local con:
    git add public/about/character.mp4
    git commit -m "assets(about): character.mp4 cursor tracking"

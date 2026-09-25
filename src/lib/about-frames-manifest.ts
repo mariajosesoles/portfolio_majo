@@ -3,6 +3,11 @@ export type AboutFramesManifest = {
 	background: string;
 	framePrefix: string;
 	centerFile: string;
+	/** Radians added when mapping cursor angle → frame index (tune if directions feel rotated). */
+	angleOffsetRadians?: number;
+	/** Optional face anchor overrides (0–1 of portrait slot). */
+	faceCenterX?: number;
+	faceCenterY?: number;
 };
 
 export const ABOUT_FRAMES_MANIFEST_URL = "/about/frames/manifest.json";

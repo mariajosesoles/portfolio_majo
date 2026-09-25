@@ -11,9 +11,8 @@ type AboutPortraitProps = {
 	alt: string;
 };
 
-const TRACK_LERP = 0.26;
+const DEFAULT_TRACK_LERP = 0.24;
 const DEADZONE_RATIO = 0.12;
-/** Face anchor when character is composed on the left (matches Flow prompt). */
 const FACE_CENTER_X_RATIO = 0.38;
 const FACE_CENTER_Y_RATIO = 0.42;
 const STATIC_PORTRAIT = "/about/portrait-3d.png";
@@ -40,8 +39,50 @@ export function AboutPortrait({ alt }: AboutPortraitProps) {
 	const smoothedAngleRef = useRef(0);
 	const targetAngleRef = useRef(0);
 	const frameIndexRef = useRef(0);
+	const pointerActiveRef = useRef(false);
 	const rafRef = useRef<number>(0);
 	const pointerRef = useRef({ x: 0, y: 0, active: false });
+	const layoutRef = useRef({ w: 0, h: 0, dpr: 1 });
+
+	const drawFrame = useCallback(
+		(img: HTMLImageElement, bg: string) => {
+			const canvas = canvasRef.current;
+			const { w, h, dpr } = layoutRef.current;
+			if (!canvas || w < 1 || h < 1) return;
+
+			const ctx = canvas.getContext("2d");
+			if (!ctx) return;
+
+			ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+			ctx.fillStyle = bg;
+			ctx.fillRect(0, 0, w, h);
+
+			const scale = Math.min(w / img.naturalWidth, h / img.naturalHeight);
+			const dw = img.naturalWidth * scale;
+			const dh = img.naturalHeight * scale;
+			const dx = 0;
+			const dy = h - dh;
+			ctx.drawImage(img, dx, dy, dw, dh);
+		},
+		[],
+	);
+
+	const syncCanvasSize = useCallback(() => {
+		const container = containerRef.current;
+		const canvas = canvasRef.current;
+		if (!container || !canvas) return;
+
+		const w = container.clientWidth;
+		const h = container.clientHeight;
+		const dpr = Math.min(window.devicePixelRatio || 1, 2);
+		layoutRef.current = { w, h, dpr };
+
+		if (w < 1 || h < 1) return;
+		canvas.width = Math.floor(w * dpr);
+		canvas.height = Math.floor(h * dpr);
+		canvas.style.width = `${w}px`;
+		canvas.style.height = `${h}px`;
+	}, []);
 
 	useEffect(() => {
 		let cancelled = false;
@@ -87,42 +128,25 @@ export function AboutPortrait({ alt }: AboutPortraitProps) {
 		};
 	}, []);
 
-	const drawFrame = useCallback(
-		(img: HTMLImageElement) => {
-			const canvas = canvasRef.current;
-			const container = containerRef.current;
-			if (!canvas || !container) return;
+	useEffect(() => {
+		if (!ready) return;
+		syncCanvasSize();
+		const container = containerRef.current;
+		if (!container) return;
 
-			const dpr = Math.min(window.devicePixelRatio || 1, 2);
-			const w = container.clientWidth;
-			const h = container.clientHeight;
-			if (w < 1 || h < 1) return;
-
-			canvas.width = Math.floor(w * dpr);
-			canvas.height = Math.floor(h * dpr);
-			canvas.style.width = `${w}px`;
-			canvas.style.height = `${h}px`;
-
-			const ctx = canvas.getContext("2d");
-			if (!ctx) return;
-
-			ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-			const bg = manifest?.background ?? "#0a0614";
-			ctx.fillStyle = bg;
-			ctx.fillRect(0, 0, w, h);
-
-			const scale = Math.min(w / img.naturalWidth, h / img.naturalHeight);
-			const dw = img.naturalWidth * scale;
-			const dh = img.naturalHeight * scale;
-			const dx = (w - dw) / 2;
-			const dy = (h - dh) / 2;
-			ctx.drawImage(img, dx, dy, dw, dh);
-		},
-		[manifest?.background],
-	);
+		const ro = new ResizeObserver(() => syncCanvasSize());
+		ro.observe(container);
+		return () => ro.disconnect();
+	}, [ready, syncCanvasSize]);
 
 	useEffect(() => {
-		if (!ready || !frames || !centerFrame) return;
+		if (!ready || !frames || !centerFrame || !manifest) return;
+
+		const bg = manifest.background ?? "#0a0614";
+		const angleOffset = manifest.angleOffsetRadians ?? 0;
+		const faceXRatio = manifest.faceCenterX ?? FACE_CENTER_X_RATIO;
+		const faceYRatio = manifest.faceCenterY ?? FACE_CENTER_Y_RATIO;
+		const trackLerp = DEFAULT_TRACK_LERP;
 
 		const tick = () => {
 			const container = containerRef.current;
@@ -132,8 +156,8 @@ export function AboutPortrait({ alt }: AboutPortraitProps) {
 			}
 
 			const rect = container.getBoundingClientRect();
-			const faceX = rect.left + rect.width * 0.5;
-			const faceY = rect.top + rect.height * 0.42;
+			const faceX = rect.left + rect.width * faceXRatio;
+			const faceY = rect.top + rect.height * faceYRatio;
 			const { x, y, active } = pointerRef.current;
 
 			let img = frames[frameIndexRef.current] ?? frames[0];
@@ -147,13 +171,21 @@ export function AboutPortrait({ alt }: AboutPortraitProps) {
 				if (dist < deadzone) {
 					img = centerFrame;
 				} else {
-					targetAngleRef.current = Math.atan2(dy, dx);
+					const target = Math.atan2(dy, dx);
+					if (!pointerActiveRef.current) {
+						smoothedAngleRef.current = target;
+					}
+					targetAngleRef.current = target;
 					smoothedAngleRef.current = lerpAngle(
 						smoothedAngleRef.current,
 						targetAngleRef.current,
-						TRACK_LERP,
+						trackLerp,
 					);
-					const idx = angleToFrameIndex(smoothedAngleRef.current, frames.length);
+					const idx = angleToFrameIndex(
+						smoothedAngleRef.current,
+						frames.length,
+						angleOffset,
+					);
 					frameIndexRef.current = idx;
 					img = frames[idx] ?? frames[0];
 				}
@@ -161,13 +193,14 @@ export function AboutPortrait({ alt }: AboutPortraitProps) {
 				img = centerFrame;
 			}
 
-			drawFrame(img);
+			pointerActiveRef.current = active;
+			drawFrame(img, bg);
 			rafRef.current = requestAnimationFrame(tick);
 		};
 
 		rafRef.current = requestAnimationFrame(tick);
 		return () => cancelAnimationFrame(rafRef.current);
-	}, [ready, frames, centerFrame, drawFrame]);
+	}, [ready, frames, centerFrame, manifest, drawFrame]);
 
 	useEffect(() => {
 		if (!ready) return;
@@ -212,7 +245,7 @@ export function AboutPortrait({ alt }: AboutPortraitProps) {
 
 	if (useStatic) {
 		return (
-			<div className="about-portrait-stage relative flex h-full w-full items-end justify-center">
+			<div className="about-portrait-stage relative flex h-full w-full items-end justify-start">
 				<div
 					className="about-portrait-glow pointer-events-none absolute inset-[8%] rounded-full bg-[radial-gradient(circle,rgb(255_0_138_/_0.18)_0%,transparent_68%)]"
 					aria-hidden="true"
@@ -222,7 +255,7 @@ export function AboutPortrait({ alt }: AboutPortraitProps) {
 					alt={alt}
 					width={1024}
 					height={1024}
-					className="about-portrait relative z-[1] max-h-full w-auto max-w-full object-contain object-bottom drop-shadow-[0_20px_48px_rgb(0_0_0_/_0.45)]"
+					className="about-portrait relative z-[1] max-h-full w-auto max-w-full object-contain object-left-bottom drop-shadow-[0_20px_48px_rgb(0_0_0_/_0.45)]"
 					loading="lazy"
 					decoding="async"
 				/>
@@ -230,11 +263,13 @@ export function AboutPortrait({ alt }: AboutPortraitProps) {
 		);
 	}
 
+	const slotBg = manifest?.background ?? "#0a0614";
+
 	return (
 		<div
 			ref={containerRef}
 			className="about-portrait-stage about-portrait-stage--tracking relative h-full w-full"
-			style={{ backgroundColor: manifest?.background ?? "#0a0614" }}
+			style={{ backgroundColor: slotBg }}
 		>
 			<div
 				className="about-portrait-glow pointer-events-none absolute inset-[8%] rounded-full bg-[radial-gradient(circle,rgb(255_0_138_/_0.18)_0%,transparent_68%)]"
@@ -242,7 +277,7 @@ export function AboutPortrait({ alt }: AboutPortraitProps) {
 			/>
 			<canvas
 				ref={canvasRef}
-				className="relative z-[1] h-full w-full"
+				className="relative z-[1] h-full w-full touch-none"
 				aria-label={alt}
 				role="img"
 			/>
@@ -251,7 +286,7 @@ export function AboutPortrait({ alt }: AboutPortraitProps) {
 					src={STATIC_PORTRAIT}
 					alt=""
 					aria-hidden="true"
-					className="pointer-events-none absolute inset-0 z-0 m-auto max-h-full max-w-full object-contain opacity-40"
+					className="pointer-events-none absolute inset-0 z-0 m-auto max-h-full max-w-full object-contain object-left-bottom opacity-40"
 				/>
 			) : null}
 		</div>

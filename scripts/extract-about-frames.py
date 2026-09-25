@@ -19,17 +19,19 @@ OUT_DIR = ROOT / "public" / "about" / "frames"
 FRAME_COUNT = 64
 CENTER_NAME = "center.webp"
 PREFIX = "frame"
+COMPASS_LABELS = ("E", "SE", "S", "SW", "W", "NW", "N", "NE")
 
 
 def dominant_bg_hex(frame) -> str:
-	"""Sample corners for flat background color."""
+	"""Sample empty background (character is composed on the left)."""
 	h, w = frame.shape[:2]
-	points = [
-		(4, 4),
-		(w - 5, 4),
-		(4, h - 5),
-		(w - 5, h - 5),
-	]
+	points = []
+	for x_ratio in (0.72, 0.82, 0.92):
+		for y_ratio in (0.2, 0.45, 0.7):
+			points.append((int(w * x_ratio), int(h * y_ratio)))
+	# fallback corners
+	points.extend([(w - 5, 4), (w - 5, h - 5), (4, h - 5)])
+
 	rs, gs, bs = [], [], []
 	for x, y in points:
 		b, g, r = frame[y, x]
@@ -61,12 +63,13 @@ def main() -> int:
 
 	print(f"Video frames: {total}")
 
-	# Clear old numbered frames
 	for old in OUT_DIR.glob(f"{PREFIX}-*.webp"):
 		old.unlink()
 	center_path = OUT_DIR / CENTER_NAME
 
 	bg_hex = "#0a0614"
+	compass_frames: dict[str, int] = {}
+
 	for i in range(FRAME_COUNT):
 		idx = int(round(i * (total - 1) / (FRAME_COUNT - 1)))
 		cap.set(cv2.CAP_PROP_POS_FRAMES, idx)
@@ -79,8 +82,13 @@ def main() -> int:
 		out = OUT_DIR / f"{PREFIX}-{i:03d}.webp"
 		cv2.imwrite(str(out), frame, [int(cv2.IMWRITE_WEBP_QUALITY), 92])
 
-	# Center / neutral: last frame (tutorial: forward gaze at end)
-	cap.set(cv2.CAP_PROP_POS_FRAMES, total - 1)
+	for i, label in enumerate(COMPASS_LABELS):
+		idx = int(round(i * (total - 1) / len(COMPASS_LABELS))) % total
+		compass_frames[label] = idx
+
+	# Neutral forward gaze — last frame of clip (tutorial default)
+	center_video_index = total - 1
+	cap.set(cv2.CAP_PROP_POS_FRAMES, center_video_index)
 	ok, center = cap.read()
 	if ok:
 		cv2.imwrite(str(center_path), center, [int(cv2.IMWRITE_WEBP_QUALITY), 92])
@@ -94,6 +102,11 @@ def main() -> int:
 		"centerFile": CENTER_NAME,
 		"sourceVideo": "character.mp4",
 		"totalVideoFrames": total,
+		"centerVideoFrameIndex": center_video_index,
+		"compassVideoFrameIndices": compass_frames,
+		"angleOffsetRadians": 0,
+		"faceCenterX": 0.38,
+		"faceCenterY": 0.42,
 	}
 	(OUT_DIR / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
 	print(f"Wrote {FRAME_COUNT} frames + center to {OUT_DIR}")
