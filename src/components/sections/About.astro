@@ -1,5 +1,6 @@
 ---
 import type { SiteConfig } from "../../types/site";
+import { AboutPortrait } from "./AboutPortrait";
 
 interface Props {
 	config: SiteConfig;
@@ -23,15 +24,7 @@ const portraitAlt =
 				class="about-animation-slot w-full max-w-md justify-self-center md:max-w-none md:justify-self-stretch"
 				data-about-animation
 			>
-				<img
-					src="/about/portrait-3d.png"
-					alt={portraitAlt}
-					width="1024"
-					height="1024"
-					class="about-portrait h-full w-full rounded-2xl object-cover object-[center_18%] shadow-[0_24px_64px_rgb(255_0_0_/_0.12)]"
-					loading="lazy"
-					decoding="async"
-				/>
+				<AboutPortrait alt={portraitAlt} client:visible />
 			</div>
 
 			<div class="about-copy min-w-0 space-y-4 md:pt-2 lg:max-w-xl lg:justify-self-end xl:max-w-2xl">

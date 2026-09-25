@@ -251,12 +251,33 @@
 	.about-animation-slot {
 		min-height: clamp(16rem, 42vw, 22rem);
 		aspect-ratio: 1;
-		overflow: hidden;
-		border-radius: 1rem;
+		display: flex;
+		align-items: flex-end;
+		justify-content: center;
+	}
+
+	.about-portrait-stage {
+		animation: about-portrait-float 7s ease-in-out infinite;
 	}
 
 	.about-portrait {
 		display: block;
+	}
+
+	@keyframes about-portrait-float {
+		0%,
+		100% {
+			transform: translateY(0);
+		}
+		50% {
+			transform: translateY(-0.65rem);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.about-portrait-stage {
+			animation: none;
+		}
 	}
 
 	@media (min-width: 768px) {
