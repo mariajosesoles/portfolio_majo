@@ -1,0 +1,8 @@
+{
+  "frameCount": 64,
+  "background": "#17131c",
+  "framePrefix": "frame",
+  "centerFile": "center.webp",
+  "sourceVideo": "character.mp4",
+  "totalVideoFrames": 240
+}

@@ -1,0 +1,33 @@
+Google Flow — Step 2 (cursor-tracking source video)
+
+Attach: public/about/portrait-3d.png (or your final character PNG) as the only image reference.
+
+--- PROMPT (paste below) ---
+
+Use the provided character image as the EXACT visual reference. Do not change identity, face, hair, clothing, jewelry, colors, lighting style, or framing.
+
+Create a smooth interactive-character animation designed for a website cursor-tracking hero. The character is Mariajose Soles: young woman, long straight dark brown hair with center part, warm light skin, large expressive brown eyes, subtle blush, natural glossy lips, friendly confident expression. Grey ribbed long-sleeve top with gathered scoop neckline. Thin gold necklace with small light-blue heart pendant. Small gold stud earrings. Head and shoulders only.
+
+Background: perfectly solid flat dark purple-black #0a0614. No gradient, no objects, no text, no vignette. Background must stay 100% uniform for the entire clip.
+
+Camera: completely fixed, frontal, no zoom, no pan, no shake.
+
+Animation goal: CONTINUOUS directional head and eye movement, as if naturally following a cursor moving around the screen. Smooth transitions through all directions:
+center → up → upper-right → right → lower-right → down → lower-left → left → upper-left → center,
+including smooth diagonals between every major direction.
+
+Rules:
+- Head movement must NOT jump between poses; every change must blend smoothly.
+- Eyes lead slightly before the head (subtle eye tracking).
+- Character can look: forward, slightly up/down/left/right, and all four diagonals.
+- ONLY animate eyes, head, and very subtle hair movement.
+- NO talking, NO lip sync, NO mouth movement, NO body, NO hands, NO camera movement, NO background movement.
+
+Style: premium cinematic 3D cartoon, high facial consistency, natural head rotation, soft realistic motion, seamless directional transitions, loop-friendly ending returning to neutral forward gaze.
+
+Duration: long enough to cover a full smooth 360° head rotation cycle (about 8–12 seconds). High resolution, stable face throughout.
+
+--- After export ---
+Save as: public/about/character.mp4
+Then: pip install opencv-python-headless && pnpm about:extract-frames
+Commit: character.mp4 + public/about/frames/

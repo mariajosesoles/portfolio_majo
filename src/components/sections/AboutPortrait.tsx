@@ -32,6 +32,7 @@ export function AboutPortrait({ alt }: AboutPortraitProps) {
 	const [centerFrame, setCenterFrame] = useState<HTMLImageElement | null>(null);
 	const [ready, setReady] = useState(false);
 	const [useStatic, setUseStatic] = useState(false);
+	const [staticSrc, setStaticSrc] = useState(STATIC_PORTRAIT);
 
 	const smoothedAngleRef = useRef(0);
 	const targetAngleRef = useRef(0);
@@ -44,12 +45,21 @@ export function AboutPortrait({ alt }: AboutPortraitProps) {
 
 		(async () => {
 			const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+			const mEarly = await fetchAboutFramesManifest();
 			if (reduced) {
+				if (mEarly) {
+					try {
+						await loadImage(centerFrameUrl(mEarly));
+						setStaticSrc(centerFrameUrl(mEarly));
+					} catch {
+						/* portrait-3d fallback */
+					}
+				}
 				setUseStatic(true);
 				return;
 			}
 
-			const m = await fetchAboutFramesManifest();
+			const m = mEarly ?? (await fetchAboutFramesManifest());
 			if (cancelled || !m) {
 				setUseStatic(true);
 				return;
@@ -159,18 +169,41 @@ export function AboutPortrait({ alt }: AboutPortraitProps) {
 	useEffect(() => {
 		if (!ready) return;
 
-		const onMove = (e: PointerEvent) => {
-			pointerRef.current = { x: e.clientX, y: e.clientY, active: true };
+		const getTrackRegion = (): HTMLElement | null =>
+			containerRef.current?.closest("#about") ?? containerRef.current;
+
+		const pointerInsideRegion = (e: PointerEvent): boolean => {
+			const region = getTrackRegion();
+			if (!region) return false;
+			const rect = region.getBoundingClientRect();
+			return (
+				e.clientX >= rect.left &&
+				e.clientX <= rect.right &&
+				e.clientY >= rect.top &&
+				e.clientY <= rect.bottom
+			);
 		};
-		const onLeave = () => {
-			pointerRef.current.active = false;
+
+		const onMove = (e: PointerEvent) => {
+			const inside = pointerInsideRegion(e);
+			pointerRef.current = {
+				x: e.clientX,
+				y: e.clientY,
+				active: inside,
+			};
+		};
+
+		const onLeave = (e: PointerEvent) => {
+			if (e.relatedTarget === null) {
+				pointerRef.current.active = false;
+			}
 		};
 
 		window.addEventListener("pointermove", onMove, { passive: true });
-		window.addEventListener("pointerleave", onLeave);
+		document.addEventListener("pointerleave", onLeave);
 		return () => {
 			window.removeEventListener("pointermove", onMove);
-			window.removeEventListener("pointerleave", onLeave);
+			document.removeEventListener("pointerleave", onLeave);
 		};
 	}, [ready]);
 
@@ -182,7 +215,7 @@ export function AboutPortrait({ alt }: AboutPortraitProps) {
 					aria-hidden="true"
 				/>
 				<img
-					src={STATIC_PORTRAIT}
+					src={staticSrc}
 					alt={alt}
 					width={1024}
 					height={1024}
