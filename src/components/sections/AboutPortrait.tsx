@@ -13,6 +13,9 @@ type AboutPortraitProps = {
 
 const TRACK_LERP = 0.26;
 const DEADZONE_RATIO = 0.12;
+/** Face anchor when character is composed on the left (matches Flow prompt). */
+const FACE_CENTER_X_RATIO = 0.38;
+const FACE_CENTER_Y_RATIO = 0.42;
 const STATIC_PORTRAIT = "/about/portrait-3d.png";
 
 function loadImage(src: string): Promise<HTMLImageElement> {

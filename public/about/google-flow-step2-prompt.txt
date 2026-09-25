@@ -10,13 +10,20 @@ Luego: pip install opencv-python-headless && pnpm about:extract-frames
 
 Use the provided image as the EXACT and ONLY visual reference for identity, lighting, colors, clothing, jewelry, framing, and render quality. Treat it as a locked character sheet: do not redesign the face, do not change hairstyle, skin tone, outfit, necklace, earrings, or art style.
 
-Character: Mariajose Soles — young woman, long straight dark brown hair with center part, warm light skin, large expressive brown eyes, subtle blush, natural glossy lips, friendly confident expression. Grey ribbed long-sleeve top with gathered scoop neckline. Thin gold necklace with small light-blue heart pendant. Small gold stud earrings. Head and shoulders only, same crop as the reference image.
+Character: Mariajose Soles — young woman, long straight dark brown hair with center part, warm light skin, large expressive brown eyes, subtle blush, natural glossy lips, friendly confident expression. Grey ribbed long-sleeve top with gathered scoop neckline. Thin gold necklace with small light-blue heart pendant. Small gold stud earrings. Head and shoulders only.
+
+Composition (IMPORTANT — not centered):
+- Place the character on the LEFT side of the frame, NOT in the horizontal center.
+- The head and upper body occupy roughly the left 45–55% of the frame; shoulders may extend toward the middle.
+- Leave clean empty background on the RIGHT half of the frame (for website copy beside the character).
+- Character should feel large in the frame (fill most of the vertical height), anchored toward the bottom-left, like a portfolio “about” column.
+- Do not crop the face; keep full head and shoulders visible on the left.
 
 Background: perfectly solid flat dark purple-black #0a0614 (match the reference background tone). No gradient, no vignette, no objects, no text. Background must remain 100% uniform and identical across every frame.
 
-Camera: completely fixed, frontal, locked. No zoom, no pan, no tilt, no shake, no reframing.
+Camera: completely fixed, frontal, locked. No zoom, no pan, no tilt, no shake, no reframing. Do not re-center the character during the clip.
 
-Animation purpose: source footage for a website cursor-tracking hero. The character smoothly follows a cursor with continuous head and subtle eye movement.
+Animation purpose: source footage for a website About section with cursor tracking across the whole block (text on the right). The character on the left smoothly follows a cursor anywhere in the section with continuous head and subtle eye movement.
 
 Motion path (one continuous take, no cuts): smooth transitions through all directions:
 center → up → upper-right → right → lower-right → down → lower-left → left → upper-left → center,
