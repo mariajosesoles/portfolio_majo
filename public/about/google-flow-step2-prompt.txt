@@ -46,4 +46,7 @@ Style: premium cinematic 3D cartoon, high facial consistency frame-to-frame, nat
 Duration: 8–12 seconds, enough for a full smooth head rotation cycle. High resolution. Maximum identity and lighting stability throughout — as if the reference portrait was rotated, not re-drawn.
 
 --- Notas ---
-Si Flow cambia la cara o la luz, cancela y repite con: "Strictly preserve reference image identity and lighting on every frame; animate rotation only."
+Comparación: arriba = Flow plano/centrado (evitar). Abajo = portrait-3d (objetivo en TODOS los frames).
+
+Si Flow cambia la cara, la luz o se ve plano, repite con:
+"Match reference PNG render quality exactly — premium 3D lighting and detail on every frame; animate head/eyes only; character stays left-aligned; no flat video look."
