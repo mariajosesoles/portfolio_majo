@@ -13,9 +13,28 @@ type AboutPortraitProps = {
 
 const DEFAULT_TRACK_LERP = 0.24;
 const DEADZONE_RATIO = 0.12;
-const FACE_CENTER_X_RATIO = 0.38;
-const FACE_CENTER_Y_RATIO = 0.42;
+/** Face anchor within #about (not the portrait slot) — desktop: left column; mobile: centered. */
+const SECTION_FACE_X_WIDE = 0.26;
+const SECTION_FACE_Y_WIDE = 0.56;
+const SECTION_FACE_X_NARROW = 0.5;
+const SECTION_FACE_Y_NARROW = 0.46;
+const ABOUT_SECTION_ID = "about";
 const STATIC_PORTRAIT = "/about/portrait-3d.png";
+
+function getAboutSection(): HTMLElement | null {
+	return document.getElementById(ABOUT_SECTION_ID);
+}
+
+function getFaceAnchor(sectionRect: DOMRect): { x: number; y: number; deadzone: number } {
+	const wide = sectionRect.width >= 768;
+	const faceXRatio = wide ? SECTION_FACE_X_WIDE : SECTION_FACE_X_NARROW;
+	const faceYRatio = wide ? SECTION_FACE_Y_WIDE : SECTION_FACE_Y_NARROW;
+	return {
+		x: sectionRect.left + sectionRect.width * faceXRatio,
+		y: sectionRect.top + sectionRect.height * faceYRatio,
+		deadzone: Math.min(sectionRect.width, sectionRect.height) * DEADZONE_RATIO,
+	};
+}
 
 function loadImage(src: string): Promise<HTMLImageElement> {
 	return new Promise((resolve, reject) => {
@@ -144,8 +163,6 @@ export function AboutPortrait({ alt }: AboutPortraitProps) {
 
 		const bg = manifest.background ?? "#0a0614";
 		const angleOffset = manifest.angleOffsetRadians ?? 0;
-		const faceXRatio = manifest.faceCenterX ?? FACE_CENTER_X_RATIO;
-		const faceYRatio = manifest.faceCenterY ?? FACE_CENTER_Y_RATIO;
 		const trackLerp = DEFAULT_TRACK_LERP;
 
 		const tick = () => {
@@ -155,9 +172,10 @@ export function AboutPortrait({ alt }: AboutPortraitProps) {
 				return;
 			}
 
-			const rect = container.getBoundingClientRect();
-			const faceX = rect.left + rect.width * faceXRatio;
-			const faceY = rect.top + rect.height * faceYRatio;
+			const section = getAboutSection();
+			const anchorRect =
+				section?.getBoundingClientRect() ?? container.getBoundingClientRect();
+			const { x: faceX, y: faceY, deadzone } = getFaceAnchor(anchorRect);
 			const { x, y, active } = pointerRef.current;
 
 			let img = frames[frameIndexRef.current] ?? frames[0];
@@ -166,7 +184,6 @@ export function AboutPortrait({ alt }: AboutPortraitProps) {
 				const dx = x - faceX;
 				const dy = y - faceY;
 				const dist = Math.hypot(dx, dy);
-				const deadzone = Math.min(rect.width, rect.height) * DEADZONE_RATIO;
 
 				if (dist < deadzone) {
 					img = centerFrame;
@@ -205,41 +222,30 @@ export function AboutPortrait({ alt }: AboutPortraitProps) {
 	useEffect(() => {
 		if (!ready) return;
 
-		const getTrackRegion = (): HTMLElement | null =>
-			containerRef.current?.closest("#about") ?? containerRef.current;
+		const section = getAboutSection();
+		if (!section) return;
 
-		const pointerInsideRegion = (e: PointerEvent): boolean => {
-			const region = getTrackRegion();
-			if (!region) return false;
-			const rect = region.getBoundingClientRect();
-			return (
-				e.clientX >= rect.left &&
-				e.clientX <= rect.right &&
-				e.clientY >= rect.top &&
-				e.clientY <= rect.bottom
-			);
-		};
-
-		const onMove = (e: PointerEvent) => {
-			const inside = pointerInsideRegion(e);
+		const setPointer = (e: PointerEvent, active: boolean) => {
 			pointerRef.current = {
 				x: e.clientX,
 				y: e.clientY,
-				active: inside,
+				active,
 			};
 		};
 
-		const onLeave = (e: PointerEvent) => {
-			if (e.relatedTarget === null) {
-				pointerRef.current.active = false;
-			}
+		const onEnter = (e: PointerEvent) => setPointer(e, true);
+		const onMove = (e: PointerEvent) => setPointer(e, true);
+		const onLeave = () => {
+			pointerRef.current.active = false;
 		};
 
-		window.addEventListener("pointermove", onMove, { passive: true });
-		document.addEventListener("pointerleave", onLeave);
+		section.addEventListener("pointerenter", onEnter, { passive: true });
+		section.addEventListener("pointermove", onMove, { passive: true });
+		section.addEventListener("pointerleave", onLeave);
 		return () => {
-			window.removeEventListener("pointermove", onMove);
-			document.removeEventListener("pointerleave", onLeave);
+			section.removeEventListener("pointerenter", onEnter);
+			section.removeEventListener("pointermove", onMove);
+			section.removeEventListener("pointerleave", onLeave);
 		};
 	}, [ready]);
 

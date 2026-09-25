@@ -13,7 +13,7 @@ const portraitAlt =
 		: "Stylized 3D portrait of Mariajose Soles";
 ---
 
-<section id="about" class="py-16 md:py-20">
+<section id="about" class="about-section py-16 md:py-20" data-about-track>
 	<div class="mx-auto max-w-6xl px-6 lg:max-w-7xl">
 		<h2 class="mb-10 text-2xl font-bold md:mb-12 md:text-3xl">{config.sections.about}</h2>
 		<div
@@ -24,7 +24,7 @@ const portraitAlt =
 				class="about-animation-slot w-full max-w-md justify-self-center md:max-w-none md:justify-self-stretch"
 				data-about-animation
 			>
-				<AboutPortrait alt={portraitAlt} client:visible />
+				<AboutPortrait alt={portraitAlt} client:load />
 			</div>
 
 			<div class="about-copy min-w-0 space-y-4 md:pt-2 lg:max-w-xl lg:justify-self-end xl:max-w-2xl">
