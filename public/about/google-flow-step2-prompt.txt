@@ -1,33 +1,37 @@
-Google Flow — Step 2 (cursor-tracking source video)
+Google Flow — Step 2 (regenerar video alineado a portrait-3d.png)
 
-Attach: public/about/portrait-3d.png (or your final character PNG) as the only image reference.
+INPUT (obligatorio): sube SOLO public/about/portrait-3d.png como imagen de referencia.
+No uses otra foto de identidad. El video debe verse como ese PNG en cada frame.
 
---- PROMPT (paste below) ---
+Export: public/about/character.mp4
+Luego: pip install opencv-python-headless && pnpm about:extract-frames
 
-Use the provided character image as the EXACT visual reference. Do not change identity, face, hair, clothing, jewelry, colors, lighting style, or framing.
+--- PROMPT (copiar completo en Google Flow) ---
 
-Create a smooth interactive-character animation designed for a website cursor-tracking hero. The character is Mariajose Soles: young woman, long straight dark brown hair with center part, warm light skin, large expressive brown eyes, subtle blush, natural glossy lips, friendly confident expression. Grey ribbed long-sleeve top with gathered scoop neckline. Thin gold necklace with small light-blue heart pendant. Small gold stud earrings. Head and shoulders only.
+Use the provided image as the EXACT and ONLY visual reference for identity, lighting, colors, clothing, jewelry, framing, and render quality. Treat it as a locked character sheet: do not redesign the face, do not change hairstyle, skin tone, outfit, necklace, earrings, or art style.
 
-Background: perfectly solid flat dark purple-black #0a0614. No gradient, no objects, no text, no vignette. Background must stay 100% uniform for the entire clip.
+Character: Mariajose Soles — young woman, long straight dark brown hair with center part, warm light skin, large expressive brown eyes, subtle blush, natural glossy lips, friendly confident expression. Grey ribbed long-sleeve top with gathered scoop neckline. Thin gold necklace with small light-blue heart pendant. Small gold stud earrings. Head and shoulders only, same crop as the reference image.
 
-Camera: completely fixed, frontal, no zoom, no pan, no shake.
+Background: perfectly solid flat dark purple-black #0a0614 (match the reference background tone). No gradient, no vignette, no objects, no text. Background must remain 100% uniform and identical across every frame.
 
-Animation goal: CONTINUOUS directional head and eye movement, as if naturally following a cursor moving around the screen. Smooth transitions through all directions:
+Camera: completely fixed, frontal, locked. No zoom, no pan, no tilt, no shake, no reframing.
+
+Animation purpose: source footage for a website cursor-tracking hero. The character smoothly follows a cursor with continuous head and subtle eye movement.
+
+Motion path (one continuous take, no cuts): smooth transitions through all directions:
 center → up → upper-right → right → lower-right → down → lower-left → left → upper-left → center,
-including smooth diagonals between every major direction.
+including every diagonal between major directions.
 
-Rules:
-- Head movement must NOT jump between poses; every change must blend smoothly.
+Motion rules:
+- Every pose must look like the SAME 3D portrait as the reference — same lighting direction, same skin shading, same hair detail, same image sharpness.
+- Head turns must blend smoothly; NO jumping between unrelated poses.
 - Eyes lead slightly before the head (subtle eye tracking).
-- Character can look: forward, slightly up/down/left/right, and all four diagonals.
-- ONLY animate eyes, head, and very subtle hair movement.
-- NO talking, NO lip sync, NO mouth movement, NO body, NO hands, NO camera movement, NO background movement.
+- ONLY animate eyes, head rotation, and very subtle hair movement.
+- NO talking, NO lip sync, NO mouth opening, NO body movement, NO hands, NO camera movement, NO background change.
 
-Style: premium cinematic 3D cartoon, high facial consistency, natural head rotation, soft realistic motion, seamless directional transitions, loop-friendly ending returning to neutral forward gaze.
+Style: premium cinematic 3D cartoon, high facial consistency frame-to-frame, natural rotation, soft realistic motion, loop-friendly ending with neutral forward gaze matching the reference center pose.
 
-Duration: long enough to cover a full smooth 360° head rotation cycle (about 8–12 seconds). High resolution, stable face throughout.
+Duration: 8–12 seconds, enough for a full smooth head rotation cycle. High resolution. Maximum identity and lighting stability throughout — as if the reference portrait was rotated, not re-drawn.
 
---- After export ---
-Save as: public/about/character.mp4
-Then: pip install opencv-python-headless && pnpm about:extract-frames
-Commit: character.mp4 + public/about/frames/
+--- Notas ---
+Si Flow cambia la cara o la luz, cancela y repite con: "Strictly preserve reference image identity and lighting on every frame; animate rotation only."
