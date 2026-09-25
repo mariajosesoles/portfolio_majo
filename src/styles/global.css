@@ -247,6 +247,18 @@
 }
 
 @layer components {
+	/* About: reserva para animación (montar en #about-animation-slot) */
+	.about-animation-slot {
+		min-height: clamp(16rem, 42vw, 22rem);
+		aspect-ratio: 1;
+	}
+
+	@media (min-width: 768px) {
+		.about-animation-slot {
+			min-height: clamp(18rem, 36vw, 26rem);
+		}
+	}
+
 	.hero-integrated-header {
 		background: transparent !important;
 	}
