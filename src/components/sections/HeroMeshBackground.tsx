@@ -1,15 +1,15 @@
 import { MeshGradient } from "@paper-design/shaders-react";
 import { useEffect, useState } from "react";
 
-/** Referencia Figma: púrpura abajo-izq, magenta banda derecha, vacío oscuro (no negro plano) */
+/** Figma: negro/indigo base, focos púrpura/violeta/lila — sin fucsia (rosa reservado a tipografía hero) */
 const MESH_DARK = [
 	"#0a0614",
 	"#9333ea",
-	"#1a0a28",
-	"#ff008a",
+	"#2d1b4e",
+	"#8b2be8",
 	"#6b21a8",
 	"#12081f",
-	"#e020a0",
+	"#a855f7",
 	"#4c1d95",
 	"#0d0518",
 ] as const;
@@ -53,7 +53,7 @@ export function HeroMeshBackground() {
 	const colors = theme === "light" ? MESH_LIGHT : MESH_DARK;
 
 	const cssMeshDark =
-		"bg-[#0a0614] bg-[radial-gradient(ellipse_85%_65%_at_22%_88%,#9333eabf_0%,#6b21a866_35%,transparent_62%),radial-gradient(ellipse_45%_95%_at_98%_52%,#ff008a99_0%,#e020a055_28%,transparent_58%),radial-gradient(ellipse_70%_55%_at_55%_18%,#0a0614_0%,#12081fcc_42%,transparent_72%),radial-gradient(ellipse_50%_40%_at_8%_15%,#7c3aed33_0%,transparent_55%)]";
+		"bg-[#0a0614] bg-[radial-gradient(ellipse_85%_65%_at_22%_88%,#9333eabf_0%,#6b21a866_35%,transparent_62%),radial-gradient(ellipse_45%_95%_at_98%_52%,#8b2be888_0%,#a855f755_28%,transparent_58%),radial-gradient(ellipse_70%_55%_at_55%_18%,#0a0614_0%,#2d1b4ecc_42%,transparent_72%),radial-gradient(ellipse_50%_40%_at_8%_15%,#7c3aed33_0%,transparent_55%)]";
 
 	const cssMeshLight =
 		"bg-brand-cream bg-[radial-gradient(ellipse_80%_50%_at_50%_100%,#e8479788_0%,transparent_55%),radial-gradient(ellipse_50%_45%_at_15%_50%,#c084fc66_0%,transparent_50%),radial-gradient(ellipse_55%_60%_at_100%_40%,#94c2da77_0%,transparent_55%)]";
