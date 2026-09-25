@@ -69,7 +69,7 @@ export function Hero({ config }: HeroProps) {
 							</div>
 						) : null}
 						{roleSecondary ? (
-							<div className="hero-shadow-wrap -mt-[0.08em] flex w-full justify-center">
+							<div className="hero-shadow-wrap flex w-full justify-center">
 								<span className="hero-shadow-wrap__text uppercase">{roleSecondary}</span>
 							</div>
 						) : null}
