@@ -10,6 +10,11 @@ Luego: pip install opencv-python-headless && pnpm about:extract-frames
 
 Use the provided image as the EXACT and ONLY visual reference for identity, lighting, colors, clothing, jewelry, framing, and render quality. Treat it as a locked character sheet: do not redesign the face, do not change hairstyle, skin tone, outfit, necklace, earrings, or art style.
 
+TARGET LOOK (match the reference PNG — NOT flat video):
+- Same premium polished 3D render as the reference: soft cinematic key light, gentle rim/hair highlights, subtle blush, glossy lips, detailed hair strands, smooth skin shading with depth.
+- Do NOT output flat, dull, or “raw video capture” lighting. Every frame must match the reference image’s render quality and contrast.
+- Avoid centered tiny character in frame; match reference scale and presence (large, hero-quality portrait).
+
 Character: Mariajose Soles — young woman, long straight dark brown hair with center part, warm light skin, large expressive brown eyes, subtle blush, natural glossy lips, friendly confident expression. Grey ribbed long-sleeve top with gathered scoop neckline. Thin gold necklace with small light-blue heart pendant. Small gold stud earrings. Head and shoulders only.
 
 Composition (IMPORTANT — not centered):
