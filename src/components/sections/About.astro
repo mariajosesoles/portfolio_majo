@@ -18,18 +18,9 @@ const portraitAlt =
 		<div
 			class="grid grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-12 lg:gap-16 xl:gap-20"
 		>
-			<div class="about-copy order-2 min-w-0 space-y-4 md:order-1 md:pt-2 lg:max-w-xl xl:max-w-2xl">
-				{
-					config.about.paragraphs.map((paragraph) => (
-						<p class="text-base leading-relaxed text-muted md:text-lg">{paragraph}</p>
-					))
-				}
-				<p class="pt-2 text-sm font-medium text-accent md:text-base">{config.about.languages}</p>
-			</div>
-
 			<div
 				id="about-animation-slot"
-				class="about-animation-slot order-1 w-full max-w-md justify-self-center md:order-2 md:max-w-none md:justify-self-stretch"
+				class="about-animation-slot w-full max-w-md justify-self-center md:max-w-none md:justify-self-stretch"
 				data-about-animation
 			>
 				<img
@@ -41,6 +32,15 @@ const portraitAlt =
 					loading="lazy"
 					decoding="async"
 				/>
+			</div>
+
+			<div class="about-copy min-w-0 space-y-4 md:pt-2 lg:max-w-xl lg:justify-self-end xl:max-w-2xl">
+				{
+					config.about.paragraphs.map((paragraph) => (
+						<p class="text-base leading-relaxed text-muted md:text-lg">{paragraph}</p>
+					))
+				}
+				<p class="pt-2 text-sm font-medium text-accent md:text-base">{config.about.languages}</p>
 			</div>
 		</div>
 	</div>
