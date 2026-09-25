@@ -251,6 +251,12 @@
 	.about-animation-slot {
 		min-height: clamp(16rem, 42vw, 22rem);
 		aspect-ratio: 1;
+		overflow: hidden;
+		border-radius: 1rem;
+	}
+
+	.about-portrait {
+		display: block;
 	}
 
 	@media (min-width: 768px) {
