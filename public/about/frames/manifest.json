@@ -18,5 +18,12 @@
   },
   "angleOffsetRadians": 0,
   "faceCenterX": 0.38,
-  "faceCenterY": 0.42
+  "faceCenterY": 0.42,
+  "chromaTolerance": 34,
+  "trackingAnchorSection": {
+    "xWide": 0.2,
+    "yWide": 0.58,
+    "xNarrow": 0.5,
+    "yNarrow": 0.46
+  }
 }

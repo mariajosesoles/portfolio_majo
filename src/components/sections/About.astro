@@ -13,7 +13,7 @@ const portraitAlt =
 		: "Stylized 3D portrait of Mariajose Soles";
 ---
 
-<section id="about" class="about-section py-16 md:py-20" data-about-track>
+<section id="about" class="about-section cursor-default py-16 md:py-20" data-about-track>
 	<div class="page-container">
 		<h2 class="type-section-title mb-10 md:mb-12">{config.sections.about}</h2>
 		<div
@@ -21,19 +21,23 @@ const portraitAlt =
 		>
 			<div
 				id="about-animation-slot"
-				class="about-animation-slot w-full max-w-md justify-self-center md:max-w-none md:justify-self-stretch"
+				class="about-animation-slot w-full max-w-md justify-self-center md:max-w-none md:-ml-2 md:justify-self-start lg:-ml-4"
 				data-about-animation
 			>
 				<AboutPortrait alt={portraitAlt} client:load />
 			</div>
 
-			<div class="about-copy min-w-0 space-y-4 md:pt-2 lg:max-w-xl lg:justify-self-end xl:max-w-2xl">
-				{
-					config.about.paragraphs.map((paragraph) => (
-						<p class="type-body-lg text-muted">{paragraph}</p>
-					))
-				}
-				<p class="type-body pt-2 font-medium text-accent">{config.about.languages}</p>
+			<div
+				class="about-copy about-speech-bubble min-w-0 md:justify-self-start lg:max-w-xl xl:max-w-2xl"
+			>
+				<div class="about-speech-bubble__inner space-y-4">
+					{
+						config.about.paragraphs.map((paragraph) => (
+							<p class="type-body-lg text-muted">{paragraph}</p>
+						))
+					}
+					<p class="type-body pt-2 font-medium text-accent">{config.about.languages}</p>
+				</div>
 			</div>
 		</div>
 	</div>

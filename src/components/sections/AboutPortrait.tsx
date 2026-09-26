@@ -1,10 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
 	type AboutFramesManifest,
+	type AboutTrackingAnchor,
 	centerFrameUrl,
+	DEFAULT_TRACKING_ANCHOR,
 	fetchAboutFramesManifest,
-	frameUrl,
+	listFrameUrls,
 } from "../../lib/about-frames-manifest";
+import { applyChromaKey, hexToRgb } from "../../lib/chroma-key-canvas";
 import { angleToFrameIndex, lerpAngle } from "../../lib/lerp-angle";
 
 type AboutPortraitProps = {
@@ -13,11 +16,6 @@ type AboutPortraitProps = {
 
 const DEFAULT_TRACK_LERP = 0.24;
 const DEADZONE_RATIO = 0.12;
-/** Face anchor within #about (not the portrait slot) — desktop: left column; mobile: centered. */
-const SECTION_FACE_X_WIDE = 0.26;
-const SECTION_FACE_Y_WIDE = 0.56;
-const SECTION_FACE_X_NARROW = 0.5;
-const SECTION_FACE_Y_NARROW = 0.46;
 const ABOUT_SECTION_ID = "about";
 const STATIC_PORTRAIT = "/about/portrait-3d.png";
 
@@ -25,10 +23,17 @@ function getAboutSection(): HTMLElement | null {
 	return document.getElementById(ABOUT_SECTION_ID);
 }
 
-function getFaceAnchor(sectionRect: DOMRect): { x: number; y: number; deadzone: number } {
+function resolveAnchor(manifest: AboutFramesManifest | null): AboutTrackingAnchor {
+	return manifest?.trackingAnchorSection ?? DEFAULT_TRACKING_ANCHOR;
+}
+
+function getFaceAnchor(
+	sectionRect: DOMRect,
+	anchor: AboutTrackingAnchor,
+): { x: number; y: number; deadzone: number } {
 	const wide = sectionRect.width >= 768;
-	const faceXRatio = wide ? SECTION_FACE_X_WIDE : SECTION_FACE_X_NARROW;
-	const faceYRatio = wide ? SECTION_FACE_Y_WIDE : SECTION_FACE_Y_NARROW;
+	const faceXRatio = wide ? anchor.xWide : anchor.xNarrow;
+	const faceYRatio = wide ? anchor.yWide : anchor.yNarrow;
 	return {
 		x: sectionRect.left + sectionRect.width * faceXRatio,
 		y: sectionRect.top + sectionRect.height * faceYRatio,
@@ -45,15 +50,22 @@ function loadImage(src: string): Promise<HTMLImageElement> {
 	});
 }
 
+function pointerInsideSection(clientX: number, clientY: number, section: HTMLElement): boolean {
+	const r = section.getBoundingClientRect();
+	return clientX >= r.left && clientX <= r.right && clientY >= r.top && clientY <= r.bottom;
+}
+
 export function AboutPortrait({ alt }: AboutPortraitProps) {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const canvasRef = useRef<HTMLCanvasElement>(null);
+	const anchorMarkerRef = useRef<HTMLDivElement>(null);
 	const [manifest, setManifest] = useState<AboutFramesManifest | null>(null);
 	const [frames, setFrames] = useState<HTMLImageElement[] | null>(null);
 	const [centerFrame, setCenterFrame] = useState<HTMLImageElement | null>(null);
 	const [ready, setReady] = useState(false);
 	const [useStatic, setUseStatic] = useState(false);
 	const [staticSrc, setStaticSrc] = useState(STATIC_PORTRAIT);
+	const [showAnchorDebug, setShowAnchorDebug] = useState(false);
 
 	const smoothedAngleRef = useRef(0);
 	const targetAngleRef = useRef(0);
@@ -62,25 +74,31 @@ export function AboutPortrait({ alt }: AboutPortraitProps) {
 	const rafRef = useRef<number>(0);
 	const pointerRef = useRef({ x: 0, y: 0, active: false });
 	const layoutRef = useRef({ w: 0, h: 0, dpr: 1 });
+	const manifestRef = useRef<AboutFramesManifest | null>(null);
 
-	const drawFrame = useCallback((img: HTMLImageElement, bg: string) => {
+	const drawFrame = useCallback((img: HTMLImageElement, bgHex: string) => {
 		const canvas = canvasRef.current;
 		const { w, h, dpr } = layoutRef.current;
 		if (!canvas || w < 1 || h < 1) return;
 
-		const ctx = canvas.getContext("2d");
+		const ctx = canvas.getContext("2d", { willReadFrequently: true });
 		if (!ctx) return;
 
 		ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-		ctx.fillStyle = bg;
-		ctx.fillRect(0, 0, w, h);
+		ctx.clearRect(0, 0, w, h);
 
-		const scale = Math.min(w / img.naturalWidth, h / img.naturalHeight);
+		const scale = Math.min(w / img.naturalWidth, h / img.naturalHeight) * 1.08;
 		const dw = img.naturalWidth * scale;
 		const dh = img.naturalHeight * scale;
 		const dx = 0;
 		const dy = h - dh;
 		ctx.drawImage(img, dx, dy, dw, dh);
+
+		const key = hexToRgb(bgHex);
+		const tolerance = manifestRef.current?.chromaTolerance ?? 32;
+		if (key) {
+			applyChromaKey(ctx, w, h, key, tolerance);
+		}
 	}, []);
 
 	const syncCanvasSize = useCallback(() => {
@@ -98,6 +116,12 @@ export function AboutPortrait({ alt }: AboutPortraitProps) {
 		canvas.height = Math.floor(h * dpr);
 		canvas.style.width = `${w}px`;
 		canvas.style.height = `${h}px`;
+	}, []);
+
+	useEffect(() => {
+		if (import.meta.env.DEV) {
+			setShowAnchorDebug(new URLSearchParams(window.location.search).has("about-anchor"));
+		}
 	}, []);
 
 	useEffect(() => {
@@ -125,8 +149,10 @@ export function AboutPortrait({ alt }: AboutPortraitProps) {
 				return;
 			}
 
+			manifestRef.current = m;
+
 			try {
-				const urls = Array.from({ length: m.frameCount }, (_, i) => frameUrl(m, i));
+				const urls = listFrameUrls(m);
 				const loaded = await Promise.all(urls.map(loadImage));
 				const center = await loadImage(centerFrameUrl(m));
 				if (cancelled) return;
@@ -161,18 +187,26 @@ export function AboutPortrait({ alt }: AboutPortraitProps) {
 		const bg = manifest.background ?? "#0a0614";
 		const angleOffset = manifest.angleOffsetRadians ?? 0;
 		const trackLerp = DEFAULT_TRACK_LERP;
+		const frameCount = frames.length;
 
 		const tick = () => {
-			const container = containerRef.current;
-			if (!container) {
+			const section = getAboutSection();
+			const anchorRect = section?.getBoundingClientRect();
+			if (!section || !anchorRect) {
 				rafRef.current = requestAnimationFrame(tick);
 				return;
 			}
 
-			const section = getAboutSection();
-			const anchorRect = section?.getBoundingClientRect() ?? container.getBoundingClientRect();
-			const { x: faceX, y: faceY, deadzone } = getFaceAnchor(anchorRect);
+			const anchor = resolveAnchor(manifestRef.current);
+			const { x: faceX, y: faceY, deadzone } = getFaceAnchor(anchorRect, anchor);
 			const { x, y, active } = pointerRef.current;
+
+			if (showAnchorDebug && anchorMarkerRef.current) {
+				const dot = anchorMarkerRef.current;
+				dot.style.position = "fixed";
+				dot.style.left = `${faceX}px`;
+				dot.style.top = `${faceY}px`;
+			}
 
 			let img = frames[frameIndexRef.current] ?? frames[0];
 
@@ -194,7 +228,7 @@ export function AboutPortrait({ alt }: AboutPortraitProps) {
 						targetAngleRef.current,
 						trackLerp,
 					);
-					const idx = angleToFrameIndex(smoothedAngleRef.current, frames.length, angleOffset);
+					const idx = angleToFrameIndex(smoothedAngleRef.current, frameCount, angleOffset);
 					frameIndexRef.current = idx;
 					img = frames[idx] ?? frames[0];
 				}
@@ -209,7 +243,7 @@ export function AboutPortrait({ alt }: AboutPortraitProps) {
 
 		rafRef.current = requestAnimationFrame(tick);
 		return () => cancelAnimationFrame(rafRef.current);
-	}, [ready, frames, centerFrame, manifest, drawFrame]);
+	}, [ready, frames, centerFrame, manifest, drawFrame, showAnchorDebug]);
 
 	useEffect(() => {
 		if (!ready) return;
@@ -217,26 +251,23 @@ export function AboutPortrait({ alt }: AboutPortraitProps) {
 		const section = getAboutSection();
 		if (!section) return;
 
-		const setPointer = (e: PointerEvent, active: boolean) => {
+		const onPointerMove = (e: PointerEvent) => {
+			const inside = pointerInsideSection(e.clientX, e.clientY, section);
 			pointerRef.current = {
 				x: e.clientX,
 				y: e.clientY,
-				active,
+				active: inside,
 			};
 		};
 
-		const onEnter = (e: PointerEvent) => setPointer(e, true);
-		const onMove = (e: PointerEvent) => setPointer(e, true);
 		const onLeave = () => {
 			pointerRef.current.active = false;
 		};
 
-		section.addEventListener("pointerenter", onEnter, { passive: true });
-		section.addEventListener("pointermove", onMove, { passive: true });
+		window.addEventListener("pointermove", onPointerMove, { passive: true });
 		section.addEventListener("pointerleave", onLeave);
 		return () => {
-			section.removeEventListener("pointerenter", onEnter);
-			section.removeEventListener("pointermove", onMove);
+			window.removeEventListener("pointermove", onPointerMove);
 			section.removeEventListener("pointerleave", onLeave);
 		};
 	}, [ready]);
@@ -253,7 +284,7 @@ export function AboutPortrait({ alt }: AboutPortraitProps) {
 					alt={alt}
 					width={1024}
 					height={1024}
-					className="about-portrait relative z-[1] max-h-full w-auto max-w-full object-contain object-left-bottom drop-shadow-[0_20px_48px_rgb(0_0_0_/_0.45)]"
+					className="about-portrait relative z-[1] max-h-full w-auto max-w-[115%] object-contain object-left-bottom drop-shadow-[0_20px_48px_rgb(0_0_0_/_0.45)]"
 					loading="lazy"
 					decoding="async"
 				/>
@@ -261,13 +292,10 @@ export function AboutPortrait({ alt }: AboutPortraitProps) {
 		);
 	}
 
-	const slotBg = manifest?.background ?? "#0a0614";
-
 	return (
 		<div
 			ref={containerRef}
 			className="about-portrait-stage about-portrait-stage--tracking relative h-full w-full"
-			style={{ backgroundColor: slotBg }}
 		>
 			<div
 				className="about-portrait-glow pointer-events-none absolute inset-[8%] rounded-full bg-[radial-gradient(circle,rgb(255_0_138_/_0.18)_0%,transparent_68%)]"
@@ -279,6 +307,14 @@ export function AboutPortrait({ alt }: AboutPortraitProps) {
 				aria-label={alt}
 				role="img"
 			/>
+			{showAnchorDebug ? (
+				<div
+					ref={anchorMarkerRef}
+					className="about-tracking-anchor-debug pointer-events-none absolute z-20 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-brand-magenta bg-brand-magenta/40 shadow-[0_0_12px_#ff008a]"
+					aria-hidden="true"
+					title="Tracking anchor (section coords)"
+				/>
+			) : null}
 			{!ready ? (
 				<img
 					src={STATIC_PORTRAIT}
