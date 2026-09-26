@@ -2,7 +2,6 @@
 import type { SiteConfig } from "../../types/site";
 import Header from "../layout/Header.astro";
 import { Hero } from "./Hero";
-import { HeroMeshBackground } from "./HeroMeshBackground";
 
 interface Props {
 	config: SiteConfig;
@@ -13,11 +12,8 @@ const { config } = Astro.props;
 
 <section
 	id="hero"
-	class="relative isolate flex min-h-[100svh] flex-col overflow-x-clip bg-[#0a0614] pb-8 md:pb-10"
+	class="relative isolate flex min-h-[100svh] flex-col overflow-x-clip bg-transparent pb-8 md:pb-10"
 >
-	<div class="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
-		<HeroMeshBackground client:load />
-	</div>
 	<Header config={config} integrated />
 	<Hero config={config} client:load />
 </section>

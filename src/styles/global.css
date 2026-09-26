@@ -300,6 +300,11 @@
 @layer base {
 	html {
 		scroll-behavior: smooth;
+		background-color: #0a0614;
+	}
+
+	[data-theme="light"] html {
+		background-color: var(--theme-bg);
 	}
 
 	body {
@@ -307,6 +312,11 @@
 		transition:
 			background-color 0.2s ease,
 			color 0.2s ease;
+	}
+
+	/* Mesh fijo en Layout: el cuerpo deja ver el fondo en toda la página */
+	body.site-mesh-page {
+		background-color: transparent;
 	}
 
 	::selection {
