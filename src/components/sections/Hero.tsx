@@ -59,21 +59,25 @@ export function Hero({ config }: HeroProps) {
 				}`}
 			>
 				<div className="hero-stagger hero-copy-block page-container w-full">
-					<h1 className="mx-auto w-full">
-						{rolePrimary ? (
-							<div className="hero-noise-wrap flex w-full justify-center">
-								<span className="hero-noise-wrap__text uppercase">{rolePrimary}</span>
-							</div>
-						) : null}
-						{roleSecondary ? (
-							<div className="hero-shadow-wrap flex w-full justify-center">
-								<span className="hero-shadow-wrap__text uppercase">{roleSecondary}</span>
-							</div>
-						) : null}
-					</h1>
+					<div className="hero-title-stack">
+						<h1 className="hero-title-lines mx-auto w-full overflow-visible">
+							{rolePrimary ? (
+								<div className="hero-noise-wrap flex w-full justify-center">
+									<span className="hero-noise-wrap__text uppercase">{rolePrimary}</span>
+								</div>
+							) : null}
+							{roleSecondary ? (
+								<div className="hero-shadow-wrap flex w-full justify-center">
+									<span className="hero-shadow-wrap__text uppercase">{roleSecondary}</span>
+								</div>
+							) : null}
+						</h1>
 
-					<div className="hero-signature-wrap mx-auto w-full text-center">
-						<p className="hero-signature inline-block">{displayName}</p>
+						<div className="hero-signature-wrap w-full">
+							<p className="hero-signature text-center sm:text-right sm:pr-[6%] md:pr-[8%]">
+								{displayName}
+							</p>
+						</div>
 					</div>
 				</div>
 			</div>
