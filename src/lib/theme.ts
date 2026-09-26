@@ -6,9 +6,7 @@ const STORAGE_KEY = "majo-theme";
 
 export function getSystemTheme(): ResolvedTheme {
 	if (typeof window === "undefined") return "dark";
-	return window.matchMedia("(prefers-color-scheme: light)").matches
-		? "light"
-		: "dark";
+	return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
 }
 
 export function getStoredPreference(): ThemePreference {

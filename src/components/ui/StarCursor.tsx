@@ -1,14 +1,7 @@
 import { useEffect } from "react";
 
 const MAX_PARTICLES = 40;
-const TRAIL_COLORS = [
-	"#C0C0D8",
-	"#FF4FD8",
-	"#E020A0",
-	"#8B2BE8",
-	"#FFFFFF",
-	"#5EC8FF",
-];
+const TRAIL_COLORS = ["#C0C0D8", "#FF4FD8", "#E020A0", "#8B2BE8", "#FFFFFF", "#5EC8FF"];
 
 type Particle = {
 	x: number;

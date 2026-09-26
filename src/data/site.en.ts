@@ -10,8 +10,7 @@ export const siteEn: SiteConfig = {
 	},
 	name: "Mariajose Soles",
 	heroRole: "Full Stack Developer",
-	tagline:
-		"Full Stack Developer · Frontend & Product UX/UI · Lima, Peru · Remote",
+	tagline: "Full Stack Developer · Frontend & Product UX/UI · Lima, Peru · Remote",
 	profile:
 		"I build web products end to end — from the interface to what runs behind it. Collaborative, direct, and tuned for remote delivery.",
 	heroChips: ["React", "TypeScript", "Tailwind", "Cloudflare"],

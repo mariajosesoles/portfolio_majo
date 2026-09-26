@@ -5,33 +5,83 @@
 		"clientKind": "git",
 		"useIgnoreFile": true
 	},
+	"files": {
+		"includes": ["**", "!dist", "!node_modules", "!.astro", "!public/about/frames"]
+	},
 	"formatter": {
 		"enabled": true,
-		"indentStyle": "tab"
+		"indentStyle": "tab",
+		"lineWidth": 100
+	},
+	"assist": {
+		"enabled": true,
+		"actions": {
+			"source": {
+				"organizeImports": "on"
+			}
+		}
 	},
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true
+			"preset": "recommended",
+			"a11y": {
+				"useAriaPropsSupportedByRole": "error",
+				"useButtonType": "error",
+				"useSemanticElements": "error"
+			},
+			"complexity": {
+				"noImportantStyles": "warn"
+			},
+			"correctness": {
+				"noUnusedImports": "error",
+				"noUnusedVariables": "warn",
+				"useExhaustiveDependencies": "warn"
+			},
+			"style": {
+				"noNonNullAssertion": "error",
+				"useImportType": "error",
+				"useNodejsImportProtocol": "off"
+			},
+			"suspicious": {
+				"noArrayIndexKey": "warn",
+				"noExplicitAny": "warn"
+			}
 		}
 	},
 	"javascript": {
 		"formatter": {
-			"quoteStyle": "double"
+			"quoteStyle": "double",
+			"semicolons": "always"
 		}
 	},
 	"css": {
 		"parser": {
 			"tailwindDirectives": true
+		},
+		"formatter": {
+			"enabled": true
 		}
 	},
-	"files": {
-		"includes": ["**", "!dist", "!node_modules", "!.astro"]
+	"json": {
+		"formatter": {
+			"enabled": true,
+			"indentStyle": "tab"
+		}
 	},
 	"overrides": [
 		{
-			"includes": ["**/*.astro", "public/**"],
+			"includes": ["**/*.astro"],
 			"linter": {
+				"enabled": false
+			}
+		},
+		{
+			"includes": ["public/**"],
+			"linter": {
+				"enabled": false
+			},
+			"formatter": {
 				"enabled": false
 			}
 		}

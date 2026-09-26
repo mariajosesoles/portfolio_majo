@@ -1,6 +1,6 @@
 ---
-import type { SiteConfig } from "../../types/site";
 import { buildWhatsAppUrl } from "../../lib/whatsapp";
+import type { SiteConfig } from "../../types/site";
 import { CopyEmailButton } from "../ui/CopyEmailButton";
 
 interface Props {
@@ -8,10 +8,7 @@ interface Props {
 }
 
 const { config } = Astro.props;
-const whatsappUrl = buildWhatsAppUrl(
-	config.contact.phone,
-	config.contact.whatsappMessage,
-);
+const whatsappUrl = buildWhatsAppUrl(config.contact.phone, config.contact.whatsappMessage);
 ---
 
 <section id="contact" class="py-16 md:py-24">

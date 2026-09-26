@@ -63,28 +63,25 @@ export function AboutPortrait({ alt }: AboutPortraitProps) {
 	const pointerRef = useRef({ x: 0, y: 0, active: false });
 	const layoutRef = useRef({ w: 0, h: 0, dpr: 1 });
 
-	const drawFrame = useCallback(
-		(img: HTMLImageElement, bg: string) => {
-			const canvas = canvasRef.current;
-			const { w, h, dpr } = layoutRef.current;
-			if (!canvas || w < 1 || h < 1) return;
+	const drawFrame = useCallback((img: HTMLImageElement, bg: string) => {
+		const canvas = canvasRef.current;
+		const { w, h, dpr } = layoutRef.current;
+		if (!canvas || w < 1 || h < 1) return;
 
-			const ctx = canvas.getContext("2d");
-			if (!ctx) return;
+		const ctx = canvas.getContext("2d");
+		if (!ctx) return;
 
-			ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-			ctx.fillStyle = bg;
-			ctx.fillRect(0, 0, w, h);
+		ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+		ctx.fillStyle = bg;
+		ctx.fillRect(0, 0, w, h);
 
-			const scale = Math.min(w / img.naturalWidth, h / img.naturalHeight);
-			const dw = img.naturalWidth * scale;
-			const dh = img.naturalHeight * scale;
-			const dx = 0;
-			const dy = h - dh;
-			ctx.drawImage(img, dx, dy, dw, dh);
-		},
-		[],
-	);
+		const scale = Math.min(w / img.naturalWidth, h / img.naturalHeight);
+		const dw = img.naturalWidth * scale;
+		const dh = img.naturalHeight * scale;
+		const dx = 0;
+		const dy = h - dh;
+		ctx.drawImage(img, dx, dy, dw, dh);
+	}, []);
 
 	const syncCanvasSize = useCallback(() => {
 		const container = containerRef.current;
@@ -173,8 +170,7 @@ export function AboutPortrait({ alt }: AboutPortraitProps) {
 			}
 
 			const section = getAboutSection();
-			const anchorRect =
-				section?.getBoundingClientRect() ?? container.getBoundingClientRect();
+			const anchorRect = section?.getBoundingClientRect() ?? container.getBoundingClientRect();
 			const { x: faceX, y: faceY, deadzone } = getFaceAnchor(anchorRect);
 			const { x, y, active } = pointerRef.current;
 
@@ -198,11 +194,7 @@ export function AboutPortrait({ alt }: AboutPortraitProps) {
 						targetAngleRef.current,
 						trackLerp,
 					);
-					const idx = angleToFrameIndex(
-						smoothedAngleRef.current,
-						frames.length,
-						angleOffset,
-					);
+					const idx = angleToFrameIndex(smoothedAngleRef.current, frames.length, angleOffset);
 					frameIndexRef.current = idx;
 					img = frames[idx] ?? frames[0];
 				}

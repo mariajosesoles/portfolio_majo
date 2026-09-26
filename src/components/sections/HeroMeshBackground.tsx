@@ -14,14 +14,7 @@ const MESH_DARK = [
 	"#0d0518",
 ] as const;
 
-const MESH_LIGHT = [
-	"#faf0ff",
-	"#ffe4f5",
-	"#e7a0cc",
-	"#c084fc",
-	"#94c2da",
-	"#203f9a",
-] as const;
+const MESH_LIGHT = ["#faf0ff", "#ffe4f5", "#e7a0cc", "#c084fc", "#94c2da", "#203f9a"] as const;
 
 function readTheme(): "light" | "dark" {
 	if (typeof document === "undefined") return "dark";
@@ -34,9 +27,7 @@ export function HeroMeshBackground() {
 	const [theme, setTheme] = useState<"light" | "dark">("dark");
 
 	useEffect(() => {
-		setReducedMotion(
-			window.matchMedia("(prefers-reduced-motion: reduce)").matches,
-		);
+		setReducedMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
 		setTheme(readTheme());
 		setMounted(true);
 
@@ -59,14 +50,9 @@ export function HeroMeshBackground() {
 		"bg-brand-cream bg-[radial-gradient(ellipse_80%_50%_at_50%_100%,#e8479788_0%,transparent_55%),radial-gradient(ellipse_50%_45%_at_15%_50%,#c084fc66_0%,transparent_50%),radial-gradient(ellipse_55%_60%_at_100%_40%,#94c2da77_0%,transparent_55%)]";
 
 	return (
-		<div
-			className="pointer-events-none absolute inset-0 bg-[#0a0614]"
-			aria-hidden="true"
-		>
+		<div className="pointer-events-none absolute inset-0 bg-[#0a0614]" aria-hidden="true">
 			{!mounted ? (
-				<div
-					className={`h-full w-full ${theme === "light" ? cssMeshLight : cssMeshDark}`}
-				/>
+				<div className={`h-full w-full ${theme === "light" ? cssMeshLight : cssMeshDark}`} />
 			) : (
 				<MeshGradient
 					colors={[...colors]}

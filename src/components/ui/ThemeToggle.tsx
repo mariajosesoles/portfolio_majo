@@ -2,12 +2,12 @@ import { Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 import { cn } from "../../lib/cn";
 import {
-	type ResolvedTheme,
-	type ThemePreference,
 	getStoredPreference,
 	getSystemTheme,
+	type ResolvedTheme,
 	resolveTheme,
 	setThemePreference,
+	type ThemePreference,
 } from "../../lib/theme";
 import type { Locale } from "../../types/site";
 
@@ -15,10 +15,7 @@ type ThemeToggleProps = {
 	locale: Locale;
 };
 
-const labels: Record<
-	Locale,
-	{ toggle: string; light: string; dark: string; system: string }
-> = {
+const labels: Record<Locale, { toggle: string; light: string; dark: string; system: string }> = {
 	es: {
 		toggle: "Cambiar tema",
 		light: "Claro",

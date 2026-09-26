@@ -8,11 +8,7 @@ type CopyEmailButtonProps = {
 	copiedLabel: string;
 };
 
-export function CopyEmailButton({
-	email,
-	copyLabel,
-	copiedLabel,
-}: CopyEmailButtonProps) {
+export function CopyEmailButton({ email, copyLabel, copiedLabel }: CopyEmailButtonProps) {
 	const [copied, setCopied] = useState(false);
 
 	const onCopy = async () => {

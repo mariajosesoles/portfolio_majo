@@ -1,3 +1,15 @@
+## Quality gates
+
+Same bar as CI — run before commit/push when you touched code:
+
+```bash
+pnpm exec biome ci .
+pnpm exec astro check   # if TS/Astro changed
+pnpm build              # if structure or deps changed
+```
+
+Details: `.github/REVIEW_GUIDELINES.md` · PR checklist: `.github/pull_request_template.md`
+
 ## Git (Cloud Agent)
 
 Commits must appear only under **Mariajose Soles**, not Cursor Agent, and must not include `Co-authored-by: Cursor` (or similar) in the message.

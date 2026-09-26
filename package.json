@@ -10,7 +10,11 @@
 		"build": "astro build",
 		"preview": "astro preview",
 		"check": "biome check . && astro check",
+		"lint": "biome lint .",
+		"lint:fix": "biome check --write .",
 		"format": "biome format --write .",
+		"ci:biome": "biome ci .",
+		"verify": "biome ci . && astro check && pnpm build",
 		"astro": "astro",
 		"about:extract-frames": "python3 scripts/extract-about-frames.py"
 	},
@@ -44,7 +48,7 @@
 		"@types/react": "^19.2.18",
 		"@types/react-dom": "^19.2.7",
 		"tailwindcss": "^4.3.3",
-		"typescript": "^7.0.2",
+		"typescript": "^5.9.3",
 		"wrangler": "^4.130.0"
 	}
 }

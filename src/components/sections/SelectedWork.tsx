@@ -62,9 +62,7 @@ export function SelectedWork({ config, projects }: SelectedWorkProps) {
 	return (
 		<section ref={sectionRef} id="work" className="py-16 md:py-20">
 			<div className="page-container">
-				<h2 className="type-section-title mb-10">
-					{config.sections.selectedWork}
-				</h2>
+				<h2 className="type-section-title mb-10">{config.sections.selectedWork}</h2>
 				<div className="grid gap-6 md:grid-cols-2">
 					{projects.map((project) => (
 						<article
@@ -83,9 +81,7 @@ export function SelectedWork({ config, projects }: SelectedWorkProps) {
 							<div className="mb-4">
 								<StackIcons stack={project.stack} />
 							</div>
-							<p className="type-body mb-4 text-muted">
-								{project.description}
-							</p>
+							<p className="type-body mb-4 text-muted">{project.description}</p>
 							{project.url && (
 								<a
 									href={project.url}

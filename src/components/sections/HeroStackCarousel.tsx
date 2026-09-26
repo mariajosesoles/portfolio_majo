@@ -11,18 +11,13 @@ const TILE_GAP = "gap-4 md:gap-5 lg:gap-6";
 type StackItem = {
 	slug: string;
 	icon: NonNullable<ReturnType<typeof getStackIcon>>;
+	tileKey: string;
 };
 
-function StackIconTile({
-	item,
-	id,
-}: {
-	item: StackItem;
-	id: string;
-}) {
+function StackIconTile({ item, id }: { item: StackItem; id: string }) {
 	const { icon } = item;
 	return (
-		<div key={id} className="flex shrink-0 items-center justify-center" role="listitem">
+		<li key={id} className="flex shrink-0 list-none items-center justify-center">
 			<span
 				className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-bg-elevated/70 shadow-[0_0_20px_var(--color-glow)] md:h-11 md:w-11"
 				title={icon.title}
@@ -38,27 +33,21 @@ function StackIconTile({
 					<path d={icon.path} />
 				</svg>
 			</span>
-		</div>
+		</li>
 	);
 }
 
-function IconRow({
-	items,
-	keyPrefix,
-}: {
-	items: StackItem[];
-	keyPrefix: string;
-}) {
+function IconRow({ items, keyPrefix }: { items: StackItem[]; keyPrefix: string }) {
 	return (
-		<div className={`flex shrink-0 items-center ${TILE_GAP}`}>
-			{items.map((item, index) => (
+		<ul className={`flex shrink-0 items-center ${TILE_GAP}`}>
+			{items.map((item) => (
 				<StackIconTile
-					key={`${keyPrefix}-${item.slug}-${index}`}
-					id={`${keyPrefix}-${item.slug}-${index}`}
+					key={`${keyPrefix}-${item.tileKey}`}
+					id={`${keyPrefix}-${item.tileKey}`}
 					item={item}
 				/>
 			))}
-		</div>
+		</ul>
 	);
 }
 
@@ -66,22 +55,25 @@ export function HeroStackCarousel({ stack }: HeroStackCarouselProps) {
 	const [reducedMotion, setReducedMotion] = useState(false);
 
 	useEffect(() => {
-		setReducedMotion(
-			window.matchMedia("(prefers-reduced-motion: reduce)").matches,
-		);
+		setReducedMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
 	}, []);
 
 	const items = stack.flatMap((slug) => {
 		const icon = getStackIcon(slug);
-		return icon ? [{ slug, icon }] : [];
+		return icon ? [{ slug, icon, tileKey: slug }] : [];
 	});
 
 	if (items.length === 0) return null;
 
-	const expanded: StackItem[] = Array.from({ length: REPEAT_IN_HALF }, () => items).flat();
+	const expanded: StackItem[] = Array.from({ length: REPEAT_IN_HALF }, (_, block) =>
+		items.map((entry) => ({
+			...entry,
+			tileKey: `${block}-${entry.slug}`,
+		})),
+	).flat();
 
 	return (
-		<div
+		<section
 			className="hero-carousel-wrap relative z-10 mt-auto w-full shrink-0"
 			aria-label="Stack tecnológico"
 		>
@@ -101,6 +93,6 @@ export function HeroStackCarousel({ stack }: HeroStackCarouselProps) {
 					</div>
 				)}
 			</div>
-		</div>
+		</section>
 	);
 }

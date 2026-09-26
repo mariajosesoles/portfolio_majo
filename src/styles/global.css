@@ -423,8 +423,8 @@
 		}
 	}
 
-	.hero-integrated-header {
-		background: transparent !important;
+	header.hero-integrated-header {
+		background-color: transparent;
 	}
 
 	[data-theme="light"] .hero-integrated-header nav a {
