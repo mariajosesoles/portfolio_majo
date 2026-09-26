@@ -95,6 +95,11 @@ def main() -> int:
 
 	cap.release()
 
+	suggested_projection = []
+	for i in range(FRAME_COUNT):
+		deg = int(round((i / FRAME_COUNT) * 360)) % 360
+		suggested_projection.append(f"azim_{deg:03d}_{i:03d}.webp")
+
 	manifest = {
 		"frameCount": FRAME_COUNT,
 		"background": bg_hex,
@@ -107,6 +112,14 @@ def main() -> int:
 		"angleOffsetRadians": 0,
 		"faceCenterX": 0.38,
 		"faceCenterY": 0.42,
+		"chromaTolerance": 34,
+		"trackingAnchorSection": {
+			"xWide": 0.2,
+			"yWide": 0.58,
+			"xNarrow": 0.5,
+			"yNarrow": 0.46,
+		},
+		"suggestedProjectionNames": suggested_projection,
 	}
 	(OUT_DIR / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
 	print(f"Wrote {FRAME_COUNT} frames + center to {OUT_DIR}")
