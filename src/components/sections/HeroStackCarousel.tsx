@@ -6,7 +6,7 @@ type HeroStackCarouselProps = {
 };
 
 const REPEAT_IN_HALF = 4;
-const TILE_GAP = "gap-5 md:gap-6";
+const TILE_GAP = "gap-4 md:gap-5 lg:gap-6";
 
 type StackItem = {
 	slug: string;

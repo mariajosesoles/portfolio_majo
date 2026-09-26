@@ -58,10 +58,14 @@
 
 	--hero-title-size: clamp(1.45rem, 8.5vw, 2.65rem);
 	--hero-signature-size: clamp(1.2rem, 6vw, 2rem);
-	--hero-header-offset: calc(4.75rem + env(safe-area-inset-top, 0px));
+	--hero-header-offset: calc(4.25rem + env(safe-area-inset-top, 0px));
 	--hero-title-stack-overlap: 0.1;
-	--hero-header-gap: 3.75rem;
-	--hero-carousel-gap: 3.75rem;
+	--hero-title-region-py: clamp(0.35rem, 1.25vh, 0.875rem);
+	--hero-carousel-pt: clamp(0.5rem, 1.25vh, 0.75rem);
+	--hero-carousel-pb: clamp(0.5rem, 1.5vh, 1rem);
+	--hero-stack-marquee-py: 0.625rem;
+	--hero-shell-pb: max(0.5rem, env(safe-area-inset-bottom, 0px));
+	--hero-copy-gap: 0.35rem;
 	--hero-fullstack-noise: #ff008a;
 	--font-mono: ui-monospace, "JetBrains Mono", monospace;
 
@@ -84,7 +88,13 @@
 		--type-nav: 0.9375rem;
 		--hero-title-size: clamp(2.35rem, 7.25vw, 5.25rem);
 		--hero-signature-size: clamp(1.65rem, 4.8vw, 3.75rem);
-		--hero-header-offset: calc(5rem + env(safe-area-inset-top, 0px));
+		--hero-header-offset: calc(4.625rem + env(safe-area-inset-top, 0px));
+		--hero-title-region-py: clamp(0.45rem, 1.65vh, 1.125rem);
+		--hero-carousel-pt: clamp(0.625rem, 1.65vh, 1rem);
+		--hero-carousel-pb: clamp(0.625rem, 1.75vh, 1.25rem);
+		--hero-stack-marquee-py: 0.8125rem;
+		--hero-shell-pb: max(0.625rem, env(safe-area-inset-bottom, 0px));
+		--hero-copy-gap: 0.45rem;
 	}
 }
 
@@ -102,6 +112,12 @@
 		--hero-title-size: clamp(3.25rem, 6.5vw, 8.5rem);
 		--hero-signature-size: clamp(2rem, 4.5vw, 7.1rem);
 		--hero-header-offset: calc(5.25rem + env(safe-area-inset-top, 0px));
+		--hero-title-region-py: clamp(0.5rem, 2vh, 1.5rem);
+		--hero-carousel-pt: clamp(0.75rem, 2vh, 1.25rem);
+		--hero-carousel-pb: clamp(0.75rem, 2vh, 1.5rem);
+		--hero-stack-marquee-py: 1rem;
+		--hero-shell-pb: max(0.75rem, env(safe-area-inset-bottom, 0px));
+		--hero-copy-gap: 0.5rem;
 	}
 }
 
@@ -109,6 +125,11 @@
 	:root {
 		--hero-title-size: clamp(1.35rem, min(7.5vw, 9vh), 2.25rem);
 		--hero-signature-size: clamp(1.1rem, min(5vw, 7vh), 1.75rem);
+		--hero-header-offset: calc(3.875rem + env(safe-area-inset-top, 0px));
+		--hero-title-region-py: clamp(0.25rem, 1vh, 0.625rem);
+		--hero-carousel-pt: clamp(0.375rem, 1vh, 0.625rem);
+		--hero-carousel-pb: clamp(0.375rem, 1.25vh, 0.75rem);
+		--hero-stack-marquee-py: 0.5rem;
 	}
 }
 
@@ -256,11 +277,11 @@
 
 	.hero-shell {
 		padding-top: var(--hero-header-offset);
-		padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
+		padding-bottom: var(--hero-shell-pb);
 	}
 
 	.hero-title-region {
-		padding-block: clamp(0.5rem, 2vh, 1.5rem);
+		padding-block: var(--hero-title-region-py);
 	}
 
 	.hero-copy-block {
@@ -269,6 +290,7 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
+		gap: var(--hero-copy-gap);
 		text-align: center;
 	}
 
@@ -278,13 +300,12 @@
 
 	.hero-carousel-wrap {
 		margin-top: 0;
-		padding-top: clamp(0.75rem, 2vh, 1.25rem);
-		padding-bottom: clamp(0.75rem, 2vh, 1.5rem);
+		padding-top: var(--hero-carousel-pt);
+		padding-bottom: var(--hero-carousel-pb);
 	}
 
-
 	.hero-stack-marquee {
-		padding-block: 1rem;
+		padding-block: var(--hero-stack-marquee-py);
 	}
 
 	.hero-stack-marquee__track {

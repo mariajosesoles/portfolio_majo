@@ -54,7 +54,7 @@ export function Hero({ config }: HeroProps) {
 			<div
 				className={`hero-title-region flex min-h-0 flex-1 items-center justify-center ${
 					isLight
-						? "mx-4 rounded-3xl border border-border bg-bg-elevated/85 p-6 shadow-[0_0_48px_var(--color-glow)] backdrop-blur-sm sm:mx-6 sm:p-8 md:p-10"
+						? "mx-4 rounded-3xl border border-border bg-bg-elevated/85 p-5 shadow-[0_0_48px_var(--color-glow)] backdrop-blur-sm sm:mx-6 sm:p-6 md:p-8 lg:p-10"
 						: ""
 				}`}
 			>
