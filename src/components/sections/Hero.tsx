@@ -73,8 +73,8 @@ export function Hero({ config }: HeroProps) {
 							) : null}
 						</h1>
 
-						<div className="hero-signature-wrap w-full">
-							<p className="hero-signature">{displayName}</p>
+						<div className="hero-signature-wrap flex w-full justify-center sm:justify-end">
+							<p className="hero-signature shrink-0">{displayName}</p>
 						</div>
 					</div>
 				</div>

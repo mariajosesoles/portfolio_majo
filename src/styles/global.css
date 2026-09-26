@@ -285,7 +285,8 @@
 		color: #ff008a;
 		text-transform: none;
 		font-variant: normal;
-		transform: translateY(-0.35em);
+		display: inline-block;
+		margin: 0;
 	}
 
 	[data-theme="light"] .hero-noise-wrap__text {
@@ -350,6 +351,16 @@
 
 	.hero-signature-wrap {
 		width: 100%;
+		position: relative;
+		z-index: 2;
+		margin-top: calc(-0.62 * var(--hero-signature-size) - 0.06 * var(--hero-title-size));
+		text-align: center;
+	}
+
+	@media (min-width: 640px) {
+		.hero-signature-wrap {
+			text-align: right;
+		}
 	}
 
 	.hero-carousel-wrap {
