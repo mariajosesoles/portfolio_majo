@@ -10,24 +10,24 @@ const { config } = Astro.props;
 
 <section id="experience" class="py-16 md:py-20">
 	<div class="page-container">
-		<h2 class="mb-10 text-2xl font-bold md:text-3xl">{config.sections.experience}</h2>
+		<h2 class="type-section-title mb-10">{config.sections.experience}</h2>
 		<article class="rounded-2xl border border-border bg-bg-elevated/50 p-6 md:p-8">
 			<div class="mb-6 flex flex-wrap items-baseline justify-between gap-2">
-				<h3 class="text-xl font-semibold">{config.experience.company}</h3>
-				<p class="text-sm text-muted">
+				<h3 class="type-h3">{config.experience.company}</h3>
+				<p class="type-small text-muted">
 					{config.experience.period} · {config.experience.location}
 				</p>
 			</div>
-			<p class="mb-6 text-muted">{config.experience.intro}</p>
+			<p class="type-body mb-6 text-muted">{config.experience.intro}</p>
 			<ul class="space-y-4">
 				{
 					config.experience.products.map((product) => (
 						<li class="border-l-2 border-accent/50 pl-4">
-							<p class="font-medium">
+							<p class="type-body font-medium">
 								{product.name}
 								<span class="font-normal text-muted"> — {product.description}</span>
 							</p>
-							<p class="text-sm text-accent">{product.role}</p>
+							<p class="type-small text-accent">{product.role}</p>
 						</li>
 					))
 				}

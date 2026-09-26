@@ -9,7 +9,7 @@ export function LangSwitch({ locale }: LangSwitchProps) {
 	const isEs = locale === "es";
 	return (
 		<div
-			className="flex items-center gap-1 rounded-full border border-border bg-bg-elevated/80 p-1 text-xs font-medium"
+			className="type-caption flex items-center gap-1 rounded-full border border-border bg-bg-elevated/80 p-1 font-medium"
 			aria-label="Language"
 		>
 			<a

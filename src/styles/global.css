@@ -45,12 +45,21 @@
 	--font-script: "Pacifico", cursive;
 	--font-signature: "Kapakana", var(--font-script);
 	--font-nav: "Istok Web", var(--font-sans);
-	/* Títulos hero (FULLSTACK / DEVELOPER) — desktop-first, escala en vw */
-	--hero-title-size: clamp(1.65rem, min(9vw, 11vh), 8.5rem);
-	--hero-header-offset: calc(5.25rem + env(safe-area-inset-top, 0px));
-	/* Negative pull of DEVELOPER toward FULLSTACK (× title size). Original intent: ~0.04em */
+
+	/* Tipografía responsive: mobile (default) → tablet (768+) → desktop (1024+) */
+	--type-h2: 1.5rem;
+	--type-h3: 1.125rem;
+	--type-lead: 0.9375rem;
+	--type-body: 0.9375rem;
+	--type-body-lg: 1rem;
+	--type-small: 0.8125rem;
+	--type-caption: 0.75rem;
+	--type-nav: 0.8125rem;
+
+	--hero-title-size: clamp(1.45rem, 8.5vw, 2.65rem);
+	--hero-signature-size: clamp(1.2rem, 6vw, 2rem);
+	--hero-header-offset: calc(4.75rem + env(safe-area-inset-top, 0px));
 	--hero-title-stack-overlap: 0.1;
-	--hero-signature-size: clamp(1.7rem, 7.48vw, 7.1rem);
 	--hero-header-gap: 3.75rem;
 	--hero-carousel-gap: 3.75rem;
 	--hero-fullstack-noise: #ff008a;
@@ -62,17 +71,44 @@
 	--stack-icon-size: 2rem;
 }
 
-@media (max-width: 380px) {
+/* Tablet */
+@media (min-width: 768px) {
 	:root {
-		--hero-title-size: clamp(1.45rem, 8.2vw, 2.75rem);
-		--hero-signature-size: clamp(1.25rem, 6vw, 2.25rem);
+		--type-h2: 1.75rem;
+		--type-h3: 1.25rem;
+		--type-lead: 1rem;
+		--type-body: 1rem;
+		--type-body-lg: 1.0625rem;
+		--type-small: 0.875rem;
+		--type-caption: 0.8125rem;
+		--type-nav: 0.9375rem;
+		--hero-title-size: clamp(2.35rem, 7.25vw, 5.25rem);
+		--hero-signature-size: clamp(1.65rem, 4.8vw, 3.75rem);
+		--hero-header-offset: calc(5rem + env(safe-area-inset-top, 0px));
 	}
 }
 
-@media (min-width: 381px) and (max-height: 640px) {
+/* Desktop */
+@media (min-width: 1024px) {
 	:root {
-		--hero-title-size: clamp(1.5rem, min(7vw, 9vh), 5.5rem);
-		--hero-signature-size: clamp(1.35rem, min(5vw, 7vh), 3.5rem);
+		--type-h2: 1.875rem;
+		--type-h3: 1.375rem;
+		--type-lead: 1.0625rem;
+		--type-body: 1rem;
+		--type-body-lg: 1.125rem;
+		--type-small: 0.875rem;
+		--type-caption: 0.8125rem;
+		--type-nav: 1rem;
+		--hero-title-size: clamp(3.25rem, 6.5vw, 8.5rem);
+		--hero-signature-size: clamp(2rem, 4.5vw, 7.1rem);
+		--hero-header-offset: calc(5.25rem + env(safe-area-inset-top, 0px));
+	}
+}
+
+@media (max-height: 640px) and (max-width: 767px) {
+	:root {
+		--hero-title-size: clamp(1.35rem, min(7.5vw, 9vh), 2.25rem);
+		--hero-signature-size: clamp(1.1rem, min(5vw, 7vh), 1.75rem);
 	}
 }
 
@@ -257,6 +293,12 @@
 
 	.font-nav {
 		font-family: var(--font-nav);
+		font-size: var(--type-nav);
+	}
+
+	.type-nav {
+		font-size: var(--type-nav);
+		line-height: 1.2;
 	}
 
 	@media (prefers-reduced-motion: reduce) {
@@ -279,6 +321,44 @@
 	/* Mismo ancho máximo que Contact, Experience y Footer (max-w-6xl) */
 	.page-container {
 		@apply mx-auto w-full max-w-6xl px-6;
+	}
+
+	.type-section-title {
+		font-size: var(--type-h2);
+		font-weight: 700;
+		line-height: 1.15;
+		letter-spacing: -0.02em;
+	}
+
+	.type-h3 {
+		font-size: var(--type-h3);
+		font-weight: 600;
+		line-height: 1.25;
+	}
+
+	.type-lead {
+		font-size: var(--type-lead);
+		line-height: 1.55;
+	}
+
+	.type-body {
+		font-size: var(--type-body);
+		line-height: 1.6;
+	}
+
+	.type-body-lg {
+		font-size: var(--type-body-lg);
+		line-height: 1.65;
+	}
+
+	.type-small {
+		font-size: var(--type-small);
+		line-height: 1.5;
+	}
+
+	.type-caption {
+		font-size: var(--type-caption);
+		line-height: 1.4;
 	}
 
 	/* About: reserva para animación (montar en #about-animation-slot) */

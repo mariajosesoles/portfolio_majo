@@ -30,7 +30,7 @@ export function CopyEmailButton({
 			type="button"
 			onClick={onCopy}
 			className={cn(
-				"inline-flex items-center gap-2 rounded-xl border border-border bg-bg-elevated px-5 py-3 text-sm text-accent transition hover:border-accent/50 hover:shadow-[0_0_20px_var(--color-glow)]",
+				"type-small inline-flex items-center gap-2 rounded-xl border border-border bg-bg-elevated px-5 py-3 text-accent transition hover:border-accent/50 hover:shadow-[0_0_20px_var(--color-glow)]",
 			)}
 		>
 			{copied ? (

@@ -15,7 +15,7 @@ const portraitAlt =
 
 <section id="about" class="about-section py-16 md:py-20" data-about-track>
 	<div class="page-container">
-		<h2 class="mb-10 text-2xl font-bold md:mb-12 md:text-3xl">{config.sections.about}</h2>
+		<h2 class="type-section-title mb-10 md:mb-12">{config.sections.about}</h2>
 		<div
 			class="grid grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-12 lg:gap-16 xl:gap-20"
 		>
@@ -30,10 +30,10 @@ const portraitAlt =
 			<div class="about-copy min-w-0 space-y-4 md:pt-2 lg:max-w-xl lg:justify-self-end xl:max-w-2xl">
 				{
 					config.about.paragraphs.map((paragraph) => (
-						<p class="text-base leading-relaxed text-muted md:text-lg">{paragraph}</p>
+						<p class="type-body-lg text-muted">{paragraph}</p>
 					))
 				}
-				<p class="pt-2 text-sm font-medium text-accent md:text-base">{config.about.languages}</p>
+				<p class="type-body pt-2 font-medium text-accent">{config.about.languages}</p>
 			</div>
 		</div>
 	</div>
