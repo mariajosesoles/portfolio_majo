@@ -56,7 +56,7 @@
 	--type-caption: 0.75rem;
 	--type-nav: 0.8125rem;
 
-	--hero-title-size: clamp(1.45rem, 8.5vw, 2.65rem);
+	--hero-title-size: clamp(1.6rem, 9.25vw, 2.95rem);
 	--hero-signature-size: clamp(1.2rem, 6vw, 2rem);
 	--hero-header-offset: calc(4.25rem + env(safe-area-inset-top, 0px));
 	--hero-title-stack-overlap: 0.1;
@@ -86,7 +86,7 @@
 		--type-small: 0.875rem;
 		--type-caption: 0.8125rem;
 		--type-nav: 0.9375rem;
-		--hero-title-size: clamp(2.35rem, 7.25vw, 5.25rem);
+		--hero-title-size: clamp(2.65rem, 8.1vw, 5.85rem);
 		--hero-signature-size: clamp(1.65rem, 4.8vw, 3.75rem);
 		--hero-header-offset: calc(4.625rem + env(safe-area-inset-top, 0px));
 		--hero-title-region-py: clamp(0.45rem, 1.65vh, 1.125rem);
@@ -98,7 +98,15 @@
 	}
 }
 
-/* Desktop */
+/* Laptop (1024–1439 — típico 13–15") */
+@media (min-width: 1024px) and (max-width: 1439px) {
+	:root {
+		--hero-title-size: clamp(4.35rem, 9.35vw, 7.85rem);
+		--hero-signature-size: clamp(2.35rem, 5.25vw, 4.5rem);
+	}
+}
+
+/* Desktop grande */
 @media (min-width: 1024px) {
 	:root {
 		--type-h2: 1.875rem;
@@ -109,8 +117,6 @@
 		--type-small: 0.875rem;
 		--type-caption: 0.8125rem;
 		--type-nav: 1rem;
-		--hero-title-size: clamp(3.25rem, 6.5vw, 8.5rem);
-		--hero-signature-size: clamp(2rem, 4.5vw, 7.1rem);
 		--hero-header-offset: calc(5.25rem + env(safe-area-inset-top, 0px));
 		--hero-title-region-py: clamp(0.5rem, 2vh, 1.5rem);
 		--hero-carousel-pt: clamp(0.75rem, 2vh, 1.25rem);
@@ -118,6 +124,30 @@
 		--hero-stack-marquee-py: 1rem;
 		--hero-shell-pb: max(0.75rem, env(safe-area-inset-bottom, 0px));
 		--hero-copy-gap: 0.5rem;
+	}
+}
+
+/* Desktop 1440+ */
+@media (min-width: 1440px) {
+	:root {
+		--hero-title-size: clamp(4.85rem, 7.85vw, 10rem);
+		--hero-signature-size: clamp(2.55rem, 5vw, 7.5rem);
+	}
+}
+
+/* Pantallas grandes (27" / QHD) */
+@media (min-width: 1680px) {
+	:root {
+		--hero-title-size: clamp(5.35rem, 8.35vw, 11.25rem);
+		--hero-signature-size: clamp(2.85rem, 5.35vw, 8.1rem);
+	}
+}
+
+/* Full HD+ / ultrawide */
+@media (min-width: 1920px) {
+	:root {
+		--hero-title-size: clamp(5.75rem, 8.75vw, 12.5rem);
+		--hero-signature-size: clamp(3rem, 5.65vw, 8.75rem);
 	}
 }
 
@@ -200,7 +230,8 @@
 
 	.hero-noise-wrap {
 		max-width: 100%;
-		overflow: hidden;
+		overflow: visible;
+		padding-top: 0.14em;
 	}
 
 	.hero-shadow-wrap {
@@ -208,10 +239,12 @@
 	}
 
 	.hero-noise-wrap__text {
+		display: inline-block;
 		font-family: var(--font-hero);
 		font-weight: 900;
 		letter-spacing: 0;
-		line-height: 0.92;
+		line-height: 1;
+		padding-block: 0.06em 0.02em;
 		font-size: var(--hero-title-size);
 		/* Figma Noise Duo — grain un poco más visible (tile 72px, blanco 32%) */
 		background-image:
@@ -252,7 +285,7 @@
 		color: #ff008a;
 		text-transform: none;
 		font-variant: normal;
-		transform: translateY(-0.35em);
+		margin: 0;
 	}
 
 	[data-theme="light"] .hero-noise-wrap__text {
@@ -282,20 +315,44 @@
 
 	.hero-title-region {
 		padding-block: var(--hero-title-region-py);
+		overflow: visible;
 	}
 
 	.hero-copy-block {
 		display: flex;
 		width: 100%;
+		max-width: 100%;
+		flex: 0 1 auto;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		gap: var(--hero-copy-gap);
-		text-align: center;
+		margin-inline: auto;
+	}
+
+	.hero-section {
+		overflow-x: clip;
+		overflow-y: visible;
+	}
+
+	.hero-title-stack {
+		display: flex;
+		width: 100%;
+		flex-direction: column;
+		align-items: stretch;
+		justify-content: center;
+		gap: 0;
+		padding-top: 0.15em;
+	}
+
+	.hero-title-lines {
+		overflow: visible;
 	}
 
 	.hero-signature-wrap {
 		width: 100%;
+		position: relative;
+		z-index: 2;
+		margin-top: calc(-0.62 * var(--hero-signature-size) - 0.06 * var(--hero-title-size));
 	}
 
 	.hero-carousel-wrap {
