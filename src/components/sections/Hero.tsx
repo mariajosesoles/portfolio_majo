@@ -74,9 +74,7 @@ export function Hero({ config }: HeroProps) {
 						</h1>
 
 						<div className="hero-signature-wrap w-full">
-							<p className="hero-signature text-center sm:text-right sm:pr-[6%] md:pr-[8%]">
-								{displayName}
-							</p>
+							<p className="hero-signature">{displayName}</p>
 						</div>
 					</div>
 				</div>

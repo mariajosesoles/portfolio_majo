@@ -340,7 +340,7 @@
 		flex-direction: column;
 		align-items: stretch;
 		justify-content: center;
-		gap: var(--hero-copy-gap);
+		gap: 0;
 		padding-top: 0.15em;
 	}
 
