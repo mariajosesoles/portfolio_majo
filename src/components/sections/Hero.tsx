@@ -58,8 +58,8 @@ export function Hero({ config }: HeroProps) {
 						: ""
 				}`}
 			>
-				<div className="hero-stagger hero-copy-block w-full">
-					<h1 className="mx-auto w-full max-w-[min(100%,56rem)]">
+				<div className="hero-stagger hero-copy-block page-container w-full">
+					<h1 className="mx-auto w-full">
 						{rolePrimary ? (
 							<div className="hero-noise-wrap flex w-full justify-center">
 								<span className="hero-noise-wrap__text uppercase">{rolePrimary}</span>
@@ -72,7 +72,7 @@ export function Hero({ config }: HeroProps) {
 						) : null}
 					</h1>
 
-					<div className="hero-signature-wrap mx-auto w-full max-w-[min(100%,56rem)]">
+					<div className="hero-signature-wrap mx-auto w-full">
 						<p className="hero-signature text-center sm:text-right sm:pr-[6%] md:pr-[8%]">
 							{displayName}
 						</p>

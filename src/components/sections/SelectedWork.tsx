@@ -61,7 +61,7 @@ export function SelectedWork({ config, projects }: SelectedWorkProps) {
 
 	return (
 		<section ref={sectionRef} id="work" className="py-16 md:py-20">
-			<div className="mx-auto max-w-6xl px-6">
+			<div className="page-container">
 				<h2 className="mb-10 text-2xl font-bold md:text-3xl">
 					{config.sections.selectedWork}
 				</h2>

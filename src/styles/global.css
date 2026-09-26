@@ -224,7 +224,6 @@
 	}
 
 	.hero-title-region {
-		padding-inline: clamp(0.75rem, 4vw, 1.5rem);
 		padding-block: clamp(0.5rem, 2vh, 1.5rem);
 	}
 
@@ -277,6 +276,11 @@
 }
 
 @layer components {
+	/* Mismo ancho máximo que Contact, Experience y Footer (max-w-6xl) */
+	.page-container {
+		@apply mx-auto w-full max-w-6xl px-6;
+	}
+
 	/* About: reserva para animación (montar en #about-animation-slot) */
 	.about-animation-slot {
 		min-height: clamp(16rem, 42vw, 22rem);
