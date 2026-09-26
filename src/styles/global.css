@@ -98,7 +98,15 @@
 	}
 }
 
-/* Desktop */
+/* Laptop (1024–1439 — típico 13–15") */
+@media (min-width: 1024px) and (max-width: 1439px) {
+	:root {
+		--hero-title-size: clamp(3.75rem, 8.25vw, 6.75rem);
+		--hero-signature-size: clamp(2.35rem, 5.25vw, 4.5rem);
+	}
+}
+
+/* Desktop grande */
 @media (min-width: 1024px) {
 	:root {
 		--type-h2: 1.875rem;
@@ -109,8 +117,6 @@
 		--type-small: 0.875rem;
 		--type-caption: 0.8125rem;
 		--type-nav: 1rem;
-		--hero-title-size: clamp(3.25rem, 6.5vw, 8.5rem);
-		--hero-signature-size: clamp(2rem, 4.5vw, 7.1rem);
 		--hero-header-offset: calc(5.25rem + env(safe-area-inset-top, 0px));
 		--hero-title-region-py: clamp(0.5rem, 2vh, 1.5rem);
 		--hero-carousel-pt: clamp(0.75rem, 2vh, 1.25rem);
@@ -118,6 +124,13 @@
 		--hero-stack-marquee-py: 1rem;
 		--hero-shell-pb: max(0.75rem, env(safe-area-inset-bottom, 0px));
 		--hero-copy-gap: 0.5rem;
+	}
+}
+
+@media (min-width: 1440px) {
+	:root {
+		--hero-title-size: clamp(4rem, 6.75vw, 8.5rem);
+		--hero-signature-size: clamp(2.5rem, 4.75vw, 7.1rem);
 	}
 }
 
@@ -287,11 +300,13 @@
 	.hero-copy-block {
 		display: flex;
 		width: 100%;
+		max-width: 100%;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
 		gap: var(--hero-copy-gap);
 		text-align: center;
+		margin-inline: auto;
 	}
 
 	.hero-signature-wrap {
