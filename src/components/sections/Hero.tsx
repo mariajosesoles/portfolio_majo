@@ -50,19 +50,16 @@ export function Hero({ config }: HeroProps) {
 	const isLight = theme === "light";
 
 	return (
-		<div
-			ref={containerRef}
-			className="relative z-10 flex min-h-0 flex-1 flex-col justify-center"
-		>
+		<div ref={containerRef} className="hero-shell relative z-10 flex min-h-0 flex-1 flex-col">
 			<div
-				className={`hero-stagger mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center px-6 ${
+				className={`hero-title-region flex min-h-0 flex-1 items-center justify-center ${
 					isLight
-						? "rounded-3xl border border-border bg-bg-elevated/85 p-8 shadow-[0_0_48px_var(--color-glow)] backdrop-blur-sm md:p-12"
+						? "mx-4 rounded-3xl border border-border bg-bg-elevated/85 p-6 shadow-[0_0_48px_var(--color-glow)] backdrop-blur-sm sm:mx-6 sm:p-8 md:p-10"
 						: ""
 				}`}
 			>
-				<div className="hero-copy-block mx-auto max-w-[min(100%,73rem)]">
-					<h1 className="w-full">
+				<div className="hero-stagger hero-copy-block w-full">
+					<h1 className="mx-auto w-full max-w-[min(100%,56rem)]">
 						{rolePrimary ? (
 							<div className="hero-noise-wrap flex w-full justify-center">
 								<span className="hero-noise-wrap__text uppercase">{rolePrimary}</span>
@@ -75,11 +72,14 @@ export function Hero({ config }: HeroProps) {
 						) : null}
 					</h1>
 
-					<p className="hero-signature -mt-[0.15em] w-full max-w-[92%] pr-[6%] text-right md:max-w-[85%] md:pr-[10%]">
-						{displayName}
-					</p>
+					<div className="hero-signature-wrap mx-auto w-full max-w-[min(100%,56rem)]">
+						<p className="hero-signature text-center sm:text-right sm:pr-[6%] md:pr-[8%]">
+							{displayName}
+						</p>
+					</div>
 				</div>
 			</div>
+
 			<HeroStackCarousel stack={config.heroStack} />
 		</div>
 	);

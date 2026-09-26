@@ -46,7 +46,8 @@
 	--font-signature: "Kapakana", var(--font-script);
 	--font-nav: "Istok Web", var(--font-sans);
 	/* Títulos hero (FULLSTACK / DEVELOPER) — desktop-first, escala en vw */
-	--hero-title-size: clamp(1.95rem, 9vw, 8.5rem);
+	--hero-title-size: clamp(1.65rem, min(9vw, 11vh), 8.5rem);
+	--hero-header-offset: calc(5.25rem + env(safe-area-inset-top, 0px));
 	/* Negative pull of DEVELOPER toward FULLSTACK (× title size). Original intent: ~0.04em */
 	--hero-title-stack-overlap: 0.1;
 	--hero-signature-size: clamp(1.7rem, 7.48vw, 7.1rem);
@@ -59,6 +60,20 @@
 	--radius-pill: 9999px;
 	--max-width-content: 72rem;
 	--stack-icon-size: 2rem;
+}
+
+@media (max-width: 380px) {
+	:root {
+		--hero-title-size: clamp(1.45rem, 8.2vw, 2.75rem);
+		--hero-signature-size: clamp(1.25rem, 6vw, 2.25rem);
+	}
+}
+
+@media (min-width: 381px) and (max-height: 640px) {
+	:root {
+		--hero-title-size: clamp(1.5rem, min(7vw, 9vh), 5.5rem);
+		--hero-signature-size: clamp(1.35rem, min(5vw, 7vh), 3.5rem);
+	}
 }
 
 :root,
@@ -203,20 +218,35 @@
 			0 4px 64px rgb(255 0 138 / 0.35);
 	}
 
+	.hero-shell {
+		padding-top: var(--hero-header-offset);
+		padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
+	}
+
+	.hero-title-region {
+		padding-inline: clamp(0.75rem, 4vw, 1.5rem);
+		padding-block: clamp(0.5rem, 2vh, 1.5rem);
+	}
+
 	.hero-copy-block {
 		display: flex;
 		width: 100%;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		padding-top: calc(4.75rem + var(--hero-header-gap));
-		padding-bottom: 0;
+		text-align: center;
+	}
+
+	.hero-signature-wrap {
+		width: 100%;
 	}
 
 	.hero-carousel-wrap {
-		margin-top: var(--hero-carousel-gap);
-		padding-block: 1.25rem;
+		margin-top: 0;
+		padding-top: clamp(0.75rem, 2vh, 1.25rem);
+		padding-bottom: clamp(0.75rem, 2vh, 1.5rem);
 	}
+
 
 	.hero-stack-marquee {
 		padding-block: 1rem;

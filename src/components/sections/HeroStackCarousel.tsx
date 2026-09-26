@@ -82,7 +82,7 @@ export function HeroStackCarousel({ stack }: HeroStackCarouselProps) {
 
 	return (
 		<div
-			className="hero-carousel-wrap relative z-10 w-full"
+			className="hero-carousel-wrap relative z-10 mt-auto w-full shrink-0"
 			aria-label="Stack tecnológico"
 		>
 			<div className="relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2 px-0">
