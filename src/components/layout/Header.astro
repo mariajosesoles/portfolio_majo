@@ -1,28 +1,99 @@
 ---
 import type { SiteConfig } from "../../types/site";
 import { LangSwitch } from "../ui/LangSwitch";
+import { ThemeToggle } from "../ui/ThemeToggle";
 
 interface Props {
 	config: SiteConfig;
+	integrated?: boolean;
 }
 
-const { config } = Astro.props;
+const { config, integrated = false } = Astro.props;
+
+const leftNavIds = ["experience", "work", "building"];
+const rightNavIds = ["about", "contact"];
+const leftNav = config.nav.filter((item) => leftNavIds.includes(item.id));
+const rightNav = config.nav.filter((item) => rightNavIds.includes(item.id));
+const homeHref = config.locale === "en" ? "/en/" : "/";
+
+const navLinkClass = integrated
+	? "hover:text-white transition-colors"
+	: "transition hover:text-text";
+
+const navClass =
+	"font-nav type-nav flex items-center gap-[clamp(0.875rem,2vw,1.75rem)] font-bold uppercase tracking-wide";
 ---
 
-<header class="sticky top-0 z-40 border-b border-border bg-bg/80 backdrop-blur-md">
-	<div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4">
-		<a href={config.locale === "en" ? "/en/" : "/"} class="font-semibold text-text">
-			{config.name.split(" ")[0]}
-		</a>
-		<nav class="hidden items-center gap-6 text-sm text-muted md:flex" aria-label="Main">
+<header
+	class:list={[
+		integrated
+			? "hero-integrated-header absolute inset-x-0 top-0 z-20 border-0 bg-transparent pt-[env(safe-area-inset-top,0px)] shadow-none backdrop-blur-none"
+			: "sticky top-0 z-40 border-b border-border bg-bg/80 backdrop-blur-md",
+	]}
+>
+	<div
+		class:list={[
+			"site-header-bar page-container grid grid-cols-[1fr_auto_1fr] items-center gap-x-3 py-3 md:py-4 lg:py-5",
+		]}
+	>
+		<nav
+			class:list={[
+				navClass,
+				"col-start-1 hidden min-w-0 justify-self-start md:flex",
+				integrated ? "text-white/90" : "text-muted",
+			]}
+			aria-label={config.locale === "es" ? "Principal izquierda" : "Main left"}
+		>
 			{
-				config.nav.map((item) => (
-					<a href={`#${item.id}`} class="transition hover:text-text">
+				leftNav.map((item) => (
+					<a href={`#${item.id}`} class={navLinkClass}>
 						{item.label}
 					</a>
 				))
 			}
 		</nav>
-		<LangSwitch locale={config.locale} client:load />
+
+		<a
+			href={homeHref}
+			class="col-start-2 row-start-1 flex shrink-0 items-center justify-center justify-self-center"
+			aria-label={config.name}
+		>
+			<img
+				src="/brand/icon.png"
+				alt="Mariajose Soles"
+				width="77"
+				height="69"
+				class="h-12 w-auto max-w-[5.5rem] object-contain sm:h-14 md:h-[4.25rem] md:max-w-none lg:h-[4.75rem]"
+			/>
+		</a>
+
+		<div
+			class="col-start-3 flex min-w-0 items-center justify-end justify-self-end gap-[clamp(0.75rem,2vw,1.5rem)]"
+		>
+			<nav
+				class:list={[
+					navClass,
+					"hidden min-w-0 md:flex",
+					integrated ? "text-white/90" : "text-muted",
+				]}
+				aria-label={config.locale === "es" ? "Principal derecha" : "Main right"}
+			>
+				{
+					rightNav.map((item) => (
+						<a href={`#${item.id}`} class={navLinkClass}>
+							{item.label}
+						</a>
+					))
+				}
+			</nav>
+
+			<div
+				class="flex shrink-0 items-center gap-1.5 border-white/15 md:gap-2 md:border-l md:pl-[clamp(0.75rem,1.5vw,1.25rem)]"
+				class:list={[integrated ? "md:border-white/20" : "md:border-border"]}
+			>
+				<ThemeToggle locale={config.locale} client:load />
+				<LangSwitch locale={config.locale} client:load />
+			</div>
+		</div>
 	</div>
 </header>

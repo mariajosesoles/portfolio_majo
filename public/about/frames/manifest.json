@@ -1,0 +1,22 @@
+{
+  "frameCount": 64,
+  "background": "#18141d",
+  "framePrefix": "frame",
+  "centerFile": "center.webp",
+  "sourceVideo": "character.mp4",
+  "totalVideoFrames": 240,
+  "centerVideoFrameIndex": 239,
+  "compassVideoFrameIndices": {
+    "E": 0,
+    "SE": 30,
+    "S": 60,
+    "SW": 90,
+    "W": 120,
+    "NW": 149,
+    "N": 179,
+    "NE": 209
+  },
+  "angleOffsetRadians": 0,
+  "faceCenterX": 0.38,
+  "faceCenterY": 0.42
+}

@@ -1,0 +1,17 @@
+---
+description: Quality gates — Biome, Astro check, build, Cloudflare Pages
+alwaysApply: true
+---
+
+Before finishing a task or opening a PR:
+
+1. Run `pnpm exec biome ci .` (or `pnpm verify` for full pipeline).
+2. Run `pnpm exec astro check` if you changed TS/Astro types.
+3. Run `pnpm build` after structural or dependency changes.
+4. Respect `biome.json`: tabs, double quotes, a11y rules on React islands.
+5. Do not format/lint `public/about/frames/**` (generated assets).
+6. Deploy path: `dist` via `wrangler.toml`; do not commit secrets.
+7. Commits as Mariajose Soles only — see `AGENTS.md` Git section.
+
+Human checklist: `.github/pull_request_template.md`  
+Full reviewer doc: `.github/REVIEW_GUIDELINES.md`

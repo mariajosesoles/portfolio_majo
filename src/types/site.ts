@@ -35,9 +35,11 @@ export type SiteConfig = {
 		ogTitle: string;
 	};
 	name: string;
+	heroRole: string;
 	tagline: string;
 	profile: string;
 	heroChips: string[];
+	heroStack: string[];
 	nav: NavItem[];
 	experience: {
 		company: string;
@@ -75,7 +77,12 @@ export type SiteConfig = {
 		intro: string;
 		email: string;
 		phone: string;
+		whatsappMessage: string;
+		whatsappLabel: string;
+		copyEmailLabel: string;
+		copiedLabel: string;
 	};
+	cvSoon: string;
 	links: {
 		github: string;
 		linkedin: string;

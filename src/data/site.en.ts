@@ -9,11 +9,21 @@ export const siteEn: SiteConfig = {
 		ogTitle: "Mariajose Soles · Frontend & Product UX/UI",
 	},
 	name: "Mariajose Soles",
-	tagline:
-		"Full Stack Developer · Frontend & Product UX/UI · Lima, Peru · Remote",
+	heroRole: "Full Stack Developer",
+	tagline: "Full Stack Developer · Frontend & Product UX/UI · Lima, Peru · Remote",
 	profile:
 		"I build web products end to end — from the interface to what runs behind it. Collaborative, direct, and tuned for remote delivery.",
 	heroChips: ["React", "TypeScript", "Tailwind", "Cloudflare"],
+	heroStack: [
+		"react",
+		"typescript",
+		"tailwindcss",
+		"astro",
+		"cloudflare",
+		"hono",
+		"drizzle",
+		"zod",
+	],
 	nav: [
 		{ id: "experience", label: "Experience" },
 		{ id: "work", label: "Work" },
@@ -93,7 +103,12 @@ export const siteEn: SiteConfig = {
 		intro: "Have a project or want to connect? Reach out.",
 		email: "majo.solesg@gmail.com",
 		phone: "+51 972 584 793",
+		whatsappMessage: "Hi Majo, I saw your portfolio and would love to connect.",
+		whatsappLabel: "WhatsApp",
+		copyEmailLabel: "Copy email",
+		copiedLabel: "Copied!",
 	},
+	cvSoon: "CV — coming soon",
 	links: {
 		github: "https://github.com/mariajosesoles",
 		linkedin: "https://www.linkedin.com/in/mariajosesoles",

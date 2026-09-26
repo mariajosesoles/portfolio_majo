@@ -25,7 +25,10 @@ pnpm dev      # http://localhost:5174
 pnpm build
 pnpm preview
 pnpm check    # biome + astro check
+pnpm verify   # same gates as GitHub Actions (biome ci + check + build)
 ```
+
+Review checklist: [`.github/REVIEW_GUIDELINES.md`](.github/REVIEW_GUIDELINES.md)
 
 ## Project structure
 

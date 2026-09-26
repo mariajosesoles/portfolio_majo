@@ -9,11 +9,21 @@ export const siteEs: SiteConfig = {
 		ogTitle: "Mariajose Soles · Frontend & Product UX/UI",
 	},
 	name: "Mariajose Soles",
-	tagline:
-		"Desarrolladora Full Stack · Frontend & Product UX/UI · Lima, PE · Remote",
+	heroRole: "Full Stack Developer",
+	tagline: "Desarrolladora Full Stack · Frontend & Product UX/UI · Lima, PE · Remote",
 	profile:
 		"Construyo productos web de punta a punta — desde la interfaz hasta lo que corre detrás. Colaborativa, directa y adaptada al ritmo remoto.",
 	heroChips: ["React", "TypeScript", "Tailwind", "Cloudflare"],
+	heroStack: [
+		"react",
+		"typescript",
+		"tailwindcss",
+		"astro",
+		"cloudflare",
+		"hono",
+		"drizzle",
+		"zod",
+	],
 	nav: [
 		{ id: "experience", label: "Experiencia" },
 		{ id: "work", label: "Trabajo" },
@@ -25,8 +35,7 @@ export const siteEs: SiteConfig = {
 		company: "Rhinolabs Agency",
 		period: "Dic. 2025 – presente",
 		location: "Remoto, LATAM",
-		intro:
-			"Productos de la agencia de punta a punta, con el equipo de desarrollo.",
+		intro: "Productos de la agencia de punta a punta, con el equipo de desarrollo.",
 		products: [
 			{
 				name: "Train64",
@@ -94,7 +103,12 @@ export const siteEs: SiteConfig = {
 		intro: "¿Tienes un proyecto o quieres conectar? Escríbeme.",
 		email: "majo.solesg@gmail.com",
 		phone: "+51 972 584 793",
+		whatsappMessage: "Hola Majo, vi tu portfolio y me gustaría conectar contigo.",
+		whatsappLabel: "WhatsApp",
+		copyEmailLabel: "Copiar email",
+		copiedLabel: "¡Copiado!",
 	},
+	cvSoon: "CV — próximamente",
 	links: {
 		github: "https://github.com/mariajosesoles",
 		linkedin: "https://www.linkedin.com/in/mariajosesoles",

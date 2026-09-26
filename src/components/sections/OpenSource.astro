@@ -11,15 +11,15 @@ const os = config.openSource;
 ---
 
 <section id="opensource" class="py-16 md:py-20">
-	<div class="mx-auto max-w-6xl px-6">
-		<h2 class="mb-10 text-2xl font-bold md:text-3xl">{config.sections.openSource}</h2>
+	<div class="page-container">
+		<h2 class="type-section-title mb-10">{config.sections.openSource}</h2>
 		<article class="rounded-2xl border border-border bg-bg-elevated/50 p-6 md:p-8">
-			<h3 class="mb-1 text-xl font-semibold">{os.title}</h3>
-			<p class="mb-4 text-sm text-accent">{os.role}</p>
+			<h3 class="type-h3 mb-1">{os.title}</h3>
+			<p class="type-small mb-4 text-accent">{os.role}</p>
 			<div class="mb-4">
 				<StackIcons stack={os.stack} client:visible />
 			</div>
-			<p class="mb-3 text-sm leading-relaxed text-muted">{os.description}</p>
+			<p class="type-body mb-3 text-muted">{os.description}</p>
 			<div class="flex flex-wrap items-center gap-4">
 				{
 					os.url && (
@@ -27,7 +27,7 @@ const os = config.openSource;
 							href={os.url}
 							target="_blank"
 							rel="noopener noreferrer"
-							class="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:underline"
+							class="type-small inline-flex items-center gap-1.5 font-medium text-accent hover:underline"
 						>
 							{config.cta.viewLive}
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -38,7 +38,7 @@ const os = config.openSource;
 						</a>
 					)
 				}
-				{os.pr && <p class="text-xs font-medium text-accent-2">{os.pr}</p>}
+				{os.pr && <p class="type-caption font-medium text-accent-2">{os.pr}</p>}
 			</div>
 		</article>
 	</div>

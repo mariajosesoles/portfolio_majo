@@ -4,7 +4,7 @@ import About from "../components/sections/About.astro";
 import Building from "../components/sections/Building.astro";
 import Contact from "../components/sections/Contact.astro";
 import Experience from "../components/sections/Experience.astro";
-import { Hero } from "../components/sections/Hero";
+import HeroSection from "../components/sections/HeroSection.astro";
 import OpenSource from "../components/sections/OpenSource.astro";
 import { SelectedWork } from "../components/sections/SelectedWork";
 import { projects } from "../data/projects";
@@ -12,11 +12,11 @@ import { siteEs } from "../data/site.es";
 ---
 
 <Layout config={siteEs}>
-	<Hero config={siteEs} client:load />
+	<HeroSection config={siteEs} />
+	<About config={siteEs} />
 	<Experience config={siteEs} />
 	<SelectedWork config={siteEs} projects={projects} client:load />
 	<OpenSource config={siteEs} />
 	<Building config={siteEs} />
-	<About config={siteEs} />
 	<Contact config={siteEs} />
 </Layout>

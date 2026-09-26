@@ -1,15 +1,35 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { formatDisplayName } from "../../lib/format-display-name";
+import { splitHeroRole } from "../../lib/split-hero-role";
 import type { SiteConfig } from "../../types/site";
-import { HeroMeshBackground } from "./HeroMeshBackground";
+import { HeroStackCarousel } from "./HeroStackCarousel";
 
 type HeroProps = {
 	config: SiteConfig;
 };
 
+function readTheme(): "light" | "dark" {
+	if (typeof document === "undefined") return "dark";
+	return document.documentElement.dataset.theme === "light" ? "light" : "dark";
+}
+
 export function Hero({ config }: HeroProps) {
-	const containerRef = useRef<HTMLElement>(null);
+	const containerRef = useRef<HTMLDivElement>(null);
+	const [theme, setTheme] = useState<"light" | "dark">("dark");
+	const [rolePrimary, roleSecondary] = splitHeroRole(config.heroRole);
+	const displayName = formatDisplayName(config.name);
+
+	useEffect(() => {
+		setTheme(readTheme());
+		const observer = new MutationObserver(() => setTheme(readTheme()));
+		observer.observe(document.documentElement, {
+			attributes: true,
+			attributeFilter: ["data-theme"],
+		});
+		return () => observer.disconnect();
+	}, []);
 
 	useGSAP(
 		() => {
@@ -27,46 +47,40 @@ export function Hero({ config }: HeroProps) {
 		{ scope: containerRef },
 	);
 
+	const isLight = theme === "light";
+
 	return (
-		<section
-			ref={containerRef}
-			id="hero"
-			className="relative isolate overflow-hidden py-16 md:py-24"
-		>
-			<HeroMeshBackground />
-			<div className="hero-stagger relative z-10 mx-auto flex max-w-6xl flex-col gap-8 px-6 md:flex-row md:items-center md:gap-12">
-				<div
-					className="flex h-24 w-24 shrink-0 items-center justify-center rounded-2xl border border-border bg-surface text-3xl font-bold text-accent shadow-[0_0_40px_var(--color-glow)]"
-					aria-hidden="true"
-				>
-					M
-				</div>
-				<div className="space-y-5">
-					<p className="text-sm font-medium uppercase tracking-widest text-accent">
-						{config.tagline}
-					</p>
-					<h1 className="text-4xl font-bold tracking-tight md:text-5xl">
-						{config.name}
+		<div ref={containerRef} className="hero-shell relative z-10 flex min-h-0 flex-1 flex-col">
+			<div
+				className={`hero-title-region flex min-h-0 flex-1 items-center justify-center ${
+					isLight
+						? "mx-4 rounded-3xl border border-border bg-bg-elevated/85 p-5 shadow-[0_0_48px_var(--color-glow)] backdrop-blur-sm sm:mx-6 sm:p-6 md:p-8 lg:p-10"
+						: ""
+				}`}
+			>
+				<div className="hero-stagger hero-copy-block page-container w-full">
+					<h1 className="mx-auto w-full">
+						{rolePrimary ? (
+							<div className="hero-noise-wrap flex w-full justify-center">
+								<span className="hero-noise-wrap__text uppercase">{rolePrimary}</span>
+							</div>
+						) : null}
+						{roleSecondary ? (
+							<div className="hero-shadow-wrap flex w-full justify-center">
+								<span className="hero-shadow-wrap__text uppercase">{roleSecondary}</span>
+							</div>
+						) : null}
 					</h1>
-					<p className="max-w-2xl text-lg text-muted">{config.profile}</p>
-					<ul className="flex flex-wrap gap-2">
-						{config.heroChips.map((chip) => (
-							<li
-								key={chip}
-								className="rounded-full border border-border bg-bg-elevated px-3 py-1 font-mono text-xs text-muted"
-							>
-								{chip}
-							</li>
-						))}
-					</ul>
-					<a
-						href="#contact"
-						className="inline-flex items-center rounded-xl bg-accent px-5 py-2.5 text-sm font-semibold text-on-accent transition hover:bg-strawberry/90"
-					>
-						{config.cta.contact}
-					</a>
+
+					<div className="hero-signature-wrap mx-auto w-full">
+						<p className="hero-signature text-center sm:text-right sm:pr-[6%] md:pr-[8%]">
+							{displayName}
+						</p>
+					</div>
 				</div>
 			</div>
-		</section>
+
+			<HeroStackCarousel stack={config.heroStack} />
+		</div>
 	);
 }
