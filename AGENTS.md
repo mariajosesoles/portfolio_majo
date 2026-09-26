@@ -1,3 +1,15 @@
+## Git (Cloud Agent)
+
+Commits must appear only under **Mariajose Soles**, not Cursor Agent, and must not include `Co-authored-by: Cursor` (or similar) in the message.
+
+In this repo, before committing:
+
+```bash
+git config --local user.name "Mariajose Soles"
+git config --local user.email "majo.solesg@gmail.com"
+git config --local commit.gpgsign false
+```
+
 ## Development
 
 When starting the dev server, use background mode:
